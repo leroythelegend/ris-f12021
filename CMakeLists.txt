@@ -15,6 +15,10 @@ target_link_libraries(risf1 risf12021)
 install(TARGETS risf1
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+add_executable(testdecoders ./tests/test_decoders.cpp)
+target_link_libraries(testdecoders risf12021)
+add_test(NAME testdecoders COMMAND testdecoders)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
