@@ -4,6 +4,7 @@
 #include "../inc/networkfile.h"
 
 #include "../inc/decoderuint16.h"
+#include "../inc/decoderuint8.h"
 
 using namespace std;
 using namespace ris;
@@ -40,6 +41,36 @@ int main(int argc, char const *argv[])
     {
         std::cerr << e.what() << '\n';
     }
+
+
+    try
+    {
+        cout << "test decoderuint8" << endl;
+
+        DecoderUInt8 decoder;
+        Bytes bytes;
+        unsigned int pos = 0;
+
+        try
+        {
+            decoder.decode(bytes, pos);
+            test_assert(false);
+        }
+        catch (const std::exception &e)
+        {
+        }
+
+        bytes.push_back(0x10);
+
+        decoder.decode(bytes, pos);
+        test_assert(decoder.uint() == 16);
+        test_assert(pos == 1);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
 
     return 0;
 }

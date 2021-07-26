@@ -4,6 +4,7 @@
 
 #include "../inc/networkfile.h"
 #include "../inc/decoderuint16.h"
+#include "../inc/decoderuint8.h"
 
 using namespace std;
 using namespace ris;
@@ -44,9 +45,20 @@ int main(int argc, char const *argv[])
 
         unsigned int pos = 0;
 
-        DecoderUInt16 packetformat;
-        packetformat.decode(eventpacket, pos);
-        test_assert(packetformat.uint() == 2021);
+        DecoderUInt16 uint16;
+        DecoderUInt8 uint8;
+
+        // packet format
+        uint16.decode(eventpacket, pos);
+        test_assert(uint16.uint() == 2021);
+
+        // game major version
+        uint8.decode(eventpacket, pos);
+        test_assert(uint8.uint() == 1);
+
+        // game minor version
+        uint8.decode(eventpacket, pos);
+        test_assert(uint8.uint() == 4);
     }
     catch (const std::exception &e)
     {

@@ -10,7 +10,8 @@ enable_testing()
 
 add_library(risf12021 ./src/networkudp.cpp
                       ./src/networkfile.cpp
-                      ./src/decoderuint16.cpp)
+                      ./src/decoderuint16.cpp
+                      ./src/decoderuint8.cpp)
 
 add_executable(risf1 ./app/main.cpp)
 target_link_libraries(risf1 risf12021)
