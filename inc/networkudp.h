@@ -7,13 +7,12 @@ namespace ris
     class NetworkUDP : public Network
     {
     public:
-        using Amount = Network::Amount;
         using Port = unsigned int;
 
         NetworkUDP(const Port &);
         ~NetworkUDP() override;
 
-        Bytes read(const Amount&) const override;
+        Bytes read() const override;
     private:
         class NetworkUDPImpl;
         std::unique_ptr<NetworkUDPImpl> impl_;

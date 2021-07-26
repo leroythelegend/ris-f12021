@@ -5,5 +5,5 @@
 
 namespace ris
 {
-    using Bytes = std::vector<std::byte>;
+    using Bytes = std::vector<unsigned char>;
 } // namespace ris

@@ -28,6 +28,8 @@ namespace ris
     class NetworkUDP::NetworkUDPImpl
     {
     public:
+        unsigned int AMOUNT = 2048;
+
         NetworkUDPImpl(const Port &port)
         {
 #ifdef _WIN32
@@ -132,22 +134,22 @@ namespace ris
             close(socketfd_);
         }
 
-        Bytes read(const Amount &amount) const
+        Bytes read() const
         {
             int numbytes = 0;
             struct sockaddr_storage their_addr;
             socklen_t addr_len = sizeof their_addr;
 
-            Bytes buffer(amount);
+            Bytes buffer(AMOUNT);
 
 #ifdef _WIN32
-            if ((numbytes = recvfrom(socketfd_, reinterpret_cast<char *>(buffer.data()), amount, 0,
+            if ((numbytes = recvfrom(socketfd_, reinterpret_cast<char *>(buffer.data()), AMOUNT, 0,
                                      (struct sockaddr *)&their_addr, &addr_len)) == -1)
             {
                 throw runtime_error("recvfrom");
             }
 #else
-            if ((numbytes = recvfrom(socketfd_, buffer.data(), amount, 0,
+            if ((numbytes = recvfrom(socketfd_, buffer.data(), AMOUNT, 0,
                                      (struct sockaddr *)&their_addr, &addr_len)) == -1)
             {
                 throw runtime_error("recvfrom");
@@ -172,9 +174,9 @@ namespace ris
 
     NetworkUDP::~NetworkUDP() {}
 
-    Bytes NetworkUDP::read(const Amount &amount) const
+    Bytes NetworkUDP::read() const
     {
-        return impl_->read(amount);
+        return impl_->read();
     }
 
 } // namespace ris

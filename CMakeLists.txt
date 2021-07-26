@@ -8,7 +8,8 @@ find_package(Threads REQUIRED)
 include(CTest)
 enable_testing()
 
-add_library(risf12021 ./src/networkudp.cpp)
+add_library(risf12021 ./src/networkudp.cpp
+                      ./src/networkfile.cpp)
 
 add_executable(risf1 ./app/main.cpp)
 target_link_libraries(risf1 risf12021)
