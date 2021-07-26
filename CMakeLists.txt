@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(risf12021 VERSION 0.1.0)
+
+set (CMAKE_CXX_STANDARD 17)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+include(CTest)
+enable_testing()
+
+add_library(risf12021 ./src/networkudp.cpp)
+
+add_executable(risf1 ./app/main.cpp)
+target_link_libraries(risf1 risf12021)
+install(TARGETS risf1
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
