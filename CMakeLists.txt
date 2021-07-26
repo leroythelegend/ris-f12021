@@ -21,6 +21,10 @@ add_executable(testdecoders ./tests/test_decoders.cpp)
 target_link_libraries(testdecoders risf12021)
 add_test(NAME testdecoders COMMAND testdecoders)
 
+add_executable(testpackets ./tests/test_packets.cpp)
+target_link_libraries(testpackets risf12021)
+add_test(NAME testpackets COMMAND testpackets)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
