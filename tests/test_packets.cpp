@@ -59,6 +59,14 @@ int main(int argc, char const *argv[])
         // game minor version
         uint8.decode(eventpacket, pos);
         test_assert(uint8.uint() == 4);
+
+        // packet version
+        uint8.decode(eventpacket, pos);
+        test_assert(uint8.uint() == 1);
+
+        // packet id
+        uint8.decode(eventpacket, pos);
+        test_assert(uint8.uint() == 3);
     }
     catch (const std::exception &e)
     {
