@@ -4,8 +4,10 @@
 
 #include "../inc/networkfile.h"
 #include "../inc/decoderuint64.h"
+#include "../inc/decoderuint32.h"
 #include "../inc/decoderuint16.h"
 #include "../inc/decoderuint8.h"
+#include "../inc/decoderfloat.h"
 
 using namespace std;
 using namespace ris;
@@ -46,9 +48,11 @@ int main(int argc, char const *argv[])
 
         unsigned int pos = 0;
 
-        DecoderUInt16 uint16;
         DecoderUInt8 uint8;
+        DecoderUInt16 uint16;
+        DecoderUInt32 uint32;
         DecoderUInt64 uint64;
+        DecoderFloat float32;
 
         // packet format
         uint16.decode(eventpacket, pos);
@@ -74,6 +78,13 @@ int main(int argc, char const *argv[])
         uint64.decode(eventpacket, pos);
         test_assert(uint64.uint() == 14042512579407427396U);
 
+        // session timestamp
+        float32.decode(eventpacket, pos);
+        test_assert(float32.float32() == 80.4851379F);
+
+        // Frame Identifier
+        uint32.decode(eventpacket, pos);
+        test_assert(uint32.uint() == 1684);
     }
     catch (const std::exception &e)
     {

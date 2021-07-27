@@ -4,6 +4,7 @@
 #include "../inc/networkfile.h"
 
 #include "../inc/decoderuint64.h"
+#include "../inc/decoderuint32.h"
 #include "../inc/decoderuint16.h"
 #include "../inc/decoderuint8.h"
 #include "../inc/decoderfloat.h"
@@ -14,6 +15,39 @@ using namespace ris;
 int main(int argc, char const *argv[])
 {
     cout << "test decoders" << endl;
+
+    try
+    {
+        cout << "test decoder uint 32" << endl;
+
+        DecoderUInt32 decoder;
+        Bytes bytes;
+        unsigned int pos = 0;
+
+        try
+        {
+            decoder.decode(bytes, pos);
+            test_assert(false);
+        }
+        catch (const std::exception &e)
+        {
+        }
+
+        bytes.push_back(0x10);
+        bytes.push_back(0x01);
+        bytes.push_back(0x01);
+        bytes.push_back(0x00);
+
+        decoder.decode(bytes, pos);
+        test_assert(decoder.uint() == 65808);
+        test_assert(pos == 4);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+
 
     try
     {
