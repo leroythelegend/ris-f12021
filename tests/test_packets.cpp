@@ -85,6 +85,14 @@ int main(int argc, char const *argv[])
         // Frame Identifier
         uint32.decode(eventpacket, pos);
         test_assert(uint32.uint() == 1684);
+
+        // player car index
+        uint8.decode(eventpacket, pos);
+        test_assert(uint8.uint() == 0);
+
+        // secondary player index
+        uint8.decode(eventpacket, pos);
+        test_assert(uint8.uint() == 255);
     }
     catch (const std::exception &e)
     {
