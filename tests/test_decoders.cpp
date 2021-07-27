@@ -6,6 +6,7 @@
 #include "../inc/decoderuint64.h"
 #include "../inc/decoderuint16.h"
 #include "../inc/decoderuint8.h"
+#include "../inc/decoderfloat.h"
 
 using namespace std;
 using namespace ris;
@@ -13,6 +14,37 @@ using namespace ris;
 int main(int argc, char const *argv[])
 {
     cout << "test decoders" << endl;
+
+    try
+    {
+        cout << "test decoderfloat" << endl;
+
+        DecoderFloat decoder;
+        Bytes bytes;
+        unsigned int pos = 0;
+
+        try
+        {
+            decoder.decode(bytes, pos);
+            test_assert(false);
+        }
+        catch (const std::exception &e)
+        {
+        }
+
+        bytes.push_back(0x92);
+        bytes.push_back(0xCB);
+        bytes.push_back(0x8F);
+        bytes.push_back(0x3F);
+
+        decoder.decode(bytes, pos);
+        test_assert(decoder.float32() == 1.1233999729156494);
+        test_assert(pos == 4);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     try
     {
@@ -41,7 +73,7 @@ int main(int argc, char const *argv[])
         bytes.push_back(0x00);
 
         decoder.decode(bytes, pos);
-        test_assert(decoder.uint() == 282578800148752);
+        test_assert(decoder.uint() == 282578800148752U);
         test_assert(pos == 8);
     }
     catch (const std::exception &e)

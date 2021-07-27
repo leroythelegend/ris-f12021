@@ -4,7 +4,7 @@ namespace ris
 {
     void DecoderUInt8::decode(const Bytes &bytes, Pos &pos)
     {
-        Decoder::uint_ = bytes.at(pos);
+        uint_ = bytes.at(pos);
         pos++;
     }
 

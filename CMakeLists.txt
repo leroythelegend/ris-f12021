@@ -13,6 +13,7 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/networkfile.cpp
                       ./src/decoderuint64.cpp
                       ./src/decoderuint16.cpp
+                      ./src/decoderfloat.cpp
                       ./src/decoderuint8.cpp)
 
 add_executable(risf1 ./app/main.cpp)

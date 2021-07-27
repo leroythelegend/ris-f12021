@@ -4,13 +4,13 @@
 
 namespace ris
 {
-    class DecoderUInt16 : public Decoder
+    class DecoderFloat : public Decoder
     {
     public:
         using Pos = Decoder::Pos;
 
-        DecoderUInt16() = default;
-        ~DecoderUInt16() override = default;
+        DecoderFloat() = default;
+        ~DecoderFloat() override = default;
 
         void decode(const Bytes &, Pos &) override;
     };

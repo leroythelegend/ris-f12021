@@ -3,6 +3,7 @@
 #include "tests.h"
 
 #include "../inc/networkfile.h"
+#include "../inc/decoderuint64.h"
 #include "../inc/decoderuint16.h"
 #include "../inc/decoderuint8.h"
 
@@ -47,6 +48,7 @@ int main(int argc, char const *argv[])
 
         DecoderUInt16 uint16;
         DecoderUInt8 uint8;
+        DecoderUInt64 uint64;
 
         // packet format
         uint16.decode(eventpacket, pos);
@@ -67,6 +69,11 @@ int main(int argc, char const *argv[])
         // packet id
         uint8.decode(eventpacket, pos);
         test_assert(uint8.uint() == 3);
+
+        // session uid
+        uint64.decode(eventpacket, pos);
+        test_assert(uint64.uint() == 14042512579407427396U);
+
     }
     catch (const std::exception &e)
     {

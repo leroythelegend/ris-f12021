@@ -27,7 +27,7 @@ namespace ris
             return sint_;
         }
 
-        float afloat() const
+        float float32() const
         {
             return float_;
         }
