@@ -9,6 +9,7 @@
 #include "../inc/decoderuint8.h"
 #include "../inc/decoderfloat.h"
 #include "../inc/packetheader.h"
+#include "../inc/packetevent.h"
 
 using namespace std;
 using namespace ris;
@@ -104,7 +105,8 @@ int main(int argc, char const *argv[])
     {
         PacketHeader decoder;
 
-        decoder.decode(eventpacket);
+        unsigned int pos = 0;
+        decoder.decode(eventpacket, pos);
 
         test_assert(decoder.packetFormat() == 2021);
         test_assert(decoder.gameMajorVersion() == 1);
@@ -116,6 +118,32 @@ int main(int argc, char const *argv[])
         test_assert(decoder.frameIdentifier() == 1684);
         test_assert(decoder.playerCarIndex() == 0);
         test_assert(decoder.secondaryPlayerCarIndex() == 255);
+
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    try
+    {
+        PacketEvent decoder;
+
+        unsigned int pos = 0;
+        decoder.decode(eventpacket, pos);
+
+        test_assert(decoder.packetHeader().packetFormat() == 2021);
+        test_assert(decoder.packetHeader().gameMajorVersion() == 1);
+        test_assert(decoder.packetHeader().gameMinorVersion() == 4);
+        test_assert(decoder.packetHeader().packetVersion() == 1);
+        test_assert(decoder.packetHeader().packetID() == 3);
+        test_assert(decoder.packetHeader().sessionUID() == 14042512579407427396U);
+        test_assert(decoder.packetHeader().sessionTime() == 80.4851379F);
+        test_assert(decoder.packetHeader().frameIdentifier() == 1684);
+        test_assert(decoder.packetHeader().playerCarIndex() == 0);
+        test_assert(decoder.packetHeader().secondaryPlayerCarIndex() == 255);
+
+        cout << decoder.eventStringCode() << endl;
 
     }
     catch(const std::exception& e)

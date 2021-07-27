@@ -17,7 +17,8 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/decoderfloat.cpp
                       ./src/decoderuint8.cpp
                       ./src/packet.cpp
-                      ./src/packetheader.cpp)
+                      ./src/packetheader.cpp
+                      ./src/packetevent.cpp)
 
 add_executable(risf1 ./app/main.cpp)
 target_link_libraries(risf1 risf12021)

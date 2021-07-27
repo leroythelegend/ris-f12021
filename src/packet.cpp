@@ -2,9 +2,8 @@
 
 namespace ris
 {
-    void Packet::decode(const Bytes &bytes)
+    void Packet::decode(const Bytes &bytes, Pos &pos)
     {
-        unsigned int pos = 0;
         for (auto decoder : decoders_)
         {
             decoder->decode(bytes, pos);

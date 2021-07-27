@@ -12,10 +12,11 @@ namespace ris
     public:
         using Ptr = std::shared_ptr<Packet>;
         using Decoders = std::vector<Decoder::Ptr>;
+        using Pos = unsigned int;
 
         virtual ~Packet() = default;
 
-        void decode(const Bytes &);
+        virtual void decode(const Bytes &, Pos &);
 
     protected:
         Decoders decoders_;
