@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <cstdint>
 
 #include "definitions.h"
 
@@ -16,7 +17,7 @@ namespace ris
 
         virtual void decode(const Bytes &, Pos &) = 0;
 
-        inline unsigned int uint() const
+        inline uint64_t uint() const
         {
             return uint_; 
         }
@@ -32,7 +33,7 @@ namespace ris
         }
 
     protected:
-        unsigned int uint_ = 0;
+        uint64_t uint_ = 0;
         int sint_ = 0;
         float float_ = 0;
     };
