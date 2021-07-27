@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.0.0)
 project(risf12021 VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_GENERATOR_PLATFORM x64)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
