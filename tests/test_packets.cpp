@@ -8,6 +8,7 @@
 #include "../inc/decoderuint16.h"
 #include "../inc/decoderuint8.h"
 #include "../inc/decoderfloat.h"
+#include "../inc/packetheader.h"
 
 using namespace std;
 using namespace ris;
@@ -99,6 +100,29 @@ int main(int argc, char const *argv[])
         std::cerr << e.what() << '\n';
     }
 
-    return 0;
+    try
+    {
+        PacketHeader decoder;
+
+        decoder.decode(eventpacket);
+
+        test_assert(decoder.packetFormat() == 2021);
+        test_assert(decoder.gameMajorVersion() == 1);
+        test_assert(decoder.gameMinorVersion() == 4);
+        test_assert(decoder.packetVersion() == 1);
+        test_assert(decoder.packetID() == 3);
+        test_assert(decoder.sessionUID() == 14042512579407427396U);
+        test_assert(decoder.sessionTime() == 80.4851379F);
+        test_assert(decoder.frameIdentifier() == 1684);
+        test_assert(decoder.playerCarIndex() == 0);
+        test_assert(decoder.secondaryPlayerCarIndex() == 255);
+
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
+
     return 0;
 }
