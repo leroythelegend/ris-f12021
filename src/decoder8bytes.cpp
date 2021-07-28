@@ -2,13 +2,16 @@
 
 namespace ris
 {
-    void Decoder8Bytes::decode(const Bytes &bytes, Pos &pos)
+    Element Decoder8Bytes::decode(const Bytes &bytes, Pos &pos)
     {
-        element_.Float = getFloatFromBytes(bytes, pos);
-        element_.UInt = getUIntFromBytes(bytes, pos);
-        element_.SInt = getSIntFromBytes(bytes, pos);
+        Element result;
+        result.Float = getFloatFromBytes(bytes, pos);
+        result.UInt = getUIntFromBytes(bytes, pos);
+        result.SInt = getSIntFromBytes(bytes, pos);
 
         pos += 8;
+
+        return result;
     }
 
     float Decoder8Bytes::getFloatFromBytes(const Bytes &bytes, Pos &pos)

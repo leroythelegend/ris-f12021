@@ -7,12 +7,10 @@ namespace ris
     class Decoder4Bytes : public Decoder
     {
     public:
-        using Pos = Decoder::Pos;
-
         Decoder4Bytes() = default;
         ~Decoder4Bytes() override = default;
 
-        void decode(const Bytes &, Pos &) override;
+        Element decode(const Bytes &, Pos &) override;
 
     private:
         float getFloatFromBytes(const Bytes &, Pos &);

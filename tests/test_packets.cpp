@@ -3,10 +3,13 @@
 #include "tests.h"
 
 #include "../inc/networkfile.h"
+
 #include "../inc/decoder1byte.h"
 #include "../inc/decoder2bytes.h"
 #include "../inc/decoder4bytes.h"
 #include "../inc/decoder8bytes.h"
+
+#include "../inc/packet.h"
 
 using namespace std;
 using namespace ris;
@@ -53,49 +56,59 @@ int main(int argc, char const *argv[])
         Decoder8Bytes byte8;
 
         // packet format
-        byte2.decode(eventpacket, pos);
-        test_assert(byte2.element().UInt == 2021);
+        test_assert(byte2.decode(eventpacket, pos).UInt == 2021);
 
         // game major version
-        byte.decode(eventpacket, pos);
-        test_assert(byte.element().UInt == 1);
+
+        test_assert(byte.decode(eventpacket, pos).UInt == 1);
 
         // game minor version
-        byte.decode(eventpacket, pos);
-        test_assert(byte.element().UInt == 4);
+
+        test_assert(byte.decode(eventpacket, pos).UInt == 4);
 
         // packet version
-        byte.decode(eventpacket, pos);
-        test_assert(byte.element().UInt == 1);
+
+        test_assert(byte.decode(eventpacket, pos).UInt == 1);
 
         // packet id
-        byte.decode(eventpacket, pos);
-        test_assert(byte.element().UInt == 3);
+
+        test_assert(byte.decode(eventpacket, pos).UInt == 3);
 
         // session uid
-        byte8.decode(eventpacket, pos);
-        test_assert(byte8.element().UInt == 14042512579407427396U);
+
+        test_assert(byte8.decode(eventpacket, pos).UInt == 14042512579407427396U);
 
         // session timestamp
-        byte4.decode(eventpacket, pos);
-        test_assert(byte4.element().Float == 80.4851379F);
+
+        test_assert(byte4.decode(eventpacket, pos).Float == 80.4851379F);
 
         // Frame Identifier
-        byte4.decode(eventpacket, pos);
-        test_assert(byte4.element().UInt == 1684);
+
+        test_assert(byte4.decode(eventpacket, pos).UInt == 1684);
 
         // player car index
-        byte.decode(eventpacket, pos);
-        test_assert(byte.element().UInt == 0);
+
+        test_assert(byte.decode(eventpacket, pos).UInt == 0);
 
         // secondary player index
-        byte.decode(eventpacket, pos);
-        test_assert(byte.element().UInt == 255);
+
+        test_assert(byte.decode(eventpacket, pos).UInt == 255);
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
     }
+
+
+    try
+    {
+        Packet p;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 
     return 0;
 }

@@ -2,15 +2,18 @@
 
 namespace ris
 {
-    void Decoder1Byte::decode(const Bytes &bytes, Pos &pos)
+    Element Decoder1Byte::decode(const Bytes &bytes, Pos &pos)
     {
-        element_.Float = convertUIntToFloat(bytes.at(pos));
-        element_.UInt = bytes.at(pos);
+        Element result;
+        result.Float = convertUIntToFloat(bytes.at(pos));
+        result.UInt = bytes.at(pos);
 
         int8_t val = bytes.at(pos);
-        element_.SInt = val;
+        result.SInt = val;
 
         pos += 1;
+
+        return result;
     }
 
 } // namespace ris
