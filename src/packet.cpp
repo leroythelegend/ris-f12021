@@ -1,5 +1,8 @@
 #include "../inc/packet.h"
 
+#include <exception>
+#include <string>
+
 namespace ris
 {
 
