@@ -10,6 +10,13 @@ namespace ris
     class Decoder
     {
     public:
+        struct Element
+        {
+            uint64_t UInt = 0;
+            int64_t SInt = 0;
+            float Float = 0;
+        };
+
         using Ptr = std::shared_ptr<Decoder>;
         using Pos = unsigned int;
 
@@ -17,24 +24,14 @@ namespace ris
 
         virtual void decode(const Bytes &, Pos &) = 0;
 
-        inline uint64_t uint() const
+        inline Element element() const
         {
-            return uint_; 
-        }
-
-        inline int sint() const
-        {
-            return sint_;
-        }
-
-        float float32() const
-        {
-            return float_;
+            return element_;
         }
 
     protected:
-        uint64_t uint_ = 0;
-        int sint_ = 0;
-        float float_ = 0;
+        Element element_;
+
+        float convertUIntToFloat(const uint32_t) const;
     };
 } // namespace ris

@@ -3,13 +3,10 @@
 #include "tests.h"
 
 #include "../inc/networkfile.h"
-#include "../inc/decoderuint64.h"
-#include "../inc/decoderuint32.h"
-#include "../inc/decoderuint16.h"
-#include "../inc/decoderuint8.h"
-#include "../inc/decoderfloat.h"
-#include "../inc/packetheader.h"
-#include "../inc/packetevent.h"
+#include "../inc/decoder1byte.h"
+#include "../inc/decoder2bytes.h"
+#include "../inc/decoder4bytes.h"
+#include "../inc/decoder8bytes.h"
 
 using namespace std;
 using namespace ris;
@@ -29,7 +26,7 @@ int main(int argc, char const *argv[])
         std::cerr << e.what() << '\n';
     }
 
-        try
+    try
     {
         cout << "test decode packet header" << endl;
 
@@ -50,107 +47,55 @@ int main(int argc, char const *argv[])
 
         unsigned int pos = 0;
 
-        DecoderUInt8 uint8;
-        DecoderUInt16 uint16;
-        DecoderUInt32 uint32;
-        DecoderUInt64 uint64;
-        DecoderFloat float32;
+        Decoder1Byte byte;
+        Decoder2Bytes byte2;
+        Decoder4Bytes byte4;
+        Decoder8Bytes byte8;
 
         // packet format
-        uint16.decode(eventpacket, pos);
-        test_assert(uint16.uint() == 2021);
+        byte2.decode(eventpacket, pos);
+        test_assert(byte2.element().UInt == 2021);
 
         // game major version
-        uint8.decode(eventpacket, pos);
-        test_assert(uint8.uint() == 1);
+        byte.decode(eventpacket, pos);
+        test_assert(byte.element().UInt == 1);
 
         // game minor version
-        uint8.decode(eventpacket, pos);
-        test_assert(uint8.uint() == 4);
+        byte.decode(eventpacket, pos);
+        test_assert(byte.element().UInt == 4);
 
         // packet version
-        uint8.decode(eventpacket, pos);
-        test_assert(uint8.uint() == 1);
+        byte.decode(eventpacket, pos);
+        test_assert(byte.element().UInt == 1);
 
         // packet id
-        uint8.decode(eventpacket, pos);
-        test_assert(uint8.uint() == 3);
+        byte.decode(eventpacket, pos);
+        test_assert(byte.element().UInt == 3);
 
         // session uid
-        uint64.decode(eventpacket, pos);
-        test_assert(uint64.uint() == 14042512579407427396U);
+        byte8.decode(eventpacket, pos);
+        test_assert(byte8.element().UInt == 14042512579407427396U);
 
         // session timestamp
-        float32.decode(eventpacket, pos);
-        test_assert(float32.float32() == 80.4851379F);
+        byte4.decode(eventpacket, pos);
+        test_assert(byte4.element().Float == 80.4851379F);
 
         // Frame Identifier
-        uint32.decode(eventpacket, pos);
-        test_assert(uint32.uint() == 1684);
+        byte4.decode(eventpacket, pos);
+        test_assert(byte4.element().UInt == 1684);
 
         // player car index
-        uint8.decode(eventpacket, pos);
-        test_assert(uint8.uint() == 0);
+        byte.decode(eventpacket, pos);
+        test_assert(byte.element().UInt == 0);
 
         // secondary player index
-        uint8.decode(eventpacket, pos);
-        test_assert(uint8.uint() == 255);
+        byte.decode(eventpacket, pos);
+        test_assert(byte.element().UInt == 255);
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
     }
-
-    try
-    {
-        PacketHeader decoder;
-
-        unsigned int pos = 0;
-        decoder.decode(eventpacket, pos);
-
-        test_assert(decoder.packetFormat() == 2021);
-        test_assert(decoder.gameMajorVersion() == 1);
-        test_assert(decoder.gameMinorVersion() == 4);
-        test_assert(decoder.packetVersion() == 1);
-        test_assert(decoder.packetID() == 3);
-        test_assert(decoder.sessionUID() == 14042512579407427396U);
-        test_assert(decoder.sessionTime() == 80.4851379F);
-        test_assert(decoder.frameIdentifier() == 1684);
-        test_assert(decoder.playerCarIndex() == 0);
-        test_assert(decoder.secondaryPlayerCarIndex() == 255);
-
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
-    try
-    {
-        PacketEvent decoder;
-
-        unsigned int pos = 0;
-        decoder.decode(eventpacket, pos);
-
-        test_assert(decoder.packetHeader().packetFormat() == 2021);
-        test_assert(decoder.packetHeader().gameMajorVersion() == 1);
-        test_assert(decoder.packetHeader().gameMinorVersion() == 4);
-        test_assert(decoder.packetHeader().packetVersion() == 1);
-        test_assert(decoder.packetHeader().packetID() == 3);
-        test_assert(decoder.packetHeader().sessionUID() == 14042512579407427396U);
-        test_assert(decoder.packetHeader().sessionTime() == 80.4851379F);
-        test_assert(decoder.packetHeader().frameIdentifier() == 1684);
-        test_assert(decoder.packetHeader().playerCarIndex() == 0);
-        test_assert(decoder.packetHeader().secondaryPlayerCarIndex() == 255);
-
-        cout << decoder.eventStringCode() << endl;
-
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    
 
     return 0;
 }

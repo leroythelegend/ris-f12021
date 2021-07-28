@@ -10,14 +10,12 @@ enable_testing()
 
 add_library(risf12021 ./src/networkudp.cpp
                       ./src/networkfile.cpp
-                      ./src/decoderuint64.cpp
-                      ./src/decoderuint16.cpp
-                      ./src/decoderuint32.cpp
-                      ./src/decoderfloat.cpp
-                      ./src/decoderuint8.cpp
-                      ./src/packet.cpp
-                      ./src/packetheader.cpp
-                      ./src/packetevent.cpp)
+                      ./src/decoder.cpp
+                      ./src/decoder1byte.cpp
+                      ./src/decoder2bytes.cpp
+                      ./src/decoder4bytes.cpp
+                      ./src/decoder8bytes.cpp
+                      )
 
 add_executable(risf1 ./app/main.cpp)
 target_link_libraries(risf1 risf12021)
