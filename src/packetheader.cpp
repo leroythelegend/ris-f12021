@@ -10,12 +10,20 @@ namespace ris
 {
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
-        Decoder1Byte done;
-        Decoder2Bytes dtwo;
-        Decoder4Bytes dfour;
-        Decoder8Bytes deight;
+        Decoder1Byte decoderonebyte;
+        Decoder2Bytes decodertwobytes;
+        Decoder4Bytes decoderfourbytes;
+        Decoder8Bytes decodereightbytes;
 
-        done.decode(bytes, pos);
-        telemetry_.insert(std::pair<Unit, Element>(1, done.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(1, decodertwobytes.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(2, decoderonebyte.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(3, decoderonebyte.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(4, decoderonebyte.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(5, decoderonebyte.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(6, decodereightbytes.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(7, decoderfourbytes.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(8, decoderfourbytes.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(9, decoderonebyte.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Element>(10, decoderonebyte.decode(bytes, pos)));
     }
 } // namespace ris
