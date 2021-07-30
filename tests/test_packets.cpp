@@ -106,20 +106,21 @@ int main(int argc, char const *argv[])
         PacketHeader p(eventpacket, pos);
 
         test_assert(p.element(1).UInt == 2021);
-        test_assert(p.element(1).UInt == 1);
-        test_assert(p.element(1).UInt == 4);
-        test_assert(p.element(1).UInt == 1);
-        test_assert(p.element(1).UInt == 3);
-        test_assert(p.element(1).UInt == 14042512579407427396U);
-        test_assert(p.element(1).Float == 80.4851379F);
-        test_assert(p.element(1).UInt == 1684);
-        test_assert(p.element(1).UInt == 0);
-        test_assert(p.element(1).UInt == 255);
+        test_assert(p.element(2).UInt == 1);
+        test_assert(p.element(3).UInt == 4);
+        test_assert(p.element(4).UInt == 1);
+        test_assert(p.element(5).UInt == 3);
+        test_assert(p.element(6).UInt == 14042512579407427396U);
+        test_assert(p.element(7).Float == 80.4851379F);
+        test_assert(p.element(8).UInt == 1684);
+        test_assert(p.element(9).UInt == 0);
+        test_assert(p.element(10).UInt == 255);
 
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
     
 
