@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "definitions.h"
-#include "element.h"
+#include "value.h"
 
 namespace ris
 {
@@ -14,7 +14,7 @@ namespace ris
 
         virtual ~Decoder() = default;
 
-        virtual Element decode(const Bytes &, Pos &) = 0;
+        virtual Value decode(const Bytes &, Pos &) = 0;
 
     protected:
         float convertUIntToFloat(const uint32_t) const;

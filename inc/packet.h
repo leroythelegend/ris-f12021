@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 
-#include "element.h"
+#include "value.h"
 
 namespace ris
 {
@@ -16,12 +16,12 @@ namespace ris
 
         virtual ~Packet() = default;
 
-        virtual Elements element(const Unit &) const;
+        virtual Values element(const Unit &) const;
 
         void add(const Packet::Ptr &);
 
     protected:
-        std::map<Unit, Elements> telemetry_;
+        std::map<Unit, Values> telemetry_;
         std::vector<Packet::Ptr> packets_;
 
         Packet() = default;

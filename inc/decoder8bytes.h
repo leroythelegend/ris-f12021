@@ -10,7 +10,7 @@ namespace ris
         Decoder8Bytes() = default;
         ~Decoder8Bytes() override = default;
 
-        Element decode(const Bytes &, Pos &) override;
+        Value decode(const Bytes &, Pos &) override;
 
     private:
         float getFloatFromBytes(const Bytes &, Pos &);

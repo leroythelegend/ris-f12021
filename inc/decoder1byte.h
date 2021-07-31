@@ -10,6 +10,6 @@ namespace ris
         Decoder1Byte() = default;
         ~Decoder1Byte() override = default;
 
-        Element decode(const Bytes &, Pos &) override;
+        Value decode(const Bytes &, Pos &) override;
     };
 } // namespace ris

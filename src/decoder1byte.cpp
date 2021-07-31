@@ -2,9 +2,9 @@
 
 namespace ris
 {
-    Element Decoder1Byte::decode(const Bytes &bytes, Pos &pos)
+    Value Decoder1Byte::decode(const Bytes &bytes, Pos &pos)
     {
-        Element result;
+        Value result;
         result.Float = convertUIntToFloat(bytes.at(pos));
         result.UInt = bytes.at(pos);
 

@@ -13,7 +13,7 @@ namespace ris
 
         ~PacketComposite() override = default;
 
-        Elements element(const Unit &) const override;
+        Values element(const Unit &) const override;
 
         PacketComposite() = default;
     };

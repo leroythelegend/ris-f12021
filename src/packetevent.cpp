@@ -11,13 +11,13 @@ namespace ris
     public:
         Event(const Bytes &bytes, Pos &pos)
         {
-            Elements eventstringcode;
+            Values eventstringcode;
             for (int i = 0; i < 4; ++i)
             {
                 eventstringcode.push_back(Decoder1Byte().decode(bytes, pos));
             }
 
-            telemetry_.insert(std::pair<Unit, Elements>(11, eventstringcode));
+            telemetry_.insert(std::pair<Unit, Values>(11, eventstringcode));
         }
         ~Event() override = default;
     };
@@ -27,7 +27,7 @@ namespace ris
     public:
         Buttons(const Bytes &bytes, Pos &pos)
         {
-            telemetry_.insert(std::pair<Unit, Elements>(12, Decoder4Bytes().decode(bytes, pos)));
+            telemetry_.insert(std::pair<Unit, Values>(12, Decoder4Bytes().decode(bytes, pos)));
         }
 
         ~Buttons() override = default;

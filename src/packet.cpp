@@ -8,9 +8,9 @@ using namespace std;
 namespace ris
 {
 
-    Elements Packet::element(const Unit &unit) const
+    Values Packet::element(const Unit &unit) const
     {
-        map<Unit, Elements>::const_iterator it = telemetry_.find(unit);
+        map<Unit, Values>::const_iterator it = telemetry_.find(unit);
         if (it == telemetry_.end())
         {
             throw runtime_error("Unknown Unit " + to_string(unit));

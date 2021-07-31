@@ -1,33 +1,33 @@
-#include "../inc/element.h"
+#include "../inc/value.h"
 
 namespace ris
 {
-    Elements::Elements(const Element element)
+    Values::Values(const Value element)
     {
         elements.push_back(element);
     }
 
-    const Element Elements::at(int index) const
+    const Value Values::at(int index) const
     {
         return elements.at(index);
     }
 
-    void Elements::push_back(const Element &element)
+    void Values::push_back(const Value &element)
     {
         elements.push_back(element);
     }
 
-    std::vector<Element>::const_iterator Elements::begin() const noexcept
+    std::vector<Value>::const_iterator Values::begin() const noexcept
     {
         return elements.begin();
     }
 
-    std::vector<Element>::const_iterator Elements::end() const noexcept
+    std::vector<Value>::const_iterator Values::end() const noexcept
     {
         return elements.end();
     }
 
-    std::string Elements::to_string() const
+    std::string Values::to_string() const
     {
         std::string result;
         for (auto element : elements)
