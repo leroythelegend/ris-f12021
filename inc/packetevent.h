@@ -10,13 +10,13 @@ namespace ris
         class Buttons : public Packet
         {
         public:
-            inline static const Element BUTTONSTATUS{"BUTTONSTATUS"};
+            static const Element BUTTONSTATUS;
 
             Buttons(const Bytes &bytes, Pos &pos);
             ~Buttons() override = default;
         };
 
-        inline static const Element EVENTSTRINGCODE{"EVENTSTRINGCODE"};
+        static const Element EVENTSTRINGCODE;
 
         PacketEvent(const Bytes &, Pos &);
         ~PacketEvent() override = default;

@@ -6,6 +6,9 @@
 
 namespace ris
 {
+
+    const Element PacketEvent::EVENTSTRINGCODE{"EVENTSTRINGCODE"};
+
     class Event : public Packet
     {
     public:
@@ -21,6 +24,9 @@ namespace ris
         }
         ~Event() override = default;
     };
+
+    const Element PacketEvent::Buttons::BUTTONSTATUS{"BUTTONSTATUS"};
+
 
     PacketEvent::Buttons::Buttons(const Bytes &bytes, Pos &pos)
     {
