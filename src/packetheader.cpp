@@ -25,20 +25,15 @@ namespace ris
 
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
-        Decoder1Byte decoderonebyte;
-        Decoder2Bytes decodertwobytes;
-        Decoder4Bytes decoderfourbytes;
-        Decoder8Bytes decodereightbytes;
-
-        telemetry_.insert(std::pair<Unit, Elements>(1, decodertwobytes.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(2, decoderonebyte.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(3, decoderonebyte.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(4, decoderonebyte.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(5, decoderonebyte.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(6, decodereightbytes.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(7, decoderfourbytes.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(8, decoderfourbytes.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(9, decoderonebyte.decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Elements>(10, decoderonebyte.decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(1, Decoder2Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(2, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(3, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(4, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(5, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(6, Decoder8Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(7, Decoder4Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(8, Decoder4Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(9, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Unit, Elements>(10, Decoder1Byte().decode(bytes, pos)));
     }
 } // namespace ris
