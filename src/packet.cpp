@@ -19,4 +19,9 @@ namespace ris
         return it->second;
     }
 
+    void Packet::add(const Packet::Ptr &packet)
+    {
+        packets_.push_back(packet);
+    }
+
 } // namespace ris
