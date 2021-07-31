@@ -25,15 +25,15 @@ namespace ris
 
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Unit, Values>(1, Decoder2Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(2, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(3, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(4, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(5, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(6, Decoder8Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(7, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(8, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(9, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Unit, Values>(10, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(PACKETFORMAT, Decoder2Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(GAMEMAJORVERSION, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(GAMEMINORVERSION, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(PACKETVERSION, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(PACKETID, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONUID, Decoder8Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONTIME, Decoder4Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(FRAMEIDENTIFIER, Decoder4Bytes().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(PLAYERCARINDEX, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(SECONDARYPLAYERCARINDEX, Decoder1Byte().decode(bytes, pos)));
     }
 } // namespace ris

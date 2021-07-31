@@ -5,13 +5,13 @@
 
 namespace ris
 {
-    Values PacketComposite::value(const Unit &unit) const
+    Values PacketComposite::value(const Element &element) const
     {
         for (auto packet : packets_)
         {
             try
             {
-                return packet->value(unit);
+                return packet->value(element);
             }
             catch (const std::exception &e)
             {
@@ -19,6 +19,6 @@ namespace ris
             }
         }
         // if we get here we did not find the unit
-        throw std::runtime_error("Unknown Unit " + std::to_string(unit));
+        throw std::runtime_error("Unknown Unit " + element.to_string());
     }
 } // namespace ris

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "value.h"
+#include "element.h"
 
 namespace ris
 {
@@ -12,16 +13,15 @@ namespace ris
     {
     public:
         using Ptr = std::shared_ptr<Packet>;
-        using Unit = int;
 
         virtual ~Packet() = default;
 
-        virtual Values value(const Unit &) const;
+        virtual Values value(const Element &) const;
 
         void add(const Packet::Ptr &);
 
     protected:
-        std::map<Unit, Values> telemetry_;
+        std::map<Element, Values> telemetry_;
         std::vector<Packet::Ptr> packets_;
 
         Packet() = default;

@@ -17,22 +17,15 @@ namespace ris
                 eventstringcode.push_back(Decoder1Byte().decode(bytes, pos));
             }
 
-            telemetry_.insert(std::pair<Unit, Values>(11, eventstringcode));
+            telemetry_.insert(std::pair<Element, Values>(PacketEvent::EVENTSTRINGCODE, eventstringcode));
         }
         ~Event() override = default;
     };
 
-    class Buttons : public Packet
+    PacketEvent::Buttons::Buttons(const Bytes &bytes, Pos &pos)
     {
-    public:
-        Buttons(const Bytes &bytes, Pos &pos)
-        {
-            telemetry_.insert(std::pair<Unit, Values>(12, Decoder4Bytes().decode(bytes, pos)));
-        }
-
-        ~Buttons() override = default;
+        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Buttons::BUTTONSTATUS, Decoder4Bytes().decode(bytes, pos)));
     };
-
 
     PacketEvent::PacketEvent(const Bytes &bytes, Pos &pos)
     {
@@ -40,7 +33,7 @@ namespace ris
         Packet::add(std::make_shared<Event>(bytes, pos));
 
         // need to make a factory here
-        if (PacketComposite::value(11).to_string() == "BUTN")
+        if (PacketComposite::value(EVENTSTRINGCODE).to_string() == "BUTN")
         {
             Packet::add(std::make_shared<Buttons>(bytes, pos));
         }

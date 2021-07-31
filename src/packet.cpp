@@ -8,12 +8,12 @@ using namespace std;
 namespace ris
 {
 
-    Values Packet::value(const Unit &unit) const
+    Values Packet::value(const Element &element) const
     {
-        map<Unit, Values>::const_iterator it = telemetry_.find(unit);
+        map<Element, Values>::const_iterator it = telemetry_.find(element);
         if (it == telemetry_.end())
         {
-            throw runtime_error("Unknown Unit " + to_string(unit));
+            throw runtime_error("Unknown Unit " + element.to_string());
         }
 
         return it->second;

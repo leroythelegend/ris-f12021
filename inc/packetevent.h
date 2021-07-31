@@ -7,8 +7,16 @@ namespace ris
     class PacketEvent : public PacketComposite
     {
     public:
-        using Ptr = std::shared_ptr<Packet>;
-        using Unit = Packet::Unit;
+        class Buttons : public Packet
+        {
+        public:
+            inline static const Element BUTTONSTATUS{"BUTTONSTATUS"};
+
+            Buttons(const Bytes &bytes, Pos &pos);
+            ~Buttons() override = default;
+        };
+
+        inline static const Element EVENTSTRINGCODE{"EVENTSTRINGCODE"};
 
         PacketEvent(const Bytes &, Pos &);
         ~PacketEvent() override = default;

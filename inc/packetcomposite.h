@@ -9,11 +9,10 @@ namespace ris
     {
     public:
         using Ptr = std::shared_ptr<PacketComposite>;
-        using Unit = Packet::Unit;
 
         ~PacketComposite() override = default;
 
-        Values value(const Unit &) const override;
+        Values value(const Element &) const override;
 
         PacketComposite() = default;
     };

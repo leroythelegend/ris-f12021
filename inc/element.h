@@ -18,6 +18,11 @@ namespace ris
             return name_;
         }
 
+        friend bool operator<(const Element &l, const Element &r)
+        {
+            return l.to_string() < r.to_string();
+        }
+
     private:
         Name name_;
     };
