@@ -11,11 +11,10 @@ namespace ris
     public:
         Event(const Bytes &bytes, Pos &pos)
         {
-            Decoder1Byte decoder;
             Elements eventstringcode;
             for (int i = 0; i < 4; ++i)
             {
-                eventstringcode.push_back(decoder.decode(bytes, pos));
+                eventstringcode.push_back(Decoder1Byte().decode(bytes, pos));
             }
 
             telemetry_.insert(std::pair<Unit, Elements>(11, eventstringcode));
@@ -40,6 +39,7 @@ namespace ris
         Packet::add(std::make_shared<PacketHeader>(bytes, pos));
         Packet::add(std::make_shared<Event>(bytes, pos));
 
+        // need to make a factory here
         if (PacketComposite::element(11).to_string() == "BUTN")
         {
             Packet::add(std::make_shared<Buttons>(bytes, pos));
