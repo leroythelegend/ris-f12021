@@ -43,7 +43,6 @@ int main(int argc, char const *argv[])
         test_assert(d.decode(bytes, pos).SInt == -110);
         test_assert(pos == 1);
         pos = 0;
-
     }
     catch (const std::exception &e)
     {
@@ -72,16 +71,13 @@ int main(int argc, char const *argv[])
         test_assert(pos == 2);
         pos = 0;
 
-
         test_assert(d.decode(bytes, pos).UInt == 52114);
         test_assert(pos == 2);
         pos = 0;
 
-
         test_assert(d.decode(bytes, pos).SInt == -13422);
         test_assert(pos == 2);
         pos = 0;
-
     }
     catch (const std::exception &e)
     {
@@ -115,7 +111,6 @@ int main(int argc, char const *argv[])
         test_assert(d.decode(bytes, pos).UInt == 18446744073450539922U);
         test_assert(pos == 4);
         pos = 0;
-
 
         test_assert(d.decode(bytes, pos).SInt == -259011694);
         test_assert(pos == 4);
@@ -153,16 +148,13 @@ int main(int argc, char const *argv[])
         test_assert(pos == 8);
         pos = 0;
 
-
         test_assert(d.decode(bytes, pos).UInt == 17294105147902853392U);
         test_assert(pos == 8);
         pos = 0;
 
-
         test_assert(d.decode(bytes, pos).SInt == -1152638925806698224);
         test_assert(pos == 8);
         pos = 0;
-
     }
     catch (const std::exception &e)
     {

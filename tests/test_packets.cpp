@@ -118,20 +118,18 @@ int main(int argc, char const *argv[])
         test_assert(p.value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 1684);
         test_assert(p.value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
         test_assert(p.value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
-
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
         return 1;
     }
-    
 
     try
     {
         unsigned int pos = 0;
         PacketEvent p(eventpacket, pos);
-        
+
         test_assert(p.value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
         test_assert(p.value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
         test_assert(p.value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 4);
@@ -145,28 +143,26 @@ int main(int argc, char const *argv[])
         test_assert(p.value(PacketEvent::EVENTSTRINGCODE).to_string() == "BUTN");
         test_assert(p.value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
         return 1;
     }
-    
+
     try
     {
         Element test("test");
         Element nottest("nottest");
-
 
         test_assert(test == test);
         test_assert(test != nottest);
         test_assert(test.to_string() == "test");
         test_assert(nottest.to_string() == "nottest");
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
     }
-    
 
     return 0;
 }
