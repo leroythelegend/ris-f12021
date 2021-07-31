@@ -16,12 +16,12 @@ namespace ris
 
         virtual ~Packet() = default;
 
-        virtual Element element(const Unit &) const;
+        virtual Elements element(const Unit &) const;
 
         void add(const Packet::Ptr &);
 
     protected:
-        std::map<Unit, Element> telemetry_;
+        std::map<Unit, Elements> telemetry_;
         std::vector<Packet::Ptr> packets_;
 
         Packet() = default;

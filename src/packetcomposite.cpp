@@ -5,7 +5,7 @@
 
 namespace ris
 {
-    Element PacketComposite::element(const Unit &unit) const
+    Elements PacketComposite::element(const Unit &unit) const
     {
         for (auto packet : packets_)
         {
