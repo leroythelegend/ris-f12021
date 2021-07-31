@@ -9,48 +9,26 @@ namespace ris
     struct Element
     {
         uint64_t UInt = 0;
-        int64_t  SInt = 0;
+        int64_t SInt = 0;
         float Float = 0;
     };
 
-    struct Elements
+    class Elements
     {
+    public:
         Elements() = default;
-        Elements(const Element element)
-        {
-            elements.push_back(element);
-        }
+        Elements(const Element element);
 
-        Element at(int index)
-        {
-            return elements.at(index);
-        }
+        const Element at(int index) const;
 
-        void push_back(const Element& element)
-        {
-            elements.push_back(element);
-        }
+        void push_back(const Element &element);
 
-        std::vector<Element>::const_iterator begin() const noexcept
-        {
-            return elements.begin();
-        }
+        std::vector<Element>::const_iterator begin() const noexcept;
+        std::vector<Element>::const_iterator end() const noexcept;
 
-        std::vector<Element>::const_iterator end() const noexcept
-        {
-            return elements.end();
-        }
+        std::string to_string() const;
 
-        std::string to_string()
-        {
-            std::string result;
-            for (auto element : elements)
-            {
-                result.append(1, static_cast<char>(element.UInt));
-            }
-            return result;
-        }
-
+    private:
         std::vector<Element> elements;
     };
 

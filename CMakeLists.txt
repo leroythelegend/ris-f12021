@@ -19,6 +19,7 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/packetcomposite.cpp
                       ./src/packetheader.cpp
                       ./src/packetevent.cpp
+                      ./src/element.cpp
                       )
 
 add_executable(risf1 ./app/main.cpp)

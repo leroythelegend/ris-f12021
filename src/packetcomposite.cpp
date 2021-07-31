@@ -13,7 +13,7 @@ namespace ris
             {
                 return packet->element(unit);
             }
-            catch(const std::exception& e)
+            catch (const std::exception &e)
             {
                 // continue until we find the unit
             }
