@@ -142,6 +142,7 @@ int main(int argc, char const *argv[])
         test_assert(p.element(9).at(0).UInt == 0);
         test_assert(p.element(10).at(0).UInt == 255);
         test_assert(p.element(11).to_string() == "BUTN");
+        test_assert(p.element(12).at(0).UInt == 4);
     }
     catch(const std::exception& e)
     {
