@@ -8,7 +8,7 @@ using namespace std;
 namespace ris
 {
 
-    Values Packet::element(const Unit &unit) const
+    Values Packet::value(const Unit &unit) const
     {
         map<Unit, Values>::const_iterator it = telemetry_.find(unit);
         if (it == telemetry_.end())

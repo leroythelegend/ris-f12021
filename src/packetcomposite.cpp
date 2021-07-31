@@ -5,13 +5,13 @@
 
 namespace ris
 {
-    Values PacketComposite::element(const Unit &unit) const
+    Values PacketComposite::value(const Unit &unit) const
     {
         for (auto packet : packets_)
         {
             try
             {
-                return packet->element(unit);
+                return packet->value(unit);
             }
             catch (const std::exception &e)
             {

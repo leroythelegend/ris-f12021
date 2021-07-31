@@ -16,7 +16,7 @@ namespace ris
 
         virtual ~Packet() = default;
 
-        virtual Values element(const Unit &) const;
+        virtual Values value(const Unit &) const;
 
         void add(const Packet::Ptr &);
 

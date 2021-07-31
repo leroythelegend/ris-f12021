@@ -40,7 +40,7 @@ namespace ris
         Packet::add(std::make_shared<Event>(bytes, pos));
 
         // need to make a factory here
-        if (PacketComposite::element(11).to_string() == "BUTN")
+        if (PacketComposite::value(11).to_string() == "BUTN")
         {
             Packet::add(std::make_shared<Buttons>(bytes, pos));
         }

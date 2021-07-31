@@ -2,9 +2,9 @@
 
 namespace ris
 {
-    Values::Values(const Value element)
+    Values::Values(const Value value)
     {
-        elements.push_back(element);
+        elements.push_back(value);
     }
 
     const Value Values::at(int index) const
@@ -12,9 +12,9 @@ namespace ris
         return elements.at(index);
     }
 
-    void Values::push_back(const Value &element)
+    void Values::push_back(const Value &value)
     {
-        elements.push_back(element);
+        elements.push_back(value);
     }
 
     std::vector<Value>::const_iterator Values::begin() const noexcept
@@ -30,9 +30,9 @@ namespace ris
     std::string Values::to_string() const
     {
         std::string result;
-        for (auto element : elements)
+        for (auto value : elements)
         {
-            result.append(1, static_cast<char>(element.UInt));
+            result.append(1, static_cast<char>(value.UInt));
         }
         return result;
     }
