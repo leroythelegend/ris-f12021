@@ -18,7 +18,6 @@ int main(int argc, char const *argv[])
     // then I will subclass a NetworkFile from Network to test
     // decoders
 
-    // maybe able to get rid of the expicit pos?
     // for now don't capture the event packet because
     // we already have one but we will capture the other 
     // parts of the event packet later.
