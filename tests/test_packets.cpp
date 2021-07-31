@@ -13,6 +13,8 @@
 #include "../inc/packetcomposite.h"
 #include "../inc/packetevent.h"
 
+#include "../inc/element.h"
+
 using namespace std;
 using namespace ris;
 
@@ -148,6 +150,22 @@ int main(int argc, char const *argv[])
     {
         std::cerr << e.what() << '\n';
         return 1;
+    }
+    
+    try
+    {
+        Element test("test");
+        Element nottest("nottest");
+
+
+        test_assert(test == test);
+        test_assert(test != nottest);
+        test_assert(test.to_string() == "test");
+        test_assert(nottest.to_string() == "nottest");
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
     }
     
 
