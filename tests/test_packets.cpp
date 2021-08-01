@@ -11,6 +11,7 @@
 
 #include "../inc/packetheader.h"
 #include "../inc/packetevent.h"
+#include "../inc/packetcarstatus.h"
 
 #include "../inc/element.h"
 
@@ -21,11 +22,14 @@ int main(int argc, char const *argv[])
 {
 
     Bytes eventpacket;
+    Bytes carstatuspacket;
 
     try
     {
-        NetworkFile file("../tests/vectors/event_packet.bin");
-        eventpacket = file.read();
+        NetworkFile e("../tests/vectors/event_packet.bin");
+        eventpacket = e.read();
+        NetworkFile c("../tests/vectors/car_status.bin");
+        carstatuspacket = c.read();
     }
     catch (const std::exception &e)
     {
@@ -141,6 +145,31 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
         test_assert(p.value(PacketEvent::EVENTSTRINGCODE).to_string() == "BUTN");
         test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+
+    try
+    {
+        unsigned int pos = 0;
+        PacketCarStatus p(carstatuspacket, pos);
+
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 5);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).at(0).UInt == 7);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).at(0).UInt == 11396923571662120498U);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).at(0).Float == 11.7321501F);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 240);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
+        // test_assert(p.value(PacketEvent::EVENTSTRINGCODE).to_string() == "BUTN");
+        // test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
     }
     catch (const std::exception &e)
     {
