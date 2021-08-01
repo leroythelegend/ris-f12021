@@ -1,5 +1,6 @@
 #include "../inc/networkudp.h"
 #include "../inc/packetheader.h"
+#include "../inc/packetevent.h"
 
 #include <iostream>
 #include <fstream>
@@ -19,14 +20,24 @@ int main(int argc, char const *argv[])
     // decoders
 
     // for now don't capture the event packet because
-    // we already have one but we will capture the other 
+    // we already have one but we will capture the other
     // parts of the event packet later.
     Pos pos = 0;
     if (PacketHeader(bytes, pos).value(PacketHeader::PACKETID).at(0).UInt != (unsigned int)PacketID::Event)
     {
-        ofstream outfile("/tmp/f12021.out", ios::out|ios::binary);
-        cout << "captured size " << bytes.size() << endl;
+        ofstream outfile("/tmp/f12021.out", ios::out | ios::binary);
+        cout << "not event captured size " << bytes.size() << endl;
         outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
+    }
+    else
+    {
+        pos = 0;
+        if (PacketEvent(bytes, pos).value(PacketEvent::EVENTSTRINGCODE).to_string() != "BUTN")
+        {
+            ofstream outfile("/tmp/event.out", ios::out | ios::binary);
+            cout << "event captured size " << bytes.size() << endl;
+            outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
+        }
     }
     return 0;
 }
