@@ -35,7 +35,9 @@ int main(int argc, char const *argv[])
         if (PacketEvent(bytes, pos).value(PacketEvent::EVENTSTRINGCODE).to_string() != "BUTN")
         {
             ofstream outfile("/tmp/event.out", ios::out | ios::binary);
-            cout << "event captured size " << bytes.size() << endl;
+            cout << "event captured size " << 
+                    bytes.size() << " " << 
+                    PacketEvent(bytes, pos).value(PacketEvent::EVENTSTRINGCODE).to_string() << endl;
             outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
         }
     }
