@@ -19,11 +19,14 @@ int main(int argc, char const *argv[])
     // then I will subclass a NetworkFile from Network to test
     // decoders
 
-    // for now don't capture the event packet because
-    // we already have one but we will capture the other
+    // for now don't capture the event or car status packets because
+    // we already have them but we will capture the other
     // parts of the event packet later.
     Pos pos = 0;
-    if (PacketHeader(bytes, pos).value(PacketHeader::PACKETID).at(0).UInt != (unsigned int)PacketID::Event)
+    unsigned int packetid = PacketHeader(bytes, pos).value(PacketHeader::PACKETID).at(0).UInt;
+
+    if (packetid != (unsigned int)PacketID::Event &&
+        packetid != (unsigned int)PacketID::Car_Status )
     {
         ofstream outfile("/tmp/f12021.out", ios::out | ios::binary);
         cout << "not event captured size " << bytes.size() << endl;
