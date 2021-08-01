@@ -64,13 +64,17 @@ namespace ris
     PacketCarStatus::PacketCarStatus(const Bytes &bytes, Pos &pos)
     {
         Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
-        
-        std::vector<Packet::Ptr> carstatuspackets;
+        Packet::add(CarStatusData::CARSTATUSDATA, getParticpantsCarStatus(bytes, pos));
+    }
+
+std::vector<Packet::Ptr> PacketCarStatus::getParticpantsCarStatus(const Bytes &bytes, Pos &pos)
+{
+        std::vector<Packet::Ptr> result;
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
-            carstatuspackets.push_back(std::make_shared<CarStatusData>(bytes, pos));        
+            result.push_back(std::make_shared<CarStatusData>(bytes, pos));        
         }
-        Packet::add(CarStatusData::CARSTATUSDATA, carstatuspackets);
-    }
+        return result;  
+}
 
 } // namespace ris
