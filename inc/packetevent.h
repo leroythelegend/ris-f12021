@@ -26,6 +26,7 @@ namespace ris
 
     private:
         void addEventStringCodeToTelemetry(const Bytes &, Pos &);
+        void addCorrectEventDetailsToPacket(const Bytes &, Pos &);
     };
 
 } // namespace ris

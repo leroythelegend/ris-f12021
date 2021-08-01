@@ -36,14 +36,9 @@ namespace ris
     PacketEvent::PacketEvent(const Bytes &bytes, Pos &pos)
     {
         Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
-        
-        addEventStringCodeToTelemetry(bytes, pos);
 
-        // need to make a factory here
-        if (value(EVENTSTRINGCODE).to_string() == "BUTN")
-        {
-            Packet::add(PacketEvent::Buttons::BUTTONS, std::vector<Packet::Ptr>{std::make_shared<Buttons>(bytes, pos)});
-        }
+        addEventStringCodeToTelemetry(bytes, pos);
+        addCorrectEventDetailsToPacket(bytes, pos);
     }
 
     void PacketEvent::addEventStringCodeToTelemetry(const Bytes &bytes, Pos &pos)
@@ -55,6 +50,15 @@ namespace ris
         }
 
         telemetry_.insert(std::pair<Element, Values>(PacketEvent::EVENTSTRINGCODE, eventstringcode));
+    }
+
+    void PacketEvent::addCorrectEventDetailsToPacket(const Bytes &bytes, Pos &pos)
+    {
+        std::string eventdetails = value(EVENTSTRINGCODE).to_string();
+        if (eventdetails == "BUTN")
+        {
+            Packet::add(PacketEvent::Buttons::BUTTONS, std::vector<Packet::Ptr>{std::make_shared<Buttons>(bytes, pos)});
+        }
     }
 
 } // namespace ris
