@@ -19,20 +19,20 @@ namespace ris
         return it->second;
     }
 
-    std::vector<Packet::Ptr> Packet::packets(const int i) const
+    std::vector<Packet::Ptr> Packet::packets(const Element &element) const
     {
-        map<int, std::vector<Packet::Ptr>>::const_iterator it = packets_.find(i);
+        map<Element, std::vector<Packet::Ptr>>::const_iterator it = packets_.find(element);
         if (it == packets_.end())
         {
-            throw runtime_error("Unknown Packet " + std::to_string(i));
+            throw runtime_error("Unknown Packet " + element.to_string());
         }
 
         return it->second;
     }
 
-    void Packet::add(const int i, const std::vector<Packet::Ptr> &packets)
+    void Packet::add(const Element &element, const std::vector<Packet::Ptr> &packets)
     {
-        packets_.insert(std::pair<int, std::vector<Packet::Ptr>>(i, packets));
+        packets_.insert(std::pair<Element, std::vector<Packet::Ptr>>(element, packets));
     }
 
 } // namespace ris

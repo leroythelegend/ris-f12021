@@ -129,18 +129,18 @@ int main(int argc, char const *argv[])
         unsigned int pos = 0;
         PacketEvent p(eventpacket, pos);
 
-        test_assert(p.packets(1).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 4);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::PACKETID).at(0).UInt == 3);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::SESSIONUID).at(0).UInt == 14042512579407427396U);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::SESSIONTIME).at(0).Float == 80.4851379F);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 1684);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
-        test_assert(p.packets(1).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 4);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).at(0).UInt == 3);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).at(0).UInt == 14042512579407427396U);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).at(0).Float == 80.4851379F);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 1684);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
         test_assert(p.value(PacketEvent::EVENTSTRINGCODE).to_string() == "BUTN");
-        test_assert(p.packets(2).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
+        test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
     }
     catch (const std::exception &e)
     {

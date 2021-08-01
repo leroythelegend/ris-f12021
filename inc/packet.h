@@ -17,13 +17,13 @@ namespace ris
         virtual ~Packet() = default;
 
         Values value(const Element &) const;
-        std::vector<Packet::Ptr> packets(const int) const;
-
-        void add(const int, const std::vector<Packet::Ptr> &);
+        std::vector<Packet::Ptr> packets(const Element &) const;
 
     protected:
+        void add(const Element &, const std::vector<Packet::Ptr> &);
+
         std::map<Element, Values> telemetry_;
-        std::map<int, std::vector<Packet::Ptr>> packets_;
+        std::map<Element, std::vector<Packet::Ptr>> packets_;
 
         // std::vector<Packet::Ptr> packets_;
 

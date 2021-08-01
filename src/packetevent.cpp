@@ -26,6 +26,7 @@ namespace ris
     };
 
     const Element PacketEvent::Buttons::BUTTONSTATUS{"BUTTONSTATUS"};
+    const Element PacketEvent::Buttons::BUTTONS{"BUTTONS"};
 
     PacketEvent::Buttons::Buttons(const Bytes &bytes, Pos &pos)
     {
@@ -34,7 +35,7 @@ namespace ris
 
     PacketEvent::PacketEvent(const Bytes &bytes, Pos &pos)
     {
-        Packet::add(1, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
+        Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
 
         Values eventstringcode;
         for (int i = 0; i < 4; ++i)
@@ -47,7 +48,7 @@ namespace ris
         // need to make a factory here
         if (value(EVENTSTRINGCODE).to_string() == "BUTN")
         {
-            Packet::add(2, std::vector<Packet::Ptr>{std::make_shared<Buttons>(bytes, pos)});
+            Packet::add(PacketEvent::Buttons::BUTTONS, std::vector<Packet::Ptr>{std::make_shared<Buttons>(bytes, pos)});
         }
     }
 } // namespace ris

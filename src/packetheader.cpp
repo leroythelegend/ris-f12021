@@ -34,6 +34,8 @@ namespace ris
     const Element PacketHeader::PLAYERCARINDEX{"PLAYERCARINDEX"};
     const Element PacketHeader::SECONDARYPLAYERCARINDEX{"SECONDARYPLAYERCARINDEX"};
 
+    const Element PacketHeader::PACKETHEADER{"PACKETHEADER"};
+
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(PACKETFORMAT, Decoder2Bytes().decode(bytes, pos)));

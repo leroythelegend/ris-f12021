@@ -13,6 +13,8 @@ namespace ris
         public:
             static const Element BUTTONSTATUS;
 
+            static const Element BUTTONS;
+
             Buttons(const Bytes &, Pos &pos);
             ~Buttons() override = default;
         };

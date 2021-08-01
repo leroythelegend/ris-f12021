@@ -22,6 +22,8 @@ namespace ris
         static const Element PLAYERCARINDEX;
         static const Element SECONDARYPLAYERCARINDEX;
 
+        static const Element PACKETHEADER;
+ 
         PacketHeader(const Bytes &, Pos &);
         ~PacketHeader() override = default;
     };
