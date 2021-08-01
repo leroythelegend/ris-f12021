@@ -152,7 +152,6 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-
     try
     {
         unsigned int pos = 0;
@@ -168,8 +167,59 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 240);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
-        // test_assert(p.value(PacketEvent::EVENTSTRINGCODE).to_string() == "BUTN");
-        // test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
+
+        // loop through number of participants making sure we don't throw.
+        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
+        {
+            unsigned int a; // stop warning
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELMIX).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELINTANK).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXRPM).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::IDLERPM).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXGEARS).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSALLOWED).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).at(0).UInt;
+        }
+
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).at(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).at(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELMIX).at(0).UInt == 3);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).at(0).UInt == 58);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).at(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELINTANK).at(0).Float == 10);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).at(0).Float == 110);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).at(0).Float == 5.43956F);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::MAXRPM).at(0).UInt == 13000);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::IDLERPM).at(0).UInt == 3499);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::MAXGEARS).at(0).UInt == 9);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::DRSALLOWED).at(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).at(0).UInt == 144);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).at(0).UInt == 17);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).at(0).UInt == 16);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).at(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).at(0).SInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).at(0).Float == 4e+06F);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).at(0).UInt == 2);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).at(0).Float == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).at(0).Float == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).at(0).Float == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).at(0).UInt == 0);
     }
     catch (const std::exception &e)
     {

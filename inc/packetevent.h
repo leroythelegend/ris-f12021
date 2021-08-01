@@ -14,7 +14,7 @@ namespace ris
             static const Element BUTTONSTATUS;
             static const Element BUTTONS;
 
-            Buttons(const Bytes &, Pos &pos);
+            Buttons(const Bytes &, Pos &);
             ~Buttons() override = default;
         };
 
@@ -25,7 +25,7 @@ namespace ris
             static const Element FLASHBACKSESSIONTIME;
             static const Element FLASHBACK;
 
-            Flashback(const Bytes &, Pos &pos);
+            Flashback(const Bytes &, Pos &);
             ~Flashback() override = default;
         };
 
