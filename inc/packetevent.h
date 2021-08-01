@@ -1,10 +1,11 @@
 #pragma once
 
-#include "packetcomposite.h"
+#include "packet.h"
+#include "definitions.h"
 
 namespace ris
 {
-    class PacketEvent : public PacketComposite
+    class PacketEvent : public Packet
     {
     public:
         class Buttons : public Packet

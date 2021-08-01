@@ -16,7 +16,6 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/decoder4bytes.cpp
                       ./src/decoder8bytes.cpp
                       ./src/packet.cpp
-                      ./src/packetcomposite.cpp
                       ./src/packetheader.cpp
                       ./src/packetevent.cpp
                       ./src/value.cpp
