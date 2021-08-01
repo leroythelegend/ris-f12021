@@ -25,8 +25,6 @@ namespace ris
         std::map<Element, Values> telemetry_;
         std::map<Element, std::vector<Packet::Ptr>> packets_;
 
-        // std::vector<Packet::Ptr> packets_;
-
         Packet() = default;
     };
 

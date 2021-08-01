@@ -12,11 +12,21 @@ namespace ris
         {
         public:
             static const Element BUTTONSTATUS;
-
             static const Element BUTTONS;
 
             Buttons(const Bytes &, Pos &pos);
             ~Buttons() override = default;
+        };
+
+        class Flashback : public Packet
+        {
+        public:
+            static const Element FLASHBACKFRAMEIDENTIFIER;
+            static const Element FLASHBACKSESSIONTIME;
+            static const Element FLASHBACK;
+
+            Flashback(const Bytes &, Pos &pos);
+            ~Flashback() override = default;
         };
 
         static const Element EVENTSTRINGCODE;
