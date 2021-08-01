@@ -23,6 +23,9 @@ namespace ris
 
         PacketEvent(const Bytes &, Pos &);
         ~PacketEvent() override = default;
+
+    private:
+        void addEventStringCodeToTelemetry(const Bytes &, Pos &);
     };
 
 } // namespace ris
