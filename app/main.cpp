@@ -35,12 +35,12 @@ int main(int argc, char const *argv[])
     else
     {
         pos = 0;
-        if (PacketEvent(bytes, pos).value(PacketEvent::EVENTSTRINGCODE).to_string() != "BUTN")
+        if (PacketEvent(bytes, pos).packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() != "BUTN")
         {
             ofstream outfile("/tmp/event.out", ios::out | ios::binary);
             cout << "event captured size " << 
                     bytes.size() << " " << 
-                    PacketEvent(bytes, pos).value(PacketEvent::EVENTSTRINGCODE).to_string() << endl;
+                    PacketEvent(bytes, pos).packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() << endl;
             outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
         }
     }

@@ -29,13 +29,20 @@ namespace ris
             ~Flashback() override = default;
         };
 
-        static const Element EVENTSTRINGCODE;
+        class Event : public Packet
+        {
+        public:
+            static const Element EVENTSTRINGCODE;
+            static const Element EVENT;
+
+            Event(const Bytes &, Pos &);
+            ~Event() override = default;
+        };
 
         PacketEvent(const Bytes &, Pos &);
         ~PacketEvent() override = default;
 
     private:
-        void addEventStringCodeToTelemetry(const Bytes &, Pos &);
         void addCorrectEventDetailsToPacket(const Bytes &, Pos &);
     };
 

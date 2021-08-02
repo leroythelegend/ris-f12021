@@ -143,7 +143,7 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 1684);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
-        test_assert(p.value(PacketEvent::EVENTSTRINGCODE).to_string() == "BUTN");
+        test_assert(p.packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() == "BUTN");
         test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
     }
     catch (const std::exception &e)
