@@ -39,7 +39,7 @@ namespace ris
             ~Event() override = default;
         };
 
-        PacketEvent(const Bytes &, Pos &);
+        PacketEvent(const Bytes &);
         ~PacketEvent() override = default;
 
     private:

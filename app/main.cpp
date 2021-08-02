@@ -22,8 +22,7 @@ int main(int argc, char const *argv[])
     // for now don't capture the event or car status packets because
     // we already have them but we will capture the other
     // parts of the event packet later.
-    Pos pos = 0;
-    unsigned int packetid = PacketHeader(bytes, pos).value(PacketHeader::PACKETID).at(0).UInt;
+    unsigned int packetid = (unsigned int)bytes.at(5);
 
     if (packetid != (unsigned int)PacketID::Event &&
         packetid != (unsigned int)PacketID::Car_Status )
@@ -34,13 +33,12 @@ int main(int argc, char const *argv[])
     }
     else
     {
-        pos = 0;
-        if (PacketEvent(bytes, pos).packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() != "BUTN")
+        if (PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() != "BUTN")
         {
             ofstream outfile("/tmp/event.out", ios::out | ios::binary);
             cout << "event captured size " << 
                     bytes.size() << " " << 
-                    PacketEvent(bytes, pos).packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() << endl;
+                    PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() << endl;
             outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
         }
     }

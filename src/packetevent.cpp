@@ -38,8 +38,9 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(PacketEvent::Event::EVENTSTRINGCODE, eventstringcode));
     }
 
-    PacketEvent::PacketEvent(const Bytes &bytes, Pos &pos)
+    PacketEvent::PacketEvent(const Bytes &bytes)
     {
+        unsigned int pos = 0;
         Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
         Packet::add(PacketEvent::Event::EVENT, std::vector<Packet::Ptr>{std::make_shared<Event>(bytes, pos)});
 

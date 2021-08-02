@@ -61,8 +61,9 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(NETWORKPAUSED, Decoder1Byte().decode(bytes, pos)));
     }
 
-    PacketCarStatus::PacketCarStatus(const Bytes &bytes, Pos &pos)
+    PacketCarStatus::PacketCarStatus(const Bytes &bytes)
     {
+        unsigned int pos = 0;
         Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
         Packet::add(CarStatusData::CARSTATUSDATA, getParticpantsCarStatus(bytes, pos));
     }

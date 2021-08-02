@@ -130,8 +130,7 @@ int main(int argc, char const *argv[])
 
     try
     {
-        unsigned int pos = 0;
-        PacketEvent p(eventpacket, pos);
+        PacketEvent p(eventpacket);
 
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
@@ -154,8 +153,7 @@ int main(int argc, char const *argv[])
 
     try
     {
-        unsigned int pos = 0;
-        PacketCarStatus p(carstatuspacket, pos);
+        PacketCarStatus p(carstatuspacket);
 
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);

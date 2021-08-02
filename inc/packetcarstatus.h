@@ -41,7 +41,7 @@ namespace ris
             ~CarStatusData() override = default;
         };
 
-        PacketCarStatus(const Bytes &, Pos &);
+        PacketCarStatus(const Bytes &);
         ~PacketCarStatus() override = default;
 
     private:
