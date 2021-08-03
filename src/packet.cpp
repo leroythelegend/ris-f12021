@@ -19,6 +19,11 @@ namespace ris
         return it->second;
     }
 
+    std::map<Element, Values> Packet::telemetry() const
+    {
+        return telemetry_;
+    }
+
     std::vector<Packet::Ptr> Packet::packets(const Element &element) const
     {
         map<Element, std::vector<Packet::Ptr>>::const_iterator it = packets_.find(element);
@@ -28,6 +33,11 @@ namespace ris
         }
 
         return it->second;
+    }
+
+    std::map<Element, std::vector<Packet::Ptr>> Packet::packets() const
+    {
+        return packets_;
     }
 
     void Packet::add(const Element &element, const std::vector<Packet::Ptr> &packets)

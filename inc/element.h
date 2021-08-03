@@ -23,17 +23,17 @@ namespace ris
             return l.to_string() < r.to_string();
         }
 
+        friend bool operator==(const Element &lhs, Element &rhs)
+        {
+            return lhs.to_string() == rhs.to_string();
+        }
+
+        friend bool operator!=(const Element &lhs, Element &rhs)
+        {
+            return !(lhs == rhs);
+        }
+
     private:
         Name name_;
     };
-
-    inline bool operator==(const Element &lhs, Element &rhs)
-    {
-        return lhs.to_string() == rhs.to_string();
-    }
-
-    inline bool operator!=(const Element &lhs, Element &rhs)
-    {
-        return !(lhs == rhs);
-    }
 } // namespace ris

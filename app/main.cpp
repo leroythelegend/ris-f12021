@@ -27,7 +27,8 @@ int main(int argc, char const *argv[])
         unsigned int packetid = (unsigned int)bytes.at(5);
 
         if (packetid != (unsigned int)PacketID::Event &&
-            packetid != (unsigned int)PacketID::Car_Status)
+            packetid != (unsigned int)PacketID::Car_Status &&
+            packetid != (unsigned int)PacketID::Car_Telemetry)
         {
             ofstream outfile("/tmp/f12021.out", ios::out | ios::binary);
             cout << "not event captured size " << bytes.size() << endl;

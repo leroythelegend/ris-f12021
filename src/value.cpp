@@ -2,18 +2,38 @@
 
 namespace ris
 {
-    Values::Values(const Value value)
+    Values::Values(const Value value, const int prefered)
+        : prefered_(prefered)
     {
         elements.push_back(value);
     }
 
-    const Value Values::at(int index) const
+    const double Values::at(int index) const
+    {
+        double result;
+        if (prefered_ == 1)
+        {
+            result = elements.at(index).UInt;
+        }
+        else if (prefered_ == 2)
+        {
+            result = elements.at(index).SInt;
+        }
+        else if (prefered_ == 3)
+        {
+            result = elements.at(index).Float;
+        }
+        return result;
+    }
+
+    const Value Values::value(int index) const
     {
         return elements.at(index);
     }
 
-    void Values::push_back(const Value &value)
+    void Values::push_back(const Value &value, const int prefered)
     {
+        prefered_ = prefered;
         elements.push_back(value);
     }
 
@@ -25,6 +45,11 @@ namespace ris
     std::vector<Value>::const_iterator Values::end() const noexcept
     {
         return elements.end();
+    }
+
+    unsigned int Values::size() const
+    {
+        return elements.size();
     }
 
     std::string Values::to_string() const

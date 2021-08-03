@@ -115,16 +115,16 @@ int main(int argc, char const *argv[])
         unsigned int pos = 0;
         PacketHeader p(eventpacket, pos);
 
-        test_assert(p.value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
-        test_assert(p.value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
-        test_assert(p.value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 4);
-        test_assert(p.value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
-        test_assert(p.value(PacketHeader::PACKETID).at(0).UInt == 3);
-        test_assert(p.value(PacketHeader::SESSIONUID).at(0).UInt == 14042512579407427396U);
-        test_assert(p.value(PacketHeader::SESSIONTIME).at(0).Float == 80.4851379F);
-        test_assert(p.value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 1684);
-        test_assert(p.value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
-        test_assert(p.value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
+        test_assert(p.value(PacketHeader::PACKETFORMAT).value(0).UInt == 2021);
+        test_assert(p.value(PacketHeader::GAMEMAJORVERSION).value(0).UInt == 1);
+        test_assert(p.value(PacketHeader::GAMEMINORVERSION).value(0).UInt == 4);
+        test_assert(p.value(PacketHeader::PACKETVERSION).value(0).UInt == 1);
+        test_assert(p.value(PacketHeader::PACKETID).value(0).UInt == 3);
+        test_assert(p.value(PacketHeader::SESSIONUID).value(0).UInt == 14042512579407427396U);
+        test_assert(p.value(PacketHeader::SESSIONTIME).value(0).Float == 80.4851379F);
+        test_assert(p.value(PacketHeader::FRAMEIDENTIFIER).value(0).UInt == 1684);
+        test_assert(p.value(PacketHeader::PLAYERCARINDEX).value(0).UInt == 0);
+        test_assert(p.value(PacketHeader::SECONDARYPLAYERCARINDEX).value(0).UInt == 255);
     }
     catch (const std::exception &e)
     {
@@ -136,18 +136,18 @@ int main(int argc, char const *argv[])
     {
         PacketEvent p(eventpacket);
 
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 4);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).at(0).UInt == 3);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).at(0).UInt == 14042512579407427396U);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).at(0).Float == 80.4851379F);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 1684);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).value(0).UInt == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).value(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).value(0).UInt == 4);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).value(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).value(0).UInt == 3);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).value(0).UInt == 14042512579407427396U);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).value(0).Float == 80.4851379F);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).value(0).UInt == 1684);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).value(0).UInt == 0);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).value(0).UInt == 255);
         test_assert(p.packets(PacketEvent::Event::EVENT).at(0)->value(PacketEvent::Event::EVENTSTRINGCODE).to_string() == "BUTN");
-        test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).at(0).UInt == 4);
+        test_assert(p.packets(PacketEvent::Buttons::BUTTONS).at(0)->value(PacketEvent::Buttons::BUTTONSTATUS).value(0).UInt == 4);
     }
     catch (const std::exception &e)
     {
@@ -159,97 +159,97 @@ int main(int argc, char const *argv[])
     {
         PacketCarStatus p(carstatuspacket);
 
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 5);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).at(0).UInt == 7);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).at(0).UInt == 11396923571662120498U);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).at(0).Float == 11.7321501F);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 240);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).value(0).UInt == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).value(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).value(0).UInt == 5);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).value(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).value(0).UInt == 7);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).value(0).UInt == 11396923571662120498U);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).value(0).Float == 11.7321501F);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).value(0).UInt == 240);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).value(0).UInt == 0);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).value(0).UInt == 255);
 
         // loop through number of participants making sure we don't throw.
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
             unsigned int a; // stop warning
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELMIX).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELINTANK).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXRPM).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::IDLERPM).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXGEARS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSALLOWED).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELMIX).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELINTANK).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXRPM).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::IDLERPM).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXGEARS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSALLOWED).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).value(0).UInt;
         }
 
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELMIX).at(0).UInt == 3);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).at(0).UInt == 58);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELINTANK).at(0).Float == 10);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).at(0).Float == 110);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).at(0).Float == 5.43956F);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::MAXRPM).at(0).UInt == 13000);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::IDLERPM).at(0).UInt == 3499);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::MAXGEARS).at(0).UInt == 9);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::DRSALLOWED).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).at(0).UInt == 144);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).at(0).UInt == 17);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).at(0).UInt == 16);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).at(0).SInt == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).at(0).Float == 4e+06F);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).at(0).UInt == 2);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).at(0).Float == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).at(0).Float == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).at(0).Float == 0);
-        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).at(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELMIX).value(0).UInt == 3);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).value(0).UInt == 58);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELINTANK).value(0).Float == 10);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).value(0).Float == 110);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).value(0).Float == 5.43956F);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::MAXRPM).value(0).UInt == 13000);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::IDLERPM).value(0).UInt == 3499);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::MAXGEARS).value(0).UInt == 9);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::DRSALLOWED).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).value(0).UInt == 144);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).value(0).UInt == 17);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).value(0).UInt == 16);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).value(0).SInt == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).value(0).Float == 4e+06F);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).value(0).UInt == 2);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).value(0).Float == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).value(0).Float == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).value(0).Float == 0);
+        test_assert(p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(0)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).value(0).UInt == 0);
 
         // loop through number of participants making sure we don't throw.
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
             unsigned int a; // stop warning
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELMIX).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELINTANK).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXRPM).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::IDLERPM).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXGEARS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSALLOWED).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).at(0).UInt;
-            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).at(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELMIX).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FRONTBRAKEBIAS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::PITLIMITERSTATUS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELINTANK).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELCAPACITY).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELREMAININGLAPS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXRPM).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::IDLERPM).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::MAXGEARS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSALLOWED).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TYRESAGELAPS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSSTOREENERGY).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYMODE).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP).value(0).UInt;
+            a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::NETWORKPAUSED).value(0).UInt;
         }
     }
     catch (const std::exception &e)
@@ -262,85 +262,85 @@ int main(int argc, char const *argv[])
     {
         PacketCarTelemetryData p(cartelemetrypacket);
 
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).at(0).UInt == 2021);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).at(0).UInt == 1);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).at(0).UInt == 5);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).at(0).UInt == 1);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).at(0).UInt == 6);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).at(0).UInt == 9712300531107016769U);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).at(0).Float == 170.670853F);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).at(0).UInt == 3675);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0).UInt == 0);
-        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0).UInt == 255);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETFORMAT).value(0).UInt == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMAJORVERSION).value(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::GAMEMINORVERSION).value(0).UInt == 5);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETVERSION).value(0).UInt == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PACKETID).value(0).UInt == 6);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONUID).value(0).UInt == 9712300531107016769U);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SESSIONTIME).value(0).Float == 170.670853F);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::FRAMEIDENTIFIER).value(0).UInt == 3675);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).value(0).UInt == 0);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::SECONDARYPLAYERCARINDEX).value(0).UInt == 255);
 
         // loop through number of participants making sure we don't throw.
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
             unsigned int a; // stop warning
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SPEED).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::THROTTLE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::STEER).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::CLUTCH).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::GEAR).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::ENGINERPM).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::DRS).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSPERCENT).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSBITVALUE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(1).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(2).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(3).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(1).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(2).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(3).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(1).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(2).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(3).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::ENGINETEMPERATURE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(1).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(2).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(3).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(0).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(1).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(2).UInt;
-            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(3).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SPEED).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::THROTTLE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::STEER).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::CLUTCH).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::GEAR).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::ENGINERPM).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::DRS).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSPERCENT).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSBITVALUE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(1).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(2).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(3).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(1).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(2).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(3).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(1).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(2).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(3).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::ENGINETEMPERATURE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(1).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(2).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(3).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(0).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(1).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(2).UInt;
+            a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(3).UInt;
         }
 
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SPEED).at(0).UInt == 253);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::THROTTLE).at(0).Float == 1);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::STEER).at(0).Float == -0.372548938F);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKE).at(0).Float == 0);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::CLUTCH).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::GEAR).at(0).SInt == 6);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::ENGINERPM).at(0).UInt == 11600);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::DRS).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSPERCENT).at(0).UInt == 68);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSBITVALUE).at(0).UInt == 2047);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(0).UInt == 29);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(1).UInt == 29);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(2).UInt == 29);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).at(3).UInt == 29);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(0).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(1).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(2).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).at(3).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(0).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(1).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(2).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).at(3).UInt == 100);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::ENGINETEMPERATURE).at(0).UInt == 90);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(0).Float == 23.5738125F);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(1).Float == 23.5738125F);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(2).Float == 22.6553535F);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).at(3).Float == 22.6553535F);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(0).UInt == 0);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(1).UInt == 0);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(2).UInt == 0);
-        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).at(3).UInt == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SPEED).value(0).UInt == 253);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::THROTTLE).value(0).Float == 1);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::STEER).value(0).Float == -0.372548938F);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKE).value(0).Float == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::CLUTCH).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::GEAR).value(0).SInt == 6);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::ENGINERPM).value(0).UInt == 11600);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::DRS).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSPERCENT).value(0).UInt == 68);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::REVLIGHTSBITVALUE).value(0).UInt == 2047);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(0).UInt == 29);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(1).UInt == 29);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(2).UInt == 29);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE).value(3).UInt == 29);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(0).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(1).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(2).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE).value(3).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(0).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(1).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(2).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE).value(3).UInt == 100);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::ENGINETEMPERATURE).value(0).UInt == 90);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(0).Float == 23.5738125F);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(1).Float == 23.5738125F);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(2).Float == 22.6553535F);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE).value(3).Float == 22.6553535F);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(0).UInt == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(1).UInt == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(2).UInt == 0);
+        test_assert(p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(0)->value(PacketCarTelemetryData::CarTelemetry::SURFACETYPE).value(3).UInt == 0);
     }
     catch (const std::exception &e)
     {

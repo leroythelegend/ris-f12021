@@ -36,29 +36,29 @@ namespace ris
 
     PacketCarStatus::CarStatusData::CarStatusData(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(TRACTIONCONTROL, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ANTILOCKBRAKES, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(FUELMIX, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(FRONTBRAKEBIAS, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(PITLIMITERSTATUS, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(FUELINTANK, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(FUELCAPACITY, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(FUELREMAININGLAPS, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(MAXRPM, Decoder2Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(IDLERPM, Decoder2Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(MAXGEARS, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(DRSALLOWED, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(DRSACTIVATIONDISTANCE, Decoder2Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ACTUALTYRECOMPOUND, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(VISUALTYRECOMPOUND, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(TYRESAGELAPS, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(VEHICLEFIAFLAGS, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ERSSTOREENERGY, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ERSDEPLOYMODE, Decoder1Byte().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ERSHARVESTEDTHISLAPMGUK, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ERSHARVESTEDTHISLAPMGUH, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(ERSDEPLOYEDTHISLAP, Decoder4Bytes().decode(bytes, pos)));
-        telemetry_.insert(std::pair<Element, Values>(NETWORKPAUSED, Decoder1Byte().decode(bytes, pos)));
+        telemetry_.insert(std::pair<Element, Values>(TRACTIONCONTROL, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(ANTILOCKBRAKES, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(FUELMIX, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(FRONTBRAKEBIAS, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(PITLIMITERSTATUS, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(FUELINTANK, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(FUELCAPACITY, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(FUELREMAININGLAPS, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(MAXRPM, {Decoder2Bytes().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(IDLERPM, {Decoder2Bytes().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(MAXGEARS, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(DRSALLOWED, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(DRSACTIVATIONDISTANCE, {Decoder2Bytes().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(ACTUALTYRECOMPOUND, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(VISUALTYRECOMPOUND, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(TYRESAGELAPS, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(VEHICLEFIAFLAGS, {Decoder1Byte().decode(bytes, pos), 2}));
+        telemetry_.insert(std::pair<Element, Values>(ERSSTOREENERGY, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(ERSDEPLOYMODE, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(ERSHARVESTEDTHISLAPMGUK, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(ERSHARVESTEDTHISLAPMGUH, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(ERSDEPLOYEDTHISLAP, {Decoder4Bytes().decode(bytes, pos), 3}));
+        telemetry_.insert(std::pair<Element, Values>(NETWORKPAUSED, {Decoder1Byte().decode(bytes, pos), 1}));
     }
 
     PacketCarStatus::PacketCarStatus(const Bytes &bytes)

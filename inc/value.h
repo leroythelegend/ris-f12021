@@ -17,18 +17,22 @@ namespace ris
     {
     public:
         Values() = default;
-        Values(const Value element);
+        Values(const Value element, const int prefered);
 
-        const Value at(int index) const;
+        const double at(int index) const;
+        const Value value(int index) const;
 
-        void push_back(const Value &element);
+        void push_back(const Value &element, const int prefered);
 
         std::vector<Value>::const_iterator begin() const noexcept;
         std::vector<Value>::const_iterator end() const noexcept;
 
+        unsigned int size() const;
+
         std::string to_string() const;
 
     private:
+        int prefered_;
         std::vector<Value> elements;
     };
 

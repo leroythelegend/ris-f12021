@@ -36,6 +36,10 @@ add_executable(testpackets ./tests/test_packets.cpp)
 target_link_libraries(testpackets risf12021)
 add_test(NAME testpackets COMMAND testpackets)
 
+add_executable(testcsv ./tests/test_csv.cpp)
+target_link_libraries(testcsv risf12021)
+add_test(NAME testcsv COMMAND testcsv)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
