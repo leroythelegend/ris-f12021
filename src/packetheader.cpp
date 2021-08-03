@@ -22,15 +22,15 @@ namespace ris
 
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(PACKETFORMAT, {Decoder2Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(GAMEMAJORVERSION, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(GAMEMINORVERSION, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(PACKETVERSION, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(PACKETID, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(SESSIONUID, {Decoder8Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(SESSIONTIME, {Decoder4Bytes().decode(bytes, pos), 3}));
-        telemetry_.insert(std::pair<Element, Values>(FRAMEIDENTIFIER, {Decoder4Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(PLAYERCARINDEX, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(SECONDARYPLAYERCARINDEX, {Decoder1Byte().decode(bytes, pos), 1}));
+        telemetry_.insert(std::pair<Element, Values>(PACKETFORMAT, {Decoder2Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(GAMEMAJORVERSION, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(GAMEMINORVERSION, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(PACKETVERSION, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(PACKETID, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONUID, {Decoder8Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONTIME, {Decoder4Bytes().decode(bytes, pos), Prefered::FLOAT}));
+        telemetry_.insert(std::pair<Element, Values>(FRAMEIDENTIFIER, {Decoder4Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(PLAYERCARINDEX, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(SECONDARYPLAYERCARINDEX, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
     }
 } // namespace ris

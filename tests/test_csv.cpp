@@ -48,9 +48,19 @@ int main(int argc, char const *argv[])
                     {
                         for (auto const &[name, element] : val.at(0)->telemetry())
                         {
-                            for (auto _ : element)
+                            if (element.size() == 1)
                             {
-                                headers.push_back(name.to_string());
+                                for (auto _ : element)
+                                {
+                                    headers.push_back(name.to_string());
+                                }
+                            }
+                            else
+                            {
+                                for (unsigned int i = 1; i <= element.size(); ++i)
+                                {
+                                    headers.push_back(name.to_string() + "_" + to_string(i));
+                                }
                             }
                         }
                     }

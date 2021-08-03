@@ -29,7 +29,7 @@ namespace ris
 
     const Element PacketCarTelemetryData::CarTelemetry::CARTELEMETRY{"CARTELEMETRY"};
 
-    Values getArrayOf4Values(const Bytes &bytes, Pos &pos, int size, int prefered)
+    Values getArrayOf4Values(const Bytes &bytes, Pos &pos, int size, Prefered prefered)
     {
         Values result;
         for (int i = 0; i < 4; ++i)
@@ -56,22 +56,22 @@ namespace ris
 
     PacketCarTelemetryData::CarTelemetry::CarTelemetry(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(SPEED, {Decoder2Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(THROTTLE, {Decoder4Bytes().decode(bytes, pos), 3}));
-        telemetry_.insert(std::pair<Element, Values>(STEER, {Decoder4Bytes().decode(bytes, pos), 3}));
-        telemetry_.insert(std::pair<Element, Values>(BRAKE, {Decoder4Bytes().decode(bytes, pos), 3}));
-        telemetry_.insert(std::pair<Element, Values>(CLUTCH, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(GEAR, {Decoder1Byte().decode(bytes, pos), 2}));
-        telemetry_.insert(std::pair<Element, Values>(ENGINERPM, {Decoder2Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(DRS, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(REVLIGHTSPERCENT, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(REVLIGHTSBITVALUE, {Decoder2Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(BRAKESTEMPERATURE, getArrayOf4Values(bytes, pos, 2, 1)));
-        telemetry_.insert(std::pair<Element, Values>(TYRESSURFACETEMPERATURE, getArrayOf4Values(bytes, pos, 1, 1)));
-        telemetry_.insert(std::pair<Element, Values>(TYRESINNERTEMPERATURE, getArrayOf4Values(bytes, pos, 1, 1)));
-        telemetry_.insert(std::pair<Element, Values>(ENGINETEMPERATURE, {Decoder2Bytes().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(TYRESPRESSURE, getArrayOf4Values(bytes, pos, 4, 3)));
-        telemetry_.insert(std::pair<Element, Values>(SURFACETYPE, getArrayOf4Values(bytes, pos, 1, 1)));
+        telemetry_.insert(std::pair<Element, Values>(SPEED, {Decoder2Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(THROTTLE, {Decoder4Bytes().decode(bytes, pos), Prefered::FLOAT}));
+        telemetry_.insert(std::pair<Element, Values>(STEER, {Decoder4Bytes().decode(bytes, pos), Prefered::FLOAT}));
+        telemetry_.insert(std::pair<Element, Values>(BRAKE, {Decoder4Bytes().decode(bytes, pos), Prefered::FLOAT}));
+        telemetry_.insert(std::pair<Element, Values>(CLUTCH, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(GEAR, {Decoder1Byte().decode(bytes, pos), Prefered::SINT}));
+        telemetry_.insert(std::pair<Element, Values>(ENGINERPM, {Decoder2Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(DRS, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(REVLIGHTSPERCENT, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(REVLIGHTSBITVALUE, {Decoder2Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(BRAKESTEMPERATURE, getArrayOf4Values(bytes, pos, 2, Prefered::UINT)));
+        telemetry_.insert(std::pair<Element, Values>(TYRESSURFACETEMPERATURE, getArrayOf4Values(bytes, pos, 1, Prefered::UINT)));
+        telemetry_.insert(std::pair<Element, Values>(TYRESINNERTEMPERATURE, getArrayOf4Values(bytes, pos, 1, Prefered::UINT)));
+        telemetry_.insert(std::pair<Element, Values>(ENGINETEMPERATURE, {Decoder2Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(TYRESPRESSURE, getArrayOf4Values(bytes, pos, 4, Prefered::FLOAT)));
+        telemetry_.insert(std::pair<Element, Values>(SURFACETYPE, getArrayOf4Values(bytes, pos, 1, Prefered::UINT)));
     }
 
     const Element PacketCarTelemetryData::CarTelemetryData::MFDPANELINDEX{"MFDPANELINDEX"};
@@ -82,9 +82,9 @@ namespace ris
 
     PacketCarTelemetryData::CarTelemetryData::CarTelemetryData(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(MFDPANELINDEX, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(MFDPANELINDEXSECONDARYPLAYER, {Decoder1Byte().decode(bytes, pos), 1}));
-        telemetry_.insert(std::pair<Element, Values>(SUGGESTEDGEAR, {Decoder1Byte().decode(bytes, pos), 2}));
+        telemetry_.insert(std::pair<Element, Values>(MFDPANELINDEX, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(MFDPANELINDEXSECONDARYPLAYER, {Decoder1Byte().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(SUGGESTEDGEAR, {Decoder1Byte().decode(bytes, pos), Prefered::SINT}));
     }
 
     PacketCarTelemetryData::PacketCarTelemetryData(const Bytes &bytes)

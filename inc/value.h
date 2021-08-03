@@ -13,16 +13,23 @@ namespace ris
         float Float = 0;
     };
 
+    enum class Prefered
+    {
+        UINT,
+        SINT,
+        FLOAT
+    };
+
     class Values
     {
     public:
         Values() = default;
-        Values(const Value element, const int prefered);
+        Values(const Value, const Prefered);
 
-        const double at(int index) const;
-        const Value value(int index) const;
+        const double at(int) const;
+        const Value value(int) const;
 
-        void push_back(const Value &element, const int prefered);
+        void push_back(const Value &element, const Prefered);
 
         std::vector<Value>::const_iterator begin() const noexcept;
         std::vector<Value>::const_iterator end() const noexcept;
@@ -32,7 +39,7 @@ namespace ris
         std::string to_string() const;
 
     private:
-        int prefered_;
+        Prefered prefered_;
         std::vector<Value> elements;
     };
 

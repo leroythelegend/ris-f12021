@@ -2,7 +2,7 @@
 
 namespace ris
 {
-    Values::Values(const Value value, const int prefered)
+    Values::Values(const Value value, const Prefered prefered)
         : prefered_(prefered)
     {
         elements.push_back(value);
@@ -11,15 +11,15 @@ namespace ris
     const double Values::at(int index) const
     {
         double result;
-        if (prefered_ == 1)
+        if (prefered_ == Prefered::UINT)
         {
             result = elements.at(index).UInt;
         }
-        else if (prefered_ == 2)
+        else if (prefered_ == Prefered::SINT)
         {
             result = elements.at(index).SInt;
         }
-        else if (prefered_ == 3)
+        else if (prefered_ == Prefered::FLOAT)
         {
             result = elements.at(index).Float;
         }
@@ -31,7 +31,7 @@ namespace ris
         return elements.at(index);
     }
 
-    void Values::push_back(const Value &value, const int prefered)
+    void Values::push_back(const Value &value, const Prefered prefered)
     {
         prefered_ = prefered;
         elements.push_back(value);
