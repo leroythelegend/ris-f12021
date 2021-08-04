@@ -10,16 +10,18 @@ enable_testing()
 
 add_library(risf12021 ./src/networkudp.cpp
                       ./src/networkfile.cpp
-                      ./src/decoder.cpp
-                      ./src/decoder1byte.cpp
-                      ./src/decoder2bytes.cpp
-                      ./src/decoder4bytes.cpp
-                      ./src/decoder8bytes.cpp
-                      ./src/packet.cpp
-                      ./src/packetheader.cpp
-                      ./src/packetevent.cpp
-                      ./src/packetcarstatus.cpp
-                      ./src/packetcartelemetrydata.cpp
+                      ./src/decoderuint8.cpp
+                      ./src/decoderuint16.cpp
+                      ./src/decoderuint32.cpp
+                      ./src/decoderint8.cpp
+                      ./src/decoderint16.cpp
+                      ./src/decoderfloat.cpp
+                      ./src/decoderuint64.cpp
+                    #   ./src/packet.cpp
+                    #   ./src/packetheader.cpp
+                    #   ./src/packetevent.cpp
+                    #   ./src/packetcarstatus.cpp
+                    #   ./src/packetcartelemetrydata.cpp
                       ./src/value.cpp
                       )
 

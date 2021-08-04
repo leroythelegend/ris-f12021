@@ -2,11 +2,13 @@
 
 namespace ris
 {
-    void DecoderUInt16::decode(const Bytes &bytes, Pos &pos)
+    double DecoderUInt16::decode(const Bytes &bytes, Pos &pos)
     {
-        uint_ = ((bytes.at(pos + 1) << 8) | 
-                 (bytes.at(pos)));
-        pos += 2;
-    }
+        uint16_t result = ((bytes.at(pos + 1) << 8) |
+                          (bytes.at(pos)));
 
+        pos += 2;
+
+        return result;
+    }
 } // namespace ris
