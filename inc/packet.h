@@ -9,25 +9,37 @@
 
 namespace ris
 {
+
+    class SubPacket
+    {
+    public:
+        using Ptr = std::shared_ptr<SubPacket>;
+        using TelemetryMap = std::map<Element, Values>;
+
+        virtual ~SubPacket() = default;
+
+        Values telemetry(const Element &) const;
+        TelemetryMap telemetry() const;
+
+    protected:
+        TelemetryMap telemetry_;
+    };
+
     class Packet
     {
     public:
         using Ptr = std::shared_ptr<Packet>;
+        using SubPackets = std::vector<SubPacket::Ptr>;
+        using PacketMap = std::map<Element, SubPackets>;
 
         virtual ~Packet() = default;
 
-        Values value(const Element &) const;
-        std::map<Element, Values> telemetry() const;
-
-        std::vector<Packet::Ptr> packets(const Element &) const;
-
-        std::map<Element, std::vector<Packet::Ptr>> packets() const;
+        SubPackets packets(const Element &) const;
+        PacketMap packets() const;
 
     protected:
-        void add(const Element &, const std::vector<Packet::Ptr> &);
-
-        std::map<Element, Values> telemetry_;
-        std::map<Element, std::vector<Packet::Ptr>> packets_;
+        void add(const Element &, const SubPackets &);
+        PacketMap packets_;
 
         Packet() = default;
     };

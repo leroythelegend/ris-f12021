@@ -8,7 +8,7 @@ namespace ris
     class PacketEvent : public Packet
     {
     public:
-        class Buttons : public Packet
+        class Buttons : public SubPacket
         {
         public:
             static const Element BUTTONSTATUS;
@@ -18,7 +18,7 @@ namespace ris
             ~Buttons() override = default;
         };
 
-        class Flashback : public Packet
+        class Flashback : public SubPacket
         {
         public:
             static const Element FLASHBACKFRAMEIDENTIFIER;
@@ -29,7 +29,7 @@ namespace ris
             ~Flashback() override = default;
         };
 
-        class Event : public Packet
+        class Event : public SubPacket
         {
         public:
             static const Element EVENTSTRINGCODE;

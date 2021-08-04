@@ -8,7 +8,7 @@ namespace ris
     class PacketCarTelemetryData : public Packet
     {
     public:
-        class CarTelemetry : public Packet
+        class CarTelemetry : public SubPacket
         {
         public:
             static const Element SPEED;
@@ -34,7 +34,7 @@ namespace ris
             ~CarTelemetry() override = default;
         };
 
-        class CarTelemetryData : public Packet
+        class CarTelemetryData : public SubPacket
         {
         public:
             static const Element MFDPANELINDEX;
@@ -51,7 +51,7 @@ namespace ris
         ~PacketCarTelemetryData() override = default;
 
     private:
-        std::vector<Packet::Ptr> getParticpantsCarTelemetry(const Bytes &, Pos &);
+        Packet::SubPackets getParticpantsCarTelemetry(const Bytes &, Pos &);
     };
 
 } // namespace ris

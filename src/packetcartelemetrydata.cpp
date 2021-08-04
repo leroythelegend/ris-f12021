@@ -69,14 +69,14 @@ namespace ris
     PacketCarTelemetryData::PacketCarTelemetryData(const Bytes &bytes)
     {
         unsigned int pos = 0;
-        Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
+        Packet::add(PacketHeader::PACKETHEADER, SubPackets{std::make_shared<PacketHeader>(bytes, pos)});
         Packet::add(CarTelemetry::CARTELEMETRY, getParticpantsCarTelemetry(bytes, pos));
-        Packet::add(CarTelemetryData::CARTELEMETRYDATA, std::vector<Packet::Ptr>{std::make_shared<CarTelemetryData>(bytes, pos)});
+        Packet::add(CarTelemetryData::CARTELEMETRYDATA, SubPackets{std::make_shared<CarTelemetryData>(bytes, pos)});
     }
 
-    std::vector<Packet::Ptr> PacketCarTelemetryData::getParticpantsCarTelemetry(const Bytes &bytes, Pos &pos)
+    Packet::SubPackets PacketCarTelemetryData::getParticpantsCarTelemetry(const Bytes &bytes, Pos &pos)
     {
-        std::vector<Packet::Ptr> result;
+        SubPackets result;
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
             result.push_back(std::make_shared<CarTelemetry>(bytes, pos));

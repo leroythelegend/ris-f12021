@@ -40,22 +40,22 @@ namespace ris
     PacketEvent::PacketEvent(const Bytes &bytes)
     {
         unsigned int pos = 0;
-        Packet::add(PacketHeader::PACKETHEADER, std::vector<Packet::Ptr>{std::make_shared<PacketHeader>(bytes, pos)});
-        Packet::add(PacketEvent::Event::EVENT, std::vector<Packet::Ptr>{std::make_shared<Event>(bytes, pos)});
+        Packet::add(PacketHeader::PACKETHEADER, SubPackets{std::make_shared<PacketHeader>(bytes, pos)});
+        Packet::add(PacketEvent::Event::EVENT, SubPackets{std::make_shared<Event>(bytes, pos)});
 
         addCorrectEventDetailsToPacket(bytes, pos);
     }
 
     void PacketEvent::addCorrectEventDetailsToPacket(const Bytes &bytes, Pos &pos)
     {
-        std::string eventdetails = packets(Event::EVENT).at(0)->value(Event::EVENTSTRINGCODE).to_string();
+        std::string eventdetails = packets(Event::EVENT).at(0)->telemetry(Event::EVENTSTRINGCODE).to_string();
         if (eventdetails == "BUTN")
         {
-            Packet::add(PacketEvent::Buttons::BUTTONS, std::vector<Packet::Ptr>{std::make_shared<Buttons>(bytes, pos)});
+            Packet::add(PacketEvent::Buttons::BUTTONS, SubPackets{std::make_shared<Buttons>(bytes, pos)});
         }
         else if (eventdetails == "FLBK")
         {
-            Packet::add(PacketEvent::Flashback::FLASHBACK, std::vector<Packet::Ptr>{std::make_shared<Flashback>(bytes, pos)});
+            Packet::add(PacketEvent::Flashback::FLASHBACK, SubPackets{std::make_shared<Flashback>(bytes, pos)});
         }
     }
 

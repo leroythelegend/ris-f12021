@@ -8,7 +8,7 @@ namespace ris
     class PacketCarStatus : public Packet
     {
     public:
-        class CarStatusData : public Packet
+        class CarStatusData : public SubPacket
         {
         public:
             static const Element TRACTIONCONTROL;
@@ -45,7 +45,7 @@ namespace ris
         ~PacketCarStatus() override = default;
 
     private:
-        std::vector<Packet::Ptr> getParticpantsCarStatus(const Bytes &, Pos &);
+        Packet::SubPackets getParticpantsCarStatus(const Bytes &, Pos &);
     };
 
 } // namespace ris

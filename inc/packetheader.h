@@ -8,7 +8,7 @@
 
 namespace ris
 {
-    class PacketHeader : public Packet
+    class PacketHeader : public SubPacket
     {
     public:
         static const Element PACKETFORMAT;
