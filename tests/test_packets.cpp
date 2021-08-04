@@ -1,136 +1,128 @@
-// #include <iostream>
+#include <iostream>
 
-// #include "tests.h"
+#include "tests.h"
 
-// #include "../inc/networkfile.h"
+#include "../inc/networkfile.h"
 
-// #include "../inc/decoder1byte.h"
-// #include "../inc/decoder2bytes.h"
-// #include "../inc/decoder4bytes.h"
-// #include "../inc/decoder8bytes.h"
+#include "../inc/decoderuint8.h"
+#include "../inc/decoderint8.h"
+#include "../inc/decoderuint16.h"
+#include "../inc/decoderint16.h"
+#include "../inc/decoderuint32.h"
+#include "../inc/decoderuint64.h"
+#include "../inc/decoderfloat.h"
 
-// #include "../inc/packetheader.h"
-// #include "../inc/packetevent.h"
-// #include "../inc/packetcarstatus.h"
-// #include "../inc/packetcartelemetrydata.h"
+#include "../inc/packetheader.h"
+#include "../inc/packetevent.h"
+#include "../inc/packetcarstatus.h"
+#include "../inc/packetcartelemetrydata.h"
 
-// #include "../inc/element.h"
+#include "../inc/element.h"
 
-// using namespace std;
-// using namespace ris;
+using namespace std;
+using namespace ris;
 
 int main(int argc, char const *argv[])
 {
 
-//     Bytes eventpacket;
-//     Bytes carstatuspacket;
-//     Bytes cartelemetrypacket;
+    Bytes eventpacket;
+    Bytes carstatuspacket;
+    Bytes cartelemetrypacket;
 
-//     try
-//     {
-//         NetworkFile e("../tests/vectors/event_packet.bin");
-//         eventpacket = e.read();
-//         NetworkFile c("../tests/vectors/car_status.bin");
-//         carstatuspacket = c.read();
-//         NetworkFile t("../tests/vectors/car_telemetry.bin");
-//         cartelemetrypacket = t.read();
-//     }
-//     catch (const std::exception &e)
-//     {
-//         std::cerr << e.what() << '\n';
-//     }
+    try
+    {
+        NetworkFile e("../tests/vectors/event_packet.bin");
+        eventpacket = e.read();
+        NetworkFile c("../tests/vectors/car_status.bin");
+        carstatuspacket = c.read();
+        NetworkFile t("../tests/vectors/car_telemetry.bin");
+        cartelemetrypacket = t.read();
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
-//     try
-//     {
-//         cout << "test decode packet header" << endl;
+    try
+    {
+        cout << "test decode packet header" << endl;
 
-//         // struct PacketHeader
-//         // {
-//         //     uint16    m_packetFormat;            // 2021
-//         //     uint8     m_gameMajorVersion;        // Game major version - "X.00"
-//         //     uint8     m_gameMinorVersion;        // Game minor version - "1.XX"
-//         //     uint8     m_packetVersion;           // Version of this packet type, all start from 1
-//         //     uint8     m_packetId;                // Identifier for the packet type, see below
-//         //     uint64    m_sessionUID;              // Unique identifier for the session
-//         //     float     m_sessionTime;             // Session timestamp
-//         //     uint32    m_frameIdentifier;         // Identifier for the frame the data was retrieved on
-//         //     uint8     m_playerCarIndex;          // Index of player's car in the array
-//         //     uint8     m_secondaryPlayerCarIndex; // Index of secondary player's car in the array (splitscreen)
-//         //                                          // 255 if no second player
-//         // };
+        unsigned int pos = 0;
 
-//         unsigned int pos = 0;
+        DecoderUInt8 duint8;
+        DecoderInt8 dint8;
+        DecoderUInt16 duint16;
+        DecoderInt16 dint16;
+        DecoderUInt32 duint32;
+        DecoderUInt64 duint64;
+        DecoderFloat dfloat;
 
-//         Decoder1Byte byte;
-//         Decoder2Bytes byte2;
-//         Decoder4Bytes byte4;
-//         Decoder8Bytes byte8;
 
-//         // packet format
-//         test_assert(byte2.decode(eventpacket, pos).UInt == 2021);
+        // packet format
+        test_assert(duint16.decode(eventpacket, pos) == 2021);
 
-//         // game major version
+        // game major version
 
-//         test_assert(byte.decode(eventpacket, pos).UInt == 1);
+        test_assert(duint8.decode(eventpacket, pos) == 1);
 
-//         // game minor version
+        // game minor version
 
-//         test_assert(byte.decode(eventpacket, pos).UInt == 4);
+        test_assert(duint8.decode(eventpacket, pos) == 4);
 
-//         // packet version
+        // packet version
 
-//         test_assert(byte.decode(eventpacket, pos).UInt == 1);
+        test_assert(duint8.decode(eventpacket, pos) == 1);
 
-//         // packet id
+        // packet id
 
-//         test_assert(byte.decode(eventpacket, pos).UInt == 3);
+        test_assert(duint8.decode(eventpacket, pos) == 3);
 
-//         // session uid
+        // session uid
 
-//         test_assert(byte8.decode(eventpacket, pos).UInt == 14042512579407427396U);
+        test_assert(duint64.decode(eventpacket, pos) == 2741612942);
 
-//         // session timestamp
+        // session timestamp
 
-//         test_assert(byte4.decode(eventpacket, pos).Float == 80.4851379F);
+        test_assert(dfloat.decode(eventpacket, pos) == 80.485137939453125);
 
-//         // Frame Identifier
+        // Frame Identifier
 
-//         test_assert(byte4.decode(eventpacket, pos).UInt == 1684);
+        test_assert(duint32.decode(eventpacket, pos) == 1684);
 
-//         // player car index
+        // player car index
 
-//         test_assert(byte.decode(eventpacket, pos).UInt == 0);
+        test_assert(duint8.decode(eventpacket, pos) == 0);
 
-//         // secondary player index
+        // secondary player index
 
-//         test_assert(byte.decode(eventpacket, pos).UInt == 255);
-//     }
-//     catch (const std::exception &e)
-//     {
-//         std::cerr << e.what() << '\n';
-//     }
+        test_assert(duint8.decode(eventpacket, pos) == 255);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
-//     try
-//     {
-//         unsigned int pos = 0;
-//         PacketHeader p(eventpacket, pos);
+    try
+    {
+        unsigned int pos = 0;
+        PacketHeader p(eventpacket, pos);
 
-//         test_assert(p.value(PacketHeader::PACKETFORMAT).value(0).UInt == 2021);
-//         test_assert(p.value(PacketHeader::GAMEMAJORVERSION).value(0).UInt == 1);
-//         test_assert(p.value(PacketHeader::GAMEMINORVERSION).value(0).UInt == 4);
-//         test_assert(p.value(PacketHeader::PACKETVERSION).value(0).UInt == 1);
-//         test_assert(p.value(PacketHeader::PACKETID).value(0).UInt == 3);
-//         test_assert(p.value(PacketHeader::SESSIONUID).value(0).UInt == 14042512579407427396U);
-//         test_assert(p.value(PacketHeader::SESSIONTIME).value(0).Float == 80.4851379F);
-//         test_assert(p.value(PacketHeader::FRAMEIDENTIFIER).value(0).UInt == 1684);
-//         test_assert(p.value(PacketHeader::PLAYERCARINDEX).value(0).UInt == 0);
-//         test_assert(p.value(PacketHeader::SECONDARYPLAYERCARINDEX).value(0).UInt == 255);
-//     }
-//     catch (const std::exception &e)
-//     {
-//         std::cerr << e.what() << '\n';
-//         return 1;
-//     }
+        test_assert(p.value(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.value(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.value(PacketHeader::GAMEMINORVERSION).at(0) == 4);
+        test_assert(p.value(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.value(PacketHeader::PACKETID).at(0) == 3);
+        test_assert(p.value(PacketHeader::SESSIONUID).at(0) == 2741612942);
+        test_assert(p.value(PacketHeader::SESSIONTIME).at(0) == 80.485137939453125);
+        test_assert(p.value(PacketHeader::FRAMEIDENTIFIER).at(0) == 1684);
+        test_assert(p.value(PacketHeader::PLAYERCARINDEX).at(0) == 0);
+        test_assert(p.value(PacketHeader::SECONDARYPLAYERCARINDEX).at(0) == 255);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
 
 //     try
 //     {

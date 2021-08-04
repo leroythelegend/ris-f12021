@@ -1,9 +1,12 @@
 #include "../inc/packetcarstatus.h"
 #include "../inc/packetheader.h"
 
-#include "../inc/decoder1byte.h"
-#include "../inc/decoder2bytes.h"
-#include "../inc/decoder4bytes.h"
+#include "../inc/decoderuint8.h"
+#include "../inc/decoderint8.h"
+#include "../inc/decoderuint16.h"
+#include "../inc/decoderint16.h"
+#include "../inc/decoderuint32.h"
+#include "../inc/decoderfloat.h"
 
 namespace ris
 {

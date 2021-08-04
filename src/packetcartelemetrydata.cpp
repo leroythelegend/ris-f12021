@@ -1,9 +1,13 @@
 #include "../inc/packetcartelemetrydata.h"
 #include "../inc/packetheader.h"
 
-#include "../inc/decoder1byte.h"
-#include "../inc/decoder2bytes.h"
-#include "../inc/decoder4bytes.h"
+#include "../inc/decoderuint8.h"
+#include "../inc/decoderint8.h"
+#include "../inc/decoderuint16.h"
+#include "../inc/decoderint16.h"
+#include "../inc/decoderuint32.h"
+#include "../inc/decoderfloat.h"
+
 
 #include <stdexcept>
 
@@ -28,31 +32,6 @@ namespace ris
     const Element PacketCarTelemetryData::CarTelemetry::SURFACETYPE{"SURFACETYPE"};
 
     const Element PacketCarTelemetryData::CarTelemetry::CARTELEMETRY{"CARTELEMETRY"};
-
-    Values getArrayOf4Values(const Bytes &bytes, Pos &pos, int size, Prefered prefered)
-    {
-        Values result;
-        for (int i = 0; i < 4; ++i)
-        {
-            if (size == 1)
-            {
-                result.push_back(Decoder1Byte().decode(bytes, pos), prefered);
-            }
-            else if (size == 2)
-            {
-                result.push_back(Decoder2Bytes().decode(bytes, pos), prefered);
-            }
-            else if (size == 4)
-            {
-                result.push_back(Decoder4Bytes().decode(bytes, pos), prefered);
-            }
-            else
-            {
-                throw std::runtime_error("wrong size bytes");
-            }
-        }
-        return result;
-    }
 
     PacketCarTelemetryData::CarTelemetry::CarTelemetry(const Bytes &bytes, Pos &pos)
     {

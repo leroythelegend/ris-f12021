@@ -17,8 +17,8 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/decoderint16.cpp
                       ./src/decoderfloat.cpp
                       ./src/decoderuint64.cpp
-                    #   ./src/packet.cpp
-                    #   ./src/packetheader.cpp
+                      ./src/packet.cpp
+                      ./src/packetheader.cpp
                     #   ./src/packetevent.cpp
                     #   ./src/packetcarstatus.cpp
                     #   ./src/packetcartelemetrydata.cpp
