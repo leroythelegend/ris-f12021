@@ -6,7 +6,25 @@
 
 namespace ris
 {
-    using Values = std::vector<double>;
+    class Values : private std::vector<double>
+    {
+        typedef double T;
+        typedef std::vector<double> vector;
+
+    public:
+        using vector::at;
+        using vector::begin;
+        using vector::end;
+        using vector::push_back;
+
+        Values() = default;
+        Values(std::initializer_list<double> il)
+            : vector(il) {}
+        virtual ~Values() = default;
+
+        std::string to_string() const;
+    };
+    // using Values = std::vector<double>;
     // struct Value
     // {
     //     uint64_t UInt = 0;

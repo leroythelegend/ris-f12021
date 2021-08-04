@@ -2,6 +2,16 @@
 
 namespace ris
 {
+    std::string Values::to_string() const
+    {
+        std::string result;
+        for (auto value : *this)
+        {
+            result.append(1, static_cast<char>(value));
+        }
+        return result;
+    }
+    
     // Values::Values(const Value value, const Prefered prefered)
     //     : prefered_(prefered)
     // {
