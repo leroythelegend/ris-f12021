@@ -16,7 +16,7 @@ namespace ris
 
     PacketEvent::Buttons::Buttons(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Buttons::BUTTONSTATUS, {Decoder4Bytes().decode(bytes, pos), Prefered::UINT}));
+        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Buttons::BUTTONSTATUS, {DecoderUInt32().decode(bytes, pos)}));
     };
 
     const Element PacketEvent::Flashback::FLASHBACKFRAMEIDENTIFIER{"FLASHBACKFRAMEIDENTIFIER"};
@@ -25,8 +25,8 @@ namespace ris
 
     PacketEvent::Flashback::Flashback(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Flashback::FLASHBACKFRAMEIDENTIFIER, {Decoder4Bytes().decode(bytes, pos), Prefered::UINT}));
-        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Flashback::FLASHBACKSESSIONTIME, {Decoder4Bytes().decode(bytes, pos), Prefered::FLOAT}));
+        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Flashback::FLASHBACKFRAMEIDENTIFIER, {DecoderUInt32().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Flashback::FLASHBACKSESSIONTIME, {DecoderFloat().decode(bytes, pos)}));
     }
 
     const Element PacketEvent::Event::EVENTSTRINGCODE{"EVENTSTRINGCODE"};
@@ -34,13 +34,7 @@ namespace ris
 
     PacketEvent::Event::Event(const Bytes &bytes, Pos &pos)
     {
-        Values eventstringcode;
-        for (int i = 0; i < 4; ++i)
-        {
-            eventstringcode.push_back(Decoder1Byte().decode(bytes, pos), Prefered::UINT);
-        }
-
-        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Event::EVENTSTRINGCODE, eventstringcode));
+        telemetry_.insert(std::pair<Element, Values>(PacketEvent::Event::EVENTSTRINGCODE, DecoderUInt8().decode(bytes, pos, 4)));
     }
 
     PacketEvent::PacketEvent(const Bytes &bytes)

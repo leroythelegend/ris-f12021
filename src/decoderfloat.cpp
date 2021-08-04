@@ -19,4 +19,14 @@ namespace ris
         return result;
     }
 
+    Values DecoderFloat::decode(const Bytes &bytes, Pos &pos, const Amount &amount)
+    {
+        Values result;
+        for (int i = 0; i < amount; ++i)
+        {
+            result.push_back(DecoderFloat::decode(bytes, pos));
+        }
+        return result;
+    }
+
 } // namespace ris

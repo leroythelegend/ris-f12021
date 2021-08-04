@@ -25,7 +25,6 @@ namespace ris
 
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
-        double a;
         telemetry_.insert(std::pair<Element, Values>(PACKETFORMAT, {DecoderUInt16().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(GAMEMAJORVERSION, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(GAMEMINORVERSION, {DecoderUInt8().decode(bytes, pos)}));

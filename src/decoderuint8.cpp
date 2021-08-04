@@ -9,4 +9,14 @@ namespace ris
         return result;
     }
 
+    Values DecoderUInt8::decode(const Bytes &bytes, Pos &pos, const Amount &amount)
+    {
+        Values result;
+        for (int i = 0; i < amount; ++i)
+        {
+            result.push_back(DecoderUInt8::decode(bytes, pos));
+        }
+        return result;
+    }
+
 } // namespace ris

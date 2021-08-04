@@ -16,6 +16,7 @@ namespace ris
         using vector::begin;
         using vector::end;
         using vector::push_back;
+        using vector::size;
 
         Values() = default;
         Values(std::initializer_list<double> il)

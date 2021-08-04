@@ -1,114 +1,114 @@
-// #include <iostream>
-// #include <string>
-// #include <fstream>
+#include <iostream>
+#include <string>
+#include <fstream>
 
-// #include "../inc/packetheader.h"
-// #include "../inc/packetcartelemetrydata.h"
-// #include "../inc/networkfile.h"
+#include "../inc/packetheader.h"
+#include "../inc/packetcartelemetrydata.h"
+#include "../inc/networkfile.h"
 
-// using namespace std;
-// using namespace ris;
+using namespace std;
+using namespace ris;
 
 int main(int argc, char const *argv[])
 {
-//     Bytes cartelemetrypacket;
+    Bytes cartelemetrypacket;
 
-//     try
-//     {
-//         NetworkFile t("../tests/vectors/car_telemetry.bin");
-//         cartelemetrypacket = t.read();
-//     }
-//     catch (const std::exception &e)
-//     {
-//         std::cerr << e.what() << '\n';
-//     }
+    try
+    {
+        NetworkFile t("../tests/vectors/car_telemetry.bin");
+        cartelemetrypacket = t.read();
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
-//     try
-//     {
-//         ofstream o("/tmp/test.csv");
+    try
+    {
+        ofstream o("/tmp/test.csv");
 
-//         vector<Packet::Ptr> p;
-//         p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
-//         p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
-//         p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
-//         p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
-//         p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
+        vector<Packet::Ptr> p;
+        p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
+        p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
+        p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
+        p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
+        p.push_back(make_shared<PacketCarTelemetryData>(cartelemetrypacket));
 
-//         vector<string> headers;
-//         vector<vector<string>> values;
+        vector<string> headers;
+        vector<vector<string>> values;
 
-//         bool haveHeaders = false;
-//         for (auto ps : p)
-//         {
-//             if (!haveHeaders)
-//             {
-//                 for (auto const &[key, val] : ps->packets())
-//                 {
-//                     if (key.to_string() != PacketHeader::PACKETHEADER.to_string())
-//                     {
-//                         for (auto const &[name, element] : val.at(0)->telemetry())
-//                         {
-//                             if (element.size() == 1)
-//                             {
-//                                 for (auto _ : element)
-//                                 {
-//                                     headers.push_back(name.to_string());
-//                                 }
-//                             }
-//                             else
-//                             {
-//                                 for (unsigned int i = 1; i <= element.size(); ++i)
-//                                 {
-//                                     headers.push_back(name.to_string() + "_" + to_string(i));
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//                 haveHeaders = true;
-//             }
+        bool haveHeaders = false;
+        for (auto ps : p)
+        {
+            if (!haveHeaders)
+            {
+                for (auto const &[key, val] : ps->packets())
+                {
+                    if (key.to_string() != PacketHeader::PACKETHEADER.to_string())
+                    {
+                        for (auto const &[name, element] : val.at(0)->telemetry())
+                        {
+                            if (element.size() == 1)
+                            {
+                                for (auto _ : element)
+                                {
+                                    headers.push_back(name.to_string());
+                                }
+                            }
+                            else
+                            {
+                                for (unsigned int i = 1; i <= element.size(); ++i)
+                                {
+                                    headers.push_back(name.to_string() + "_" + to_string(i));
+                                }
+                            }
+                        }
+                    }
+                }
+                haveHeaders = true;
+            }
 
-//             vector<string> row;
-//             for (auto packet : ps->packets())
-//             {
-//                 if (packet.first.to_string() != PacketHeader::PACKETHEADER.to_string())
-//                 {
-//                     for (auto telemetry : packet.second.at(ps->packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).value(0).UInt)->telemetry())
-//                     {
-//                         for (unsigned int i = 0; i < telemetry.second.size(); ++i)
-//                         {
-//                             row.push_back(to_string(telemetry.second.at(i)));
-//                         }
-//                     }
-//                 }
-//             }
-//             values.push_back(row);
-//             row.clear();
-//         }
+            vector<string> row;
+            for (auto packet : ps->packets())
+            {
+                if (packet.first.to_string() != PacketHeader::PACKETHEADER.to_string())
+                {
+                    for (auto telemetry : packet.second.at(ps->packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0))->telemetry())
+                    {
+                        for (unsigned int i = 0; i < telemetry.second.size(); ++i)
+                        {
+                            row.push_back(to_string(telemetry.second.at(i)));
+                        }
+                    }
+                }
+            }
+            values.push_back(row);
+            row.clear();
+        }
 
-//         string str;
-//         for (auto h : headers)
-//         {
-//             str += h + ",";
-//         }
-//         str.pop_back();
-//         o << str << endl;
-//         str.clear();
-//         for (auto v : values)
-//         {
-//             for (auto r : v)
-//             {
-//                 str += r + ",";
-//             }
-//             str.pop_back();
-//             o << str << endl;
-//             str.clear();
-//         }
-//     }
-//     catch (const std::exception &e)
-//     {
-//         std::cerr << e.what() << '\n';
-//     }
+        string str;
+        for (auto h : headers)
+        {
+            str += h + ",";
+        }
+        str.pop_back();
+        o << str << endl;
+        str.clear();
+        for (auto v : values)
+        {
+            for (auto r : v)
+            {
+                str += r + ",";
+            }
+            str.pop_back();
+            o << str << endl;
+            str.clear();
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
-//     return 0;
+    return 0;
 }
