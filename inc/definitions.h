@@ -7,7 +7,7 @@ namespace ris
 {
     using Bytes = std::vector<unsigned char>;
     using Pos = unsigned int;
-    using Amount = unsigned int;
+    using Amount = int;
 
     const int NUMBEROFPARTICIPANTS = 22;
 

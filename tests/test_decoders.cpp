@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 
@@ -81,7 +81,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 
@@ -110,7 +110,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 
@@ -138,7 +138,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 
@@ -167,7 +167,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 
@@ -198,7 +198,7 @@ int main(int argc, char const *argv[])
             d.decode(bytes, pos);
             test_assert(false);
         }
-        catch (const std::exception &e)
+        catch (const std::exception &)
         {
         }
 

@@ -73,7 +73,7 @@ int main(int argc, char const *argv[])
             {
                 if (packet.first.to_string() != PacketHeader::PACKETHEADER.to_string())
                 {
-                    for (auto telemetry : packet.second.at(ps->packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0))->telemetry())
+                    for (auto telemetry : packet.second.at(static_cast<size_t>(ps->packets(PacketHeader::PACKETHEADER).at(0)->value(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry())
                     {
                         for (unsigned int i = 0; i < telemetry.second.size(); ++i)
                         {

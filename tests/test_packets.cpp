@@ -165,7 +165,7 @@ int main(int argc, char const *argv[])
         // loop through number of participants making sure we don't throw.
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
-            unsigned int a; // stop warning
+            double a; // stop warning
             a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::TRACTIONCONTROL).at(0);
             a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::ANTILOCKBRAKES).at(0);
             a = p.packets(PacketCarStatus::CarStatusData::CARSTATUSDATA).at(i)->value(PacketCarStatus::CarStatusData::FUELMIX).at(0);
@@ -238,7 +238,7 @@ int main(int argc, char const *argv[])
         // loop through number of participants making sure we don't throw.
         for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
         {
-            unsigned int a; // stop warning
+            double a; // stop warning
             a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::SPEED).at(0);
             a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::THROTTLE).at(0);
             a = p.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(i)->value(PacketCarTelemetryData::CarTelemetry::STEER).at(0);
