@@ -11,32 +11,32 @@ namespace ris
         class LapData : public SubPacket
         {
         public:
-            static const Element LASTLAPTIMEINMS;
-            static const Element CURRENTLAPTIMEINMS;
-            static const Element SECTOR1TIMEINMS;
-            static const Element SECTOR2TIMEINMS;
-            static const Element LAPDISTANCE;
-            static const Element TOTALDISTANCE;
-            static const Element SAFETYCARDELTA;
-            static const Element CARPOSITION;
-            static const Element CURRENTLAPNUM;
-            static const Element PITSTATUS;
-            static const Element NUMPITSTOPS;
-            static const Element SECTOR;
-            static const Element CURRENTLAPINVALID;
-            static const Element PENALTIES;
-            static const Element WARNINGS;
-            static const Element NUMUNSERVEDDRIVETHROUGHPENS;
-            static const Element NUMUNSERVEDSTOPGOPENS;
-            static const Element GRIDPOSITION;
-            static const Element DRIVERSTATUS;
-            static const Element RESULTSTATUS;
-            static const Element PITLANETIMERACTIVE;
-            static const Element PITLANETIMEINLANEINMS;
-            static const Element PITSTOPTIMERINMS;
-            static const Element PITSTOPSHOULDSERVEPEN;
+            inline static const Element LASTLAPTIMEINMS{"LASTLAPTIMEINMS"};
+            inline static const Element CURRENTLAPTIMEINMS{"CURRENTLAPTIMEINMS"};
+            inline static const Element SECTOR1TIMEINMS{"SECTOR1TIMEINMS"};
+            inline static const Element SECTOR2TIMEINMS{"SECTOR2TIMEINMS"};
+            inline static const Element LAPDISTANCE{"LAPDISTANCE"};
+            inline static const Element TOTALDISTANCE{"TOTALDISTANCE"};
+            inline static const Element SAFETYCARDELTA{"SAFETYCARDELTA"};
+            inline static const Element CARPOSITION{"CARPOSITION"};
+            inline static const Element CURRENTLAPNUM{"CURRENTLAPNUM"};
+            inline static const Element PITSTATUS{"PITSTATUS"};
+            inline static const Element NUMPITSTOPS{"NUMPITSTOPS"};
+            inline static const Element SECTOR{"SECTOR"};
+            inline static const Element CURRENTLAPINVALID{"CURRENTLAPINVALID"};
+            inline static const Element PENALTIES{"PENALTIES"};
+            inline static const Element WARNINGS{"WARNINGS"};
+            inline static const Element NUMUNSERVEDDRIVETHROUGHPENS{"NUMUNSERVEDDRIVETHROUGHPENS"};
+            inline static const Element NUMUNSERVEDSTOPGOPENS{"NUMUNSERVEDSTOPGOPENS"};
+            inline static const Element GRIDPOSITION{"GRIDPOSITION"};
+            inline static const Element DRIVERSTATUS{"DRIVERSTATUS"};
+            inline static const Element RESULTSTATUS{"RESULTSTATUS"};
+            inline static const Element PITLANETIMERACTIVE{"PITLANETIMERACTIVE"};
+            inline static const Element PITLANETIMEINLANEINMS{"PITLANETIMEINLANEINMS"};
+            inline static const Element PITSTOPTIMERINMS{"PITSTOPTIMERINMS"};
+            inline static const Element PITSTOPSHOULDSERVEPEN{"PITSTOPSHOULDSERVEPEN"};
 
-            static const Element LAPDATA;
+            inline static const Element LAPDATA{"LAPDATA"};
 
             LapData(const Bytes &, Pos &);
             ~LapData() override = default;

@@ -12,28 +12,6 @@
 
 namespace ris
 {
-
-    const Element PacketMotionData::CarMotionData::WORLDPOSITIONX{"WORLDPOSITIONX"};
-    const Element PacketMotionData::CarMotionData::WORLDPOSITIONY{"WORLDPOSITIONY"};
-    const Element PacketMotionData::CarMotionData::WORLDPOSITIONZ{"WORLDPOSITIONZ"};
-    const Element PacketMotionData::CarMotionData::WORLDVELOCITYX{"WORLDVELOCITYX"};
-    const Element PacketMotionData::CarMotionData::WORLDVELOCITYY{"WORLDVELOCITYY"};
-    const Element PacketMotionData::CarMotionData::WORLDVELOCITYZ{"WORLDVELOCITYZ"};
-    const Element PacketMotionData::CarMotionData::WORLDFORWARDDIRX{"WORLDFORWARDDIRX"};
-    const Element PacketMotionData::CarMotionData::WORLDFORWARDDIRY{"WORLDFORWARDDIRY"};
-    const Element PacketMotionData::CarMotionData::WORLDFORWARDDIRZ{"WORLDFORWARDDIRZ"};
-    const Element PacketMotionData::CarMotionData::WORLDRIGHTDIRX{"WORLDRIGHTDIRX"};
-    const Element PacketMotionData::CarMotionData::WORLDRIGHTDIRY{"WORLDRIGHTDIRY"};
-    const Element PacketMotionData::CarMotionData::WORLDRIGHTDIRZ{"WORLDRIGHTDIRZ"};
-    const Element PacketMotionData::CarMotionData::GFORCELATERAL{"GFORCELATERAL"};
-    const Element PacketMotionData::CarMotionData::GFORCELONGITUDINAL{"GFORCELONGITUDINAL"};
-    const Element PacketMotionData::CarMotionData::GFORCEVERTICAL{"GFORCEVERTICAL"};
-    const Element PacketMotionData::CarMotionData::YAW{"YAW"};
-    const Element PacketMotionData::CarMotionData::PITCH{"PITCH"};
-    const Element PacketMotionData::CarMotionData::ROLL{"ROLL"};
-
-    const Element PacketMotionData::CarMotionData::CARMOTIONDATA{"CARMOTIONDATA"};
-
     PacketMotionData::CarMotionData::CarMotionData(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(WORLDPOSITIONX, {DecoderFloat().decode(bytes, pos)}));
@@ -55,22 +33,6 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(PITCH, {DecoderFloat().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(ROLL, {DecoderFloat().decode(bytes, pos)}));
     }
-
-    const Element PacketMotionData::MotionData::SUSPENSIONPOSITION{"SUSPENSIONPOSITION"};
-    const Element PacketMotionData::MotionData::SUSPENSIONVELOCITY{"SUSPENSIONVELOCITY"};
-    const Element PacketMotionData::MotionData::SUSPENSIONACCELERATION{"SUSPENSIONACCELERATION"};
-    const Element PacketMotionData::MotionData::WHEELSPEED{"WHEELSPEED"};
-    const Element PacketMotionData::MotionData::WHEELSLIP{"WHEELSLIP"};
-    const Element PacketMotionData::MotionData::LOCALVELOCITYX{"LOCALVELOCITYX"};
-    const Element PacketMotionData::MotionData::LOCALVELOCITYY{"LOCALVELOCITYY"};
-    const Element PacketMotionData::MotionData::LOCALVELOCITYZ{"LOCALVELOCITYZ"};
-    const Element PacketMotionData::MotionData::ANGULARVELOCITYX{"ANGULARVELOCITYX"};
-    const Element PacketMotionData::MotionData::ANGULARVELOCITYY{"ANGULARVELOCITYY"};
-    const Element PacketMotionData::MotionData::ANGULARVELOCITYZ{"ANGULARVELOCITYZ"};
-    const Element PacketMotionData::MotionData::ANGULARACCELERATIONX{"ANGULARACCELERATIONX"};
-    const Element PacketMotionData::MotionData::ANGULARACCELERATIONY{"ANGULARACCELERATIONY"};
-    const Element PacketMotionData::MotionData::ANGULARACCELERATIONZ{"ANGULARACCELERATIONZ"};
-    const Element PacketMotionData::MotionData::FRONTWHEELSANGLE{"FRONTWHEELSANGLE"};
 
     PacketMotionData::MotionData::MotionData(const Bytes &bytes, Pos &pos)
     {

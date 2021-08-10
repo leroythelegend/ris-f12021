@@ -13,26 +13,6 @@
 
 namespace ris
 {
-
-    const Element PacketCarTelemetryData::CarTelemetry::SPEED{"SPEED"};
-    const Element PacketCarTelemetryData::CarTelemetry::THROTTLE{"THROTTLE"};
-    const Element PacketCarTelemetryData::CarTelemetry::STEER{"STEER"};
-    const Element PacketCarTelemetryData::CarTelemetry::BRAKE{"BRAKE"};
-    const Element PacketCarTelemetryData::CarTelemetry::CLUTCH{"CLUTCH"};
-    const Element PacketCarTelemetryData::CarTelemetry::GEAR{"GEAR"};
-    const Element PacketCarTelemetryData::CarTelemetry::ENGINERPM{"ENGINERPM"};
-    const Element PacketCarTelemetryData::CarTelemetry::DRS{"DRS"};
-    const Element PacketCarTelemetryData::CarTelemetry::REVLIGHTSPERCENT{"REVLIGHTSPERCENT"};
-    const Element PacketCarTelemetryData::CarTelemetry::REVLIGHTSBITVALUE{"REVLIGHTSBITVALUE"};
-    const Element PacketCarTelemetryData::CarTelemetry::BRAKESTEMPERATURE{"BRAKESTEMPERATURE"};
-    const Element PacketCarTelemetryData::CarTelemetry::TYRESSURFACETEMPERATURE{"TYRESSURFACETEMPERATURE"};
-    const Element PacketCarTelemetryData::CarTelemetry::TYRESINNERTEMPERATURE{"TYRESINNERTEMPERATURE"};
-    const Element PacketCarTelemetryData::CarTelemetry::ENGINETEMPERATURE{"ENGINETEMPERATURE"};
-    const Element PacketCarTelemetryData::CarTelemetry::TYRESPRESSURE{"TYRESPRESSURE"};
-    const Element PacketCarTelemetryData::CarTelemetry::SURFACETYPE{"SURFACETYPE"};
-
-    const Element PacketCarTelemetryData::CarTelemetry::CARTELEMETRY{"CARTELEMETRY"};
-
     PacketCarTelemetryData::CarTelemetry::CarTelemetry(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(SPEED, {DecoderUInt16().decode(bytes, pos)}));
@@ -52,12 +32,6 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(TYRESPRESSURE, DecoderFloat().decode(bytes, pos, 4)));
         telemetry_.insert(std::pair<Element, Values>(SURFACETYPE, DecoderUInt8().decode(bytes, pos, 4)));
     }
-
-    const Element PacketCarTelemetryData::CarTelemetryData::MFDPANELINDEX{"MFDPANELINDEX"};
-    const Element PacketCarTelemetryData::CarTelemetryData::MFDPANELINDEXSECONDARYPLAYER{"MFDPANELINDEXSECONDARYPLAYER"};
-    const Element PacketCarTelemetryData::CarTelemetryData::SUGGESTEDGEAR{"SUGGESTEDGEAR"};
-
-    const Element PacketCarTelemetryData::CarTelemetryData::CARTELEMETRYDATA{"CARTELEMETRYDATA"};
 
     PacketCarTelemetryData::CarTelemetryData::CarTelemetryData(const Bytes &bytes, Pos &pos)
     {

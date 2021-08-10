@@ -11,18 +11,18 @@ namespace ris
     class PacketHeader : public SubPacket
     {
     public:
-        static const Element PACKETFORMAT;
-        static const Element GAMEMAJORVERSION;
-        static const Element GAMEMINORVERSION;
-        static const Element PACKETVERSION;
-        static const Element PACKETID;
-        static const Element SESSIONUID;
-        static const Element SESSIONTIME;
-        static const Element FRAMEIDENTIFIER;
-        static const Element PLAYERCARINDEX;
-        static const Element SECONDARYPLAYERCARINDEX;
+        inline static const Element PACKETFORMAT{"PACKETFORMAT"};
+        inline static const Element GAMEMAJORVERSION{"GAMEMAJORVERSION"};
+        inline static const Element GAMEMINORVERSION{"GAMEMINORVERSION"};
+        inline static const Element PACKETVERSION{"PACKETVERSION"};
+        inline static const Element PACKETID{"PACKETID"};
+        inline static const Element SESSIONUID{"SESSIONUID"};
+        inline static const Element SESSIONTIME{"SESSIONTIME"};
+        inline static const Element FRAMEIDENTIFIER{"FRAMEIDENTIFIER"};
+        inline static const Element PLAYERCARINDEX{"PLAYERCARINDEX"};
+        inline static const Element SECONDARYPLAYERCARINDEX{"SECONDARYPLAYERCARINDEX"};
 
-        static const Element PACKETHEADER;
+        inline static const Element PACKETHEADER{"PACKETHEADER"};
 
         PacketHeader(const Bytes &, Pos &);
         ~PacketHeader() override = default;

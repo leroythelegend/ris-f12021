@@ -12,33 +12,6 @@
 
 namespace ris
 {
-    const Element PacketLapData::LapData::LASTLAPTIMEINMS{"LASTLAPTIMEINMS"};
-    const Element PacketLapData::LapData::CURRENTLAPTIMEINMS{"CURRENTLAPTIMEINMS"};
-    const Element PacketLapData::LapData::SECTOR1TIMEINMS{"SECTOR1TIMEINMS"};
-    const Element PacketLapData::LapData::SECTOR2TIMEINMS{"SECTOR2TIMEINMS"};
-    const Element PacketLapData::LapData::LAPDISTANCE{"LAPDISTANCE"};
-    const Element PacketLapData::LapData::TOTALDISTANCE{"TOTALDISTANCE"};
-    const Element PacketLapData::LapData::SAFETYCARDELTA{"SAFETYCARDELTA"};
-    const Element PacketLapData::LapData::CARPOSITION{"CARPOSITION"};
-    const Element PacketLapData::LapData::CURRENTLAPNUM{"CURRENTLAPNUM"};
-    const Element PacketLapData::LapData::PITSTATUS{"PITSTATUS"};
-    const Element PacketLapData::LapData::NUMPITSTOPS{"NUMPITSTOPS"};
-    const Element PacketLapData::LapData::SECTOR{"SECTOR"};
-    const Element PacketLapData::LapData::CURRENTLAPINVALID{"CURRENTLAPINVALID"};
-    const Element PacketLapData::LapData::PENALTIES{"PENALTIES"};
-    const Element PacketLapData::LapData::WARNINGS{"WARNINGS"};
-    const Element PacketLapData::LapData::NUMUNSERVEDDRIVETHROUGHPENS{"NUMUNSERVEDDRIVETHROUGHPENS"};
-    const Element PacketLapData::LapData::NUMUNSERVEDSTOPGOPENS{"NUMUNSERVEDSTOPGOPENS"};
-    const Element PacketLapData::LapData::GRIDPOSITION{"GRIDPOSITION"};
-    const Element PacketLapData::LapData::DRIVERSTATUS{"DRIVERSTATUS"};
-    const Element PacketLapData::LapData::RESULTSTATUS{"RESULTSTATUS"};
-    const Element PacketLapData::LapData::PITLANETIMERACTIVE{"PITLANETIMERACTIVE"};
-    const Element PacketLapData::LapData::PITLANETIMEINLANEINMS{"PITLANETIMEINLANEINMS"};
-    const Element PacketLapData::LapData::PITSTOPTIMERINMS{"PITSTOPTIMERINMS"};
-    const Element PacketLapData::LapData::PITSTOPSHOULDSERVEPEN{"PITSTOPSHOULDSERVEPEN"};
-
-    const Element PacketLapData::LapData::LAPDATA{"LAPDATA"};
-
     PacketLapData::LapData::LapData(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(LASTLAPTIMEINMS, {DecoderUInt32().decode(bytes, pos)}));

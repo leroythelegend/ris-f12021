@@ -11,24 +11,24 @@ namespace ris
         class CarTelemetry : public SubPacket
         {
         public:
-            static const Element SPEED;
-            static const Element THROTTLE;
-            static const Element STEER;
-            static const Element BRAKE;
-            static const Element CLUTCH;
-            static const Element GEAR;
-            static const Element ENGINERPM;
-            static const Element DRS;
-            static const Element REVLIGHTSPERCENT;
-            static const Element REVLIGHTSBITVALUE;
-            static const Element BRAKESTEMPERATURE;
-            static const Element TYRESSURFACETEMPERATURE;
-            static const Element TYRESINNERTEMPERATURE;
-            static const Element ENGINETEMPERATURE;
-            static const Element TYRESPRESSURE;
-            static const Element SURFACETYPE;
+            inline static const Element SPEED{"SPEED"};
+            inline static const Element THROTTLE{"THROTTLE"};
+            inline static const Element STEER{"STEER"};
+            inline static const Element BRAKE{"BRAKE"};
+            inline static const Element CLUTCH{"CLUTCH"};
+            inline static const Element GEAR{"GEAR"};
+            inline static const Element ENGINERPM{"ENGINERPM"};
+            inline static const Element DRS{"DRS"};
+            inline static const Element REVLIGHTSPERCENT{"REVLIGHTSPERCENT"};
+            inline static const Element REVLIGHTSBITVALUE{"REVLIGHTSBITVALUE"};
+            inline static const Element BRAKESTEMPERATURE{"BRAKESTEMPERATURE"};
+            inline static const Element TYRESSURFACETEMPERATURE{"TYRESSURFACETEMPERATURE"};
+            inline static const Element TYRESINNERTEMPERATURE{"TYRESINNERTEMPERATURE"};
+            inline static const Element ENGINETEMPERATURE{"ENGINETEMPERATURE"};
+            inline static const Element TYRESPRESSURE{"TYRESPRESSURE"};
+            inline static const Element SURFACETYPE{"SURFACETYPE"};
 
-            static const Element CARTELEMETRY;
+            inline static const Element CARTELEMETRY{"CARTELEMETRY"};
 
             CarTelemetry(const Bytes &, Pos &);
             ~CarTelemetry() override = default;
@@ -37,11 +37,11 @@ namespace ris
         class CarTelemetryData : public SubPacket
         {
         public:
-            static const Element MFDPANELINDEX;
-            static const Element MFDPANELINDEXSECONDARYPLAYER;
-            static const Element SUGGESTEDGEAR;
+            inline static const Element MFDPANELINDEX{"MFDPANELINDEX"};
+            inline static const Element MFDPANELINDEXSECONDARYPLAYER{"MFDPANELINDEXSECONDARYPLAYER"};
+            inline static const Element SUGGESTEDGEAR{"SUGGESTEDGEAR"};
 
-            static const Element CARTELEMETRYDATA;
+            inline static const Element CARTELEMETRYDATA{"CARTELEMETRYDATA"};
 
             CarTelemetryData(const Bytes &, Pos &);
             ~CarTelemetryData() override = default;

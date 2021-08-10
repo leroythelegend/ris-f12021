@@ -10,19 +10,6 @@
 
 namespace ris
 {
-    const Element PacketHeader::PACKETFORMAT{"PACKETFORMAT"};
-    const Element PacketHeader::GAMEMAJORVERSION{"GAMEMAJORVERSION"};
-    const Element PacketHeader::GAMEMINORVERSION{"GAMEMINORVERSION"};
-    const Element PacketHeader::PACKETVERSION{"PACKETVERSION"};
-    const Element PacketHeader::PACKETID{"PACKETID"};
-    const Element PacketHeader::SESSIONUID{"SESSIONUID"};
-    const Element PacketHeader::SESSIONTIME{"SESSIONTIME"};
-    const Element PacketHeader::FRAMEIDENTIFIER{"FRAMEIDENTIFIER"};
-    const Element PacketHeader::PLAYERCARINDEX{"PLAYERCARINDEX"};
-    const Element PacketHeader::SECONDARYPLAYERCARINDEX{"SECONDARYPLAYERCARINDEX"};
-
-    const Element PacketHeader::PACKETHEADER{"PACKETHEADER"};
-
     PacketHeader::PacketHeader(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(PACKETFORMAT, {DecoderUInt16().decode(bytes, pos)}));

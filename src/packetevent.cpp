@@ -11,26 +11,16 @@
 
 namespace ris
 {
-    const Element PacketEvent::Buttons::BUTTONSTATUS{"BUTTONSTATUS"};
-    const Element PacketEvent::Buttons::BUTTONS{"BUTTONS"};
-
     PacketEvent::Buttons::Buttons(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(PacketEvent::Buttons::BUTTONSTATUS, {DecoderUInt32().decode(bytes, pos)}));
     };
-
-    const Element PacketEvent::Flashback::FLASHBACKFRAMEIDENTIFIER{"FLASHBACKFRAMEIDENTIFIER"};
-    const Element PacketEvent::Flashback::FLASHBACKSESSIONTIME{"FLASHBACKSESSIONTIME"};
-    const Element PacketEvent::Flashback::FLASHBACK{"FLASHBACK"};
 
     PacketEvent::Flashback::Flashback(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(PacketEvent::Flashback::FLASHBACKFRAMEIDENTIFIER, {DecoderUInt32().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(PacketEvent::Flashback::FLASHBACKSESSIONTIME, {DecoderFloat().decode(bytes, pos)}));
     }
-
-    const Element PacketEvent::Event::EVENTSTRINGCODE{"EVENTSTRINGCODE"};
-    const Element PacketEvent::Event::EVENT{"EVENT"};
 
     PacketEvent::Event::Event(const Bytes &bytes, Pos &pos)
     {

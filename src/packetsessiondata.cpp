@@ -23,17 +23,6 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(ZONEFLAG, {DecoderInt8().decode(bytes, pos)}));
     }
 
-            const Element PacketSessionData::WeatherForecastSample::SESSIONTYPE{"SESSIONTYPE"};
-            const Element PacketSessionData::WeatherForecastSample::TIMEOFFSET{"TIMEOFFSET"};
-            const Element PacketSessionData::WeatherForecastSample::WEATHER{"WEATHER"};
-            const Element PacketSessionData::WeatherForecastSample::TRACKTEMPERATURE{"TRACKTEMPERATURE"};
-            const Element PacketSessionData::WeatherForecastSample::TRACKTEMPERATURECHANGE{"TRACKTEMPERATURECHANGE"};
-            const Element PacketSessionData::WeatherForecastSample::AIRTEMPERATURE{"AIRTEMPERATURE"};
-            const Element PacketSessionData::WeatherForecastSample::AIRTEMPERATURECHANGE{"AIRTEMPERATURECHANGE"};
-            const Element PacketSessionData::WeatherForecastSample::RAINPERCENTAGE{"RAINPERCENTAGE"};
-
-            const Element PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE{"WEATHERFORECASTSAMPLE"};
-
     PacketSessionData::WeatherForecastSample::WeatherForecastSample(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(SESSIONTYPE, {DecoderUInt8().decode(bytes, pos)}));
@@ -44,46 +33,7 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(AIRTEMPERATURE, {DecoderInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(AIRTEMPERATURECHANGE, {DecoderInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(RAINPERCENTAGE, {DecoderUInt8().decode(bytes, pos)}));
-
     }
-    
-            const Element PacketSessionData::SessionData::TRACKTEMPERATURE{"TRACKTEMPERATURE"};
-            const Element PacketSessionData::SessionData::AIRTEMPERATURE{"AIRTEMPERATURE"};
-            const Element PacketSessionData::SessionData::TOTALLAPS{"TOTALLAPS"};
-            const Element PacketSessionData::SessionData::TRACKLENGTH{"TRACKLENGTH"};
-            const Element PacketSessionData::SessionData::SESSIONTYPE{"SESSIONTYPE"};
-            const Element PacketSessionData::SessionData::TRACKID{"TRACKID"};
-            const Element PacketSessionData::SessionData::FORMULA{"FORMULA"};
-            const Element PacketSessionData::SessionData::SESSIONTIMELEFT{"SESSIONTIMELEFT"};
-            const Element PacketSessionData::SessionData::SESSIONDURATION{"SESSIONDURATION"};
-            const Element PacketSessionData::SessionData::PITSPEEDLIMIT{"PITSPEEDLIMIT"};
-            const Element PacketSessionData::SessionData::GAMEPAUSED{"GAMEPAUSED"};
-            const Element PacketSessionData::SessionData::ISSPECTATING{"ISSPECTATING"};
-            const Element PacketSessionData::SessionData::SPECTATORCARINDEX{"SPECTATORCARINDEX"};
-            const Element PacketSessionData::SessionData::SLIPRONATIVESUPPORT{"SLIPRONATIVESUPPORT"};
-            const Element PacketSessionData::SessionData::NUMMARSHALZONES{"NUMMARSHALZONES"};
-            const Element PacketSessionData::SessionData::SAFETYCARSTATUS{"SAFETYCARSTATUS"};
-            const Element PacketSessionData::SessionData::NETWORKGAME{"NETWORKGAME"};
-            const Element PacketSessionData::SessionData::NUMWEATHERFORECASTSAMPLES{"NUMWEATHERFORECASTSAMPLES"};
-            const Element PacketSessionData::SessionData::FORECASTACCURACY{"FORECASTACCURACY"};
-            const Element PacketSessionData::SessionData::AIDIFFICULTY{"AIDIFFICULTY"};
-            const Element PacketSessionData::SessionData::SEASONLINKIDENTIFIER{"SEASONLINKIDENTIFIER"};
-            const Element PacketSessionData::SessionData::WEEKENDLINKIDENTIFIER{"WEEKENDLINKIDENTIFIER"};
-            const Element PacketSessionData::SessionData::SESSIONLINKIDENTIFIER{"SESSIONLINKIDENTIFIER"};
-            const Element PacketSessionData::SessionData::PITSTOPWINDOWIDEALLAP{"PITSTOPWINDOWIDEALLAP"};
-            const Element PacketSessionData::SessionData::PITSTOPWINDOWLATESTLAP{"PITSTOPWINDOWLATESTLAP"};
-            const Element PacketSessionData::SessionData::PITSTOPREJOINPOSITION{"PITSTOPREJOINPOSITION"};
-            const Element PacketSessionData::SessionData::STEERINGASSIST{"STEERINGASSIST"};
-            const Element PacketSessionData::SessionData::BRAKINGASSIST{"BRAKINGASSIST"};
-            const Element PacketSessionData::SessionData::GEARBOXASSIST{"GEARBOXASSIST"};
-            const Element PacketSessionData::SessionData::PITASSIST{"PITASSIST"};
-            const Element PacketSessionData::SessionData::PITRELEASEASSIST{"PITRELEASEASSIST"};
-            const Element PacketSessionData::SessionData::ERSASSIST{"ERSASSIST"};
-            const Element PacketSessionData::SessionData::DRSASSIST{"DRSASSIST"};
-            const Element PacketSessionData::SessionData::DYNAMICRACINGLINE{"DYNAMICRACINGLINE"};
-            const Element PacketSessionData::SessionData::DYNAMICRACINGLINETYPE{"DYNAMICRACINGLINETYPE"};
-
-            const Element PacketSessionData::SessionData::SESSIONDATA{"SESSIONDATA"};
 
     PacketSessionData::SessionData::SessionData(const Bytes &bytes, Pos &pos)
     {

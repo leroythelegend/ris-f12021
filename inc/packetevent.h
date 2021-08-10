@@ -11,8 +11,8 @@ namespace ris
         class Buttons : public SubPacket
         {
         public:
-            static const Element BUTTONSTATUS;
-            static const Element BUTTONS;
+            inline static const Element BUTTONSTATUS{"BUTTONSTATUS"};
+            inline static const Element BUTTONS{"BUTTONS"};
 
             Buttons(const Bytes &, Pos &);
             ~Buttons() override = default;
@@ -21,9 +21,9 @@ namespace ris
         class Flashback : public SubPacket
         {
         public:
-            static const Element FLASHBACKFRAMEIDENTIFIER;
-            static const Element FLASHBACKSESSIONTIME;
-            static const Element FLASHBACK;
+            inline static const Element FLASHBACKFRAMEIDENTIFIER{"FLASHBACKFRAMEIDENTIFIER"};
+            inline static const Element FLASHBACKSESSIONTIME{"FLASHBACKSESSIONTIME"};
+            inline static const Element FLASHBACK{"FLASHBACK"};
 
             Flashback(const Bytes &, Pos &);
             ~Flashback() override = default;
@@ -32,8 +32,8 @@ namespace ris
         class Event : public SubPacket
         {
         public:
-            static const Element EVENTSTRINGCODE;
-            static const Element EVENT;
+            inline static const Element EVENTSTRINGCODE{"EVENTSTRINGCODE"};
+            inline static const Element EVENT{"EVENT"};
 
             Event(const Bytes &, Pos &);
             ~Event() override = default;

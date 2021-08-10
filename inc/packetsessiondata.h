@@ -23,16 +23,16 @@ namespace ris
         class WeatherForecastSample : public SubPacket
         {
         public:
-            static const Element SESSIONTYPE;
-            static const Element TIMEOFFSET;
-            static const Element WEATHER;
-            static const Element TRACKTEMPERATURE;
-            static const Element TRACKTEMPERATURECHANGE;
-            static const Element AIRTEMPERATURE;
-            static const Element AIRTEMPERATURECHANGE;
-            static const Element RAINPERCENTAGE;
+            inline static const Element SESSIONTYPE{"SESSIONTYPE"};
+            inline static const Element TIMEOFFSET{"TIMEOFFSET"};
+            inline static const Element WEATHER{"WEATHER"};
+            inline static const Element TRACKTEMPERATURE{"TRACKTEMPERATURE"};
+            inline static const Element TRACKTEMPERATURECHANGE{"TRACKTEMPERATURECHANGE"};
+            inline static const Element AIRTEMPERATURE{"AIRTEMPERATURE"};
+            inline static const Element AIRTEMPERATURECHANGE{"AIRTEMPERATURECHANGE"};
+            inline static const Element RAINPERCENTAGE{"RAINPERCENTAGE"};
 
-            static const Element WEATHERFORECASTSAMPLE;
+            inline static const Element WEATHERFORECASTSAMPLE{"WEATHERFORECASTSAMPLE"};
 
             WeatherForecastSample(const Bytes &, Pos &);
             ~WeatherForecastSample() override = default;
@@ -41,45 +41,44 @@ namespace ris
         class SessionData : public SubPacket
         {
         public:
-            static const Element TRACKTEMPERATURE;
-            static const Element AIRTEMPERATURE;
-            static const Element TOTALLAPS;
-            static const Element TRACKLENGTH;
-            static const Element SESSIONTYPE;
-            static const Element TRACKID;
-            static const Element FORMULA;
-            static const Element SESSIONTIMELEFT;
-            static const Element SESSIONDURATION;
-            static const Element PITSPEEDLIMIT;
-            static const Element GAMEPAUSED;
-            static const Element ISSPECTATING;
-            static const Element SPECTATORCARINDEX;
-            static const Element SLIPRONATIVESUPPORT;
-            static const Element NUMMARSHALZONES;
-            static const Element MARSHALZONES;
-            static const Element SAFETYCARSTATUS;
-            static const Element NETWORKGAME;
-            static const Element NUMWEATHERFORECASTSAMPLES;
-            static const Element WEATHERFORECASTSAMPLES;
-            static const Element FORECASTACCURACY;
-            static const Element AIDIFFICULTY;
-            static const Element SEASONLINKIDENTIFIER;
-            static const Element WEEKENDLINKIDENTIFIER;
-            static const Element SESSIONLINKIDENTIFIER;
-            static const Element PITSTOPWINDOWIDEALLAP;
-            static const Element PITSTOPWINDOWLATESTLAP;
-            static const Element PITSTOPREJOINPOSITION;
-            static const Element STEERINGASSIST;
-            static const Element BRAKINGASSIST;
-            static const Element GEARBOXASSIST;
-            static const Element PITASSIST;
-            static const Element PITRELEASEASSIST;
-            static const Element ERSASSIST;
-            static const Element DRSASSIST;
-            static const Element DYNAMICRACINGLINE;
-            static const Element DYNAMICRACINGLINETYPE;
+            inline static const Element TRACKTEMPERATURE{"TRACKTEMPERATURE"};
+            inline static const Element AIRTEMPERATURE{"AIRTEMPERATURE"};
+            inline static const Element TOTALLAPS{"TOTALLAPS"};
+            inline static const Element TRACKLENGTH{"TRACKLENGTH"};
+            inline static const Element SESSIONTYPE{"SESSIONTYPE"};
+            inline static const Element TRACKID{"TRACKID"};
+            inline static const Element FORMULA{"FORMULA"};
+            inline static const Element SESSIONTIMELEFT{"SESSIONTIMELEFT"};
+            inline static const Element SESSIONDURATION{"SESSIONDURATION"};
+            inline static const Element PITSPEEDLIMIT{"PITSPEEDLIMIT"};
+            inline static const Element GAMEPAUSED{"GAMEPAUSED"};
+            inline static const Element ISSPECTATING{"ISSPECTATING"};
+            inline static const Element SPECTATORCARINDEX{"SPECTATORCARINDEX"};
+            inline static const Element SLIPRONATIVESUPPORT{"SLIPRONATIVESUPPORT"};
+            inline static const Element NUMMARSHALZONES{"NUMMARSHALZONES"};
+            inline static const Element MARSHALZONE{"MARSHALZONE"};
+            inline static const Element SAFETYCARSTATUS{"SAFETYCARSTATUS"};
+            inline static const Element NETWORKGAME{"NETWORKGAME"};
+            inline static const Element NUMWEATHERFORECASTSAMPLES{"NUMWEATHERFORECASTSAMPLES"};
+            inline static const Element FORECASTACCURACY{"FORECASTACCURACY"};
+            inline static const Element AIDIFFICULTY{"AIDIFFICULTY"};
+            inline static const Element SEASONLINKIDENTIFIER{"SEASONLINKIDENTIFIER"};
+            inline static const Element WEEKENDLINKIDENTIFIER{"WEEKENDLINKIDENTIFIER"};
+            inline static const Element SESSIONLINKIDENTIFIER{"SESSIONLINKIDENTIFIER"};
+            inline static const Element PITSTOPWINDOWIDEALLAP{"PITSTOPWINDOWIDEALLAP"};
+            inline static const Element PITSTOPWINDOWLATESTLAP{"PITSTOPWINDOWLATESTLAP"};
+            inline static const Element PITSTOPREJOINPOSITION{"PITSTOPREJOINPOSITION"};
+            inline static const Element STEERINGASSIST{"STEERINGASSIST"};
+            inline static const Element BRAKINGASSIST{"BRAKINGASSIST"};
+            inline static const Element GEARBOXASSIST{"GEARBOXASSIST"};
+            inline static const Element PITASSIST{"PITASSIST"};
+            inline static const Element PITRELEASEASSIST{"PITRELEASEASSIST"};
+            inline static const Element ERSASSIST{"ERSASSIST"};
+            inline static const Element DRSASSIST{"DRSASSIST"};
+            inline static const Element DYNAMICRACINGLINE{"DYNAMICRACINGLINE"};
+            inline static const Element DYNAMICRACINGLINETYPE{"DYNAMICRACINGLINETYPE"};
 
-            static const Element SESSIONDATA;
+            inline static const Element SESSIONDATA{"SESSIONDATA"};
 
             SessionData(const Bytes &, Pos &);
             ~SessionData() override = default;

@@ -10,33 +10,6 @@
 
 namespace ris
 {
-
-    const Element PacketCarStatus::CarStatusData::TRACTIONCONTROL{"TRACTIONCONTROL"};
-    const Element PacketCarStatus::CarStatusData::ANTILOCKBRAKES{"ANTILOCKBRAKES"};
-    const Element PacketCarStatus::CarStatusData::FUELMIX{"FUELMIX"};
-    const Element PacketCarStatus::CarStatusData::FRONTBRAKEBIAS{"FRONTBRAKEBIAS"};
-    const Element PacketCarStatus::CarStatusData::PITLIMITERSTATUS{"PITLIMITERSTATUS"};
-    const Element PacketCarStatus::CarStatusData::FUELINTANK{"FUELINTANK"};
-    const Element PacketCarStatus::CarStatusData::FUELCAPACITY{"FUELCAPACITY"};
-    const Element PacketCarStatus::CarStatusData::FUELREMAININGLAPS{"FUELREMAININGLAPS"};
-    const Element PacketCarStatus::CarStatusData::MAXRPM{"MAXRPM"};
-    const Element PacketCarStatus::CarStatusData::IDLERPM{"IDLERPM"};
-    const Element PacketCarStatus::CarStatusData::MAXGEARS{"MAXGEARS"};
-    const Element PacketCarStatus::CarStatusData::DRSALLOWED{"DRSALLOWED"};
-    const Element PacketCarStatus::CarStatusData::DRSACTIVATIONDISTANCE{"DRSACTIVATIONDISTANCE"};
-    const Element PacketCarStatus::CarStatusData::ACTUALTYRECOMPOUND{"ACTUALTYRECOMPOUND"};
-    const Element PacketCarStatus::CarStatusData::VISUALTYRECOMPOUND{"VISUALTYRECOMPOUND"};
-    const Element PacketCarStatus::CarStatusData::TYRESAGELAPS{"TYRESAGELAPS"};
-    const Element PacketCarStatus::CarStatusData::VEHICLEFIAFLAGS{"VEHICLEFIAFLAGS"};
-    const Element PacketCarStatus::CarStatusData::ERSSTOREENERGY{"ERSSTOREENERGY"};
-    const Element PacketCarStatus::CarStatusData::ERSDEPLOYMODE{"ERSDEPLOYMODE"};
-    const Element PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUK{"ERSHARVESTEDTHISLAPMGUK"};
-    const Element PacketCarStatus::CarStatusData::ERSHARVESTEDTHISLAPMGUH{"ERSHARVESTEDTHISLAPMGUH"};
-    const Element PacketCarStatus::CarStatusData::ERSDEPLOYEDTHISLAP{"ERSDEPLOYEDTHISLAP"};
-    const Element PacketCarStatus::CarStatusData::NETWORKPAUSED{"NETWORKPAUSED"};
-
-    const Element PacketCarStatus::CarStatusData::CARSTATUSDATA{"CARSTATUSDATE"};
-
     PacketCarStatus::CarStatusData::CarStatusData(const Bytes &bytes, Pos &pos)
     {
         telemetry_.insert(std::pair<Element, Values>(TRACTIONCONTROL, {DecoderUInt8().decode(bytes, pos)}));
