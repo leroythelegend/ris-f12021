@@ -24,6 +24,7 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/packetcartelemetrydata.cpp
                       ./src/packetmotiondata.cpp
                       ./src/packetsessiondata.cpp
+                      ./src/packetlapdata.cpp
                       ./src/value.cpp
                       )
 
