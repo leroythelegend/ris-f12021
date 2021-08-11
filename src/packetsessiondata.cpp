@@ -37,15 +37,16 @@ namespace ris
 
     PacketSessionData::SessionData::SessionData(const Bytes &bytes, Pos &pos)
     {
-        telemetry_.insert(std::pair<Element, Values>(TRACKTEMPERATURE, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(AIRTEMPERATURE, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(WEATHER, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(TRACKTEMPERATURE, {DecoderInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(AIRTEMPERATURE, {DecoderInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(TOTALLAPS, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(TRACKLENGTH, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(TRACKLENGTH, {DecoderUInt16().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(SESSIONTYPE, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(TRACKID, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(TRACKID, {DecoderInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(FORMULA, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(SESSIONTIMELEFT, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(SESSIONDURATION, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONTIMELEFT, {DecoderUInt16().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONDURATION, {DecoderUInt16().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(PITSPEEDLIMIT, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(GAMEPAUSED, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(ISSPECTATING, {DecoderUInt8().decode(bytes, pos)}));
@@ -53,18 +54,19 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(SLIPRONATIVESUPPORT, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(NUMMARSHALZONES, {DecoderUInt8().decode(bytes, pos)}));
         
-        marshalzones = Packet::createSubPackets<WeatherForecastSample>(bytes, pos, 21);
+        marshalzones = Packet::createSubPackets<MarshalZone>(bytes, pos, MAXNUMMARSHALZONES);
 
         telemetry_.insert(std::pair<Element, Values>(SAFETYCARSTATUS, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(NETWORKGAME, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(NUMWEATHERFORECASTSAMPLES, {DecoderUInt8().decode(bytes, pos)}));
         
-        weatherforecastsamples = Packet::createSubPackets<WeatherForecastSample>(bytes, pos, 56);
+        weatherforecastsamples = Packet::createSubPackets<WeatherForecastSample>(bytes, pos, MAXNUMWEATHERFORECASTSAMPLES);
 
         telemetry_.insert(std::pair<Element, Values>(FORECASTACCURACY, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(SEASONLINKIDENTIFIER, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(WEEKENDLINKIDENTIFIER, {DecoderUInt8().decode(bytes, pos)}));
-        telemetry_.insert(std::pair<Element, Values>(SESSIONLINKIDENTIFIER, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(AIDIFFICULTY, {DecoderUInt8().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(SEASONLINKIDENTIFIER, {DecoderUInt32().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(WEEKENDLINKIDENTIFIER, {DecoderUInt32().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(SESSIONLINKIDENTIFIER, {DecoderUInt32().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(PITSTOPWINDOWIDEALLAP, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(PITSTOPWINDOWLATESTLAP, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(PITSTOPREJOINPOSITION, {DecoderUInt8().decode(bytes, pos)}));

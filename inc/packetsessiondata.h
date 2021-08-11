@@ -41,6 +41,7 @@ namespace ris
         class SessionData : public SubPacket
         {
         public:
+            inline static const Element WEATHER{"WEATHER"};
             inline static const Element TRACKTEMPERATURE{"TRACKTEMPERATURE"};
             inline static const Element AIRTEMPERATURE{"AIRTEMPERATURE"};
             inline static const Element TOTALLAPS{"TOTALLAPS"};

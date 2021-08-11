@@ -16,6 +16,7 @@
 #include "../inc/packetevent.h"
 #include "../inc/packetcarstatus.h"
 #include "../inc/packetcartelemetrydata.h"
+#include "../inc/packetsessiondata.h"
 
 #include "../inc/element.h"
 
@@ -28,6 +29,7 @@ int main(int argc, char const *argv[])
     Bytes eventpacket;
     Bytes carstatuspacket;
     Bytes cartelemetrypacket;
+    Bytes sessionpacket;
 
     try
     {
@@ -37,10 +39,13 @@ int main(int argc, char const *argv[])
         carstatuspacket = c.read();
         NetworkFile t("../tests/vectors/car_telemetry.bin");
         cartelemetrypacket = t.read();
+        NetworkFile s("../tests/vectors/session_packet.bin");
+        sessionpacket = s.read();
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
 
     try
@@ -100,6 +105,7 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
 
     try
@@ -218,6 +224,7 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
 
     try
@@ -307,7 +314,97 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
+
+
+    try
+    {
+        PacketSessionData p(sessionpacket);
+
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 6);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 1);
+        
+        // loop through number of marshals making sure we don't throw.
+        for (int i = 0; i < MAXNUMMARSHALZONES; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketSessionData::MarshalZone::MARSHALZONE).at(i)->telemetry(PacketSessionData::MarshalZone::ZONESTART).at(0);
+            a = p.packets(PacketSessionData::MarshalZone::MARSHALZONE).at(i)->telemetry(PacketSessionData::MarshalZone::ZONEFLAG).at(0);
+        }
+
+        // loop through number of marshals making sure we don't throw.
+        for (int i = 0; i < MAXNUMWEATHERFORECASTSAMPLES; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::SESSIONTYPE).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::TIMEOFFSET).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::WEATHER).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::TRACKTEMPERATURE).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::TRACKTEMPERATURECHANGE).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::AIRTEMPERATURE).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::AIRTEMPERATURECHANGE).at(0);
+            a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::RAINPERCENTAGE).at(0);
+        }
+        
+        test_assert(p.packets(PacketSessionData::MarshalZone::MARSHALZONE).at(0)->telemetry(PacketSessionData::MarshalZone::ZONESTART).at(0) == 0.0024357740767300129);
+        test_assert(p.packets(PacketSessionData::MarshalZone::MARSHALZONE).at(0)->telemetry(PacketSessionData::MarshalZone::ZONEFLAG).at(0) == 0);
+
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::SESSIONTYPE).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::TIMEOFFSET).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::WEATHER).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::TRACKTEMPERATURE).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::TRACKTEMPERATURECHANGE).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::AIRTEMPERATURE).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(0)->telemetry(PacketSessionData::WeatherForecastSample::RAINPERCENTAGE).at(0) == 0);
+
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::WEATHER).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::TRACKTEMPERATURE).at(0) == 32);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::AIRTEMPERATURE).at(0) == 24);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::TOTALLAPS).at(0) == 200);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::TRACKLENGTH).at(0) == 5301);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SESSIONTYPE).at(0) == 13);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::TRACKID).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::FORMULA).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SESSIONTIMELEFT).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SESSIONDURATION).at(0) == 600);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::PITSPEEDLIMIT).at(0) == 60);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::GAMEPAUSED).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::ISSPECTATING).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SPECTATORCARINDEX).at(0) == 255);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SLIPRONATIVESUPPORT).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::NUMMARSHALZONES).at(0) == 20);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SAFETYCARSTATUS).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::NETWORKGAME).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::NUMWEATHERFORECASTSAMPLES).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::FORECASTACCURACY).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::AIDIFFICULTY).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SEASONLINKIDENTIFIER).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::WEEKENDLINKIDENTIFIER).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::SEASONLINKIDENTIFIER).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::PITSTOPWINDOWIDEALLAP).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::PITSTOPWINDOWLATESTLAP).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::PITSTOPREJOINPOSITION).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::STEERINGASSIST).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::BRAKINGASSIST).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::GEARBOXASSIST).at(0) == 1);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::PITASSIST).at(0) == 1);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::PITRELEASEASSIST).at(0) == 1);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::ERSASSIST).at(0) == 1);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::DRSASSIST).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::DYNAMICRACINGLINE).at(0) == 0);
+        test_assert(p.packets(PacketSessionData::SessionData::SESSIONDATA).at(0)->telemetry(PacketSessionData::SessionData::DYNAMICRACINGLINETYPE).at(0) == 0);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+
 
     try
     {
@@ -322,6 +419,7 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
 
     return 0;

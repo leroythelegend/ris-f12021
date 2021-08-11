@@ -10,6 +10,8 @@ namespace ris
     using Amount = int;
 
     const int NUMBEROFPARTICIPANTS = 22;
+    const int MAXNUMMARSHALZONES = 21;
+    const int MAXNUMWEATHERFORECASTSAMPLES = 56;
 
     enum class PacketID
     {

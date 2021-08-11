@@ -4,9 +4,7 @@ namespace ris
 {
     double DecoderUInt8::decode(const Bytes &bytes, Pos &pos)
     {
-        double result = static_cast<uint8_t>(bytes.at(pos));
-        pos += 1;
-        return result;
+        return static_cast<uint8_t>(bytes.at(pos++));
     }
 
     Values DecoderUInt8::decode(const Bytes &bytes, Pos &pos, const Amount &amount)
