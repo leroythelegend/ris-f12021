@@ -44,18 +44,7 @@ namespace ris
     {
         unsigned int pos = 0;
         Packet::add(PacketHeader::PACKETHEADER, SubPackets{std::make_shared<PacketHeader>(bytes, pos)});
-        Packet::add(CarTelemetry::CARTELEMETRY, getParticpantsCarTelemetry(bytes, pos));
+        Packet::add(CarTelemetry::CARTELEMETRY, createSubPackets<CarTelemetry>(bytes, pos, NUMBEROFPARTICIPANTS));
         Packet::add(CarTelemetryData::CARTELEMETRYDATA, SubPackets{std::make_shared<CarTelemetryData>(bytes, pos)});
     }
-
-    Packet::SubPackets PacketCarTelemetryData::getParticpantsCarTelemetry(const Bytes &bytes, Pos &pos)
-    {
-        SubPackets result;
-        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
-        {
-            result.push_back(std::make_shared<CarTelemetry>(bytes, pos));
-        }
-        return result;
-    }
-
 } // namespace ris

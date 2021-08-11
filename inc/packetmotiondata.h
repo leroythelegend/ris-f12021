@@ -63,9 +63,6 @@ namespace ris
 
         PacketMotionData(const Bytes &);
         ~PacketMotionData() override = default;
-
-    private:
-        Packet::SubPackets getParticpantsCarMotionData(const Bytes &, Pos &);
     };
 
 } // namespace ris

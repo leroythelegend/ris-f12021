@@ -44,9 +44,6 @@ namespace ris
 
         PacketLapData(const Bytes &);
         ~PacketLapData() override = default;
-
-    private:
-        Packet::SubPackets getParticpantsLapData(const Bytes &, Pos &);
     };
 
 } // namespace ris

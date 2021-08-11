@@ -49,9 +49,6 @@ namespace ris
 
         PacketCarTelemetryData(const Bytes &);
         ~PacketCarTelemetryData() override = default;
-
-    private:
-        Packet::SubPackets getParticpantsCarTelemetry(const Bytes &, Pos &);
     };
 
 } // namespace ris

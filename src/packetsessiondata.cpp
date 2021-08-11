@@ -52,17 +52,15 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(SPECTATORCARINDEX, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(SLIPRONATIVESUPPORT, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(NUMMARSHALZONES, {DecoderUInt8().decode(bytes, pos)}));
-        for (int i = 0; i < 21; ++i)
-        {
-            marshalzones.push_back(std::make_shared<MarshalZone>(bytes, pos));
-        }
+        
+        marshalzones = Packet::createSubPackets<WeatherForecastSample>(bytes, pos, 21);
+
         telemetry_.insert(std::pair<Element, Values>(SAFETYCARSTATUS, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(NETWORKGAME, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(NUMWEATHERFORECASTSAMPLES, {DecoderUInt8().decode(bytes, pos)}));
-        for (int i = 0; i < 56; ++i)
-        {
-            weatherforecastsamples.push_back(std::make_shared<WeatherForecastSample>(bytes, pos));
-        }
+        
+        weatherforecastsamples = Packet::createSubPackets<WeatherForecastSample>(bytes, pos, 56);
+
         telemetry_.insert(std::pair<Element, Values>(FORECASTACCURACY, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(SEASONLINKIDENTIFIER, {DecoderUInt8().decode(bytes, pos)}));
         telemetry_.insert(std::pair<Element, Values>(WEEKENDLINKIDENTIFIER, {DecoderUInt8().decode(bytes, pos)}));

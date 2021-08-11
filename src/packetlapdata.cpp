@@ -44,17 +44,6 @@ namespace ris
     {
         unsigned int pos = 0;
         Packet::add(PacketHeader::PACKETHEADER, SubPackets{std::make_shared<PacketHeader>(bytes, pos)});
-        Packet::add(LapData::LAPDATA, getParticpantsLapData(bytes, pos));
+        Packet::add(LapData::LAPDATA, createSubPackets<LapData>(bytes, pos, NUMBEROFPARTICIPANTS));
     }
-
-    Packet::SubPackets PacketLapData::getParticpantsLapData(const Bytes &bytes, Pos &pos)
-    {
-        SubPackets result;
-        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
-        {
-            result.push_back(std::make_shared<LapData>(bytes, pos));
-        }
-        return result;
-    }
-
 } // namespace ris

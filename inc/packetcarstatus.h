@@ -43,9 +43,6 @@ namespace ris
 
         PacketCarStatus(const Bytes &);
         ~PacketCarStatus() override = default;
-
-    private:
-        Packet::SubPackets getParticpantsCarStatus(const Bytes &, Pos &);
     };
 
 } // namespace ris

@@ -6,6 +6,7 @@
 
 #include "value.h"
 #include "element.h"
+#include "definitions.h"
 
 namespace ris
 {
@@ -42,6 +43,17 @@ namespace ris
         PacketMap packets_;
 
         Packet() = default;
+
+        template <class P>
+        static SubPackets createSubPackets(const Bytes &bytes, Pos &pos, int numberofpackets)
+        {
+            SubPackets result;
+            for (int i = 0; i < numberofpackets; ++i)
+            {
+                result.push_back(std::make_shared<P>(bytes, pos));
+            }
+            return result;
+        }
     };
 
 } // namespace ris
