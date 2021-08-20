@@ -16,16 +16,19 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/decoderint8.cpp
                       ./src/decoderint16.cpp
                       ./src/decoderfloat.cpp
+                      ./src/decoderdouble.cpp
                       ./src/decoderuint64.cpp
                       ./src/packet.cpp
                       ./src/packetheader.cpp
                       ./src/packetevent.cpp
                       ./src/packetcarstatus.cpp
+                      ./src/packetcarsetupdata.cpp
                       ./src/packetcartelemetrydata.cpp
                       ./src/packetmotiondata.cpp
                       ./src/packetsessiondata.cpp
                       ./src/packetlapdata.cpp
                       ./src/packetparticipantsdata.cpp
+                      ./src/packetfinalclassificationdata.cpp
                       ./src/value.cpp
                       )
 
