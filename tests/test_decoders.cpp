@@ -10,6 +10,7 @@
 #include "../inc/decoderuint32.h"
 #include "../inc/decoderuint64.h"
 #include "../inc/decoderfloat.h"
+#include "../inc/decoderdouble.h"
 
 using namespace std;
 using namespace ris;
@@ -177,6 +178,35 @@ int main(int argc, char const *argv[])
         bytes.push_back(0xF0);
 
         test_assert(d.decode(bytes, pos) == -3.5601966249072491e+29);
+        test_assert(pos == 4);
+        pos = 0;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    try
+    {
+        DecoderDouble d;
+        Bytes bytes;
+        unsigned int pos = 0;
+
+        try
+        {
+            d.decode(bytes, pos);
+            test_assert(false);
+        }
+        catch (const std::exception &)
+        {
+        }
+
+        bytes.push_back(0x92);
+        bytes.push_back(0xCB);
+        bytes.push_back(0x8F);
+        bytes.push_back(0xF0);
+
+        test_assert(d.decode(bytes, pos) == 4035955602);
         test_assert(pos == 4);
         pos = 0;
     }
