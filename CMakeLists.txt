@@ -30,6 +30,8 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/packetparticipantsdata.cpp
                       ./src/packetfinalclassificationdata.cpp
                       ./src/packetlobbyinfodata.cpp
+                      ./src/packetsessionhistorydata.cpp
+                      ./src/packetcardamagedata.cpp
                       ./src/value.cpp
                       )
 
