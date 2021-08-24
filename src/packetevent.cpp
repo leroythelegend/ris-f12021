@@ -151,7 +151,10 @@ namespace ris
         }
         else
         {
-            throw std::runtime_error("Unknown event " + eventdetails);
+            // TODO: While creating packets for testing packets we need to skip over this
+            // because we don't capture every thing yet, maybe we should just return if we don't know
+            // what the packet is, maybe trace it as well.
+            // throw std::runtime_error("Unknown event " + eventdetails);
         }
     }
 

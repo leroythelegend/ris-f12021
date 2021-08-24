@@ -12,6 +12,8 @@ namespace ris
     const int NUMBEROFPARTICIPANTS = 22;
     const int MAXNUMMARSHALZONES = 21;
     const int MAXNUMWEATHERFORECASTSAMPLES = 56;
+    const int MAXLAPHISTORY = 100;
+    const int MAXTYRESTINTHISTORY = 8;
 
     enum class PacketID
     {

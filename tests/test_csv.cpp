@@ -6,6 +6,8 @@
 #include "../inc/packetcartelemetrydata.h"
 #include "../inc/networkfile.h"
 
+#include "tests.h"
+
 using namespace std;
 using namespace ris;
 
@@ -21,6 +23,7 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
 
     try
@@ -108,7 +111,27 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return 1;
     }
+
+    try
+    {
+        Values value{0x10101010};
+        test_assert(value.at_bitWiseAND(0, 0x00000010));
+        test_assert(!value.at_bitWiseAND(0, 0x00000000));
+        test_assert(!value.at_bitWiseAND(0, 0x01010101));
+        test_assert(value.at_bitWiseAND(0, 0x10101010));
+        test_assert(value.at_bitWiseAND(0, 0x00001000));
+        test_assert(value.at_bitWiseAND(0, 0x00100000));
+        test_assert(value.at_bitWiseAND(0, 0x10000000));
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+    
+
 
     return 0;
 }

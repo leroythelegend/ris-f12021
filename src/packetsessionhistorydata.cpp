@@ -43,7 +43,7 @@ namespace ris
         unsigned int pos = 0;
         Packet::add(PacketHeader::PACKETHEADER, SubPackets{std::make_shared<PacketHeader>(bytes, pos)});
         Packet::add(SessionHistoryData::SESSIONHISTORYDATA, SubPackets{std::make_shared<SessionHistoryData>(bytes, pos)});
-        Packet::add(LapHistoryData::LAPHISTORYDATA, createSubPackets<LapHistoryData>(bytes, pos, 100));
-        Packet::add(TyreStintHistoryData::TYRESTINTHISTORYDATA, createSubPackets<TyreStintHistoryData>(bytes, pos, 8));
+        Packet::add(LapHistoryData::LAPHISTORYDATA, createSubPackets<LapHistoryData>(bytes, pos, MAXLAPHISTORY));
+        Packet::add(TyreStintHistoryData::TYRESTINTHISTORYDATA, createSubPackets<TyreStintHistoryData>(bytes, pos, MAXTYRESTINTHISTORY));
     }
 } // namespace ris
