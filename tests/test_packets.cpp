@@ -18,6 +18,7 @@
 #include "../inc/packetcartelemetrydata.h"
 #include "../inc/packetsessiondata.h"
 #include "../inc/packetsessionhistorydata.h"
+#include "../inc/packetlapdata.h"
 
 #include "../inc/element.h"
 
@@ -32,6 +33,7 @@ int main(int argc, char const *argv[])
     Bytes cartelemetrypacket;
     Bytes sessionpacket;
     Bytes sessionhistory;
+    Bytes lapdata;
 
     try
     {
@@ -45,6 +47,8 @@ int main(int argc, char const *argv[])
         sessionpacket = s.read();
         NetworkFile h("../tests/vectors/history_packet.bin");
         sessionhistory = h.read();
+        NetworkFile l("../tests/vectors/lap_data.bin");
+        lapdata = l.read();
     }
     catch (const std::exception &e)
     {
@@ -65,7 +69,6 @@ int main(int argc, char const *argv[])
         DecoderUInt32 duint32;
         DecoderUInt64 duint64;
         DecoderFloat dfloat;
-
 
         // packet format
         test_assert(duint16.decode(eventpacket, pos) == 2021);
@@ -321,7 +324,6 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-
     try
     {
         PacketSessionData p(sessionpacket);
@@ -331,7 +333,7 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 6);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 1);
-        
+
         // loop through number of marshals making sure we don't throw.
         for (int i = 0; i < MAXNUMMARSHALZONES; ++i)
         {
@@ -353,7 +355,7 @@ int main(int argc, char const *argv[])
             a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::AIRTEMPERATURECHANGE).at(0);
             a = p.packets(PacketSessionData::WeatherForecastSample::WEATHERFORECASTSAMPLE).at(i)->telemetry(PacketSessionData::WeatherForecastSample::RAINPERCENTAGE).at(0);
         }
-        
+
         test_assert(p.packets(PacketSessionData::MarshalZone::MARSHALZONE).at(0)->telemetry(PacketSessionData::MarshalZone::ZONESTART).at(0) == 0.0024357740767300129);
         test_assert(p.packets(PacketSessionData::MarshalZone::MARSHALZONE).at(0)->telemetry(PacketSessionData::MarshalZone::ZONEFLAG).at(0) == 0);
 
@@ -408,8 +410,6 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
-
-
     try
     {
         PacketSessionHistoryData p(sessionhistory);
@@ -419,7 +419,7 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 6);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
         test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 11);
-        
+
         // loop through number of lap histories making sure we don't throw.
         for (int i = 0; i < MAXLAPHISTORY; ++i)
         {
@@ -467,9 +467,97 @@ int main(int argc, char const *argv[])
         return 1;
     }
 
+    try
+    {
+        PacketLapData p(lapdata);
 
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 7);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 2);
 
+        // loop through number of lap histories making sure we don't throw.
+        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::LASTLAPTIMEINMS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::CURRENTLAPTIMEINMS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::SECTOR1TIMEINMS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::SECTOR2TIMEINMS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::LAPDISTANCE).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::TOTALDISTANCE).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::SAFETYCARDELTA).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::CARPOSITION).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::PITSTATUS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::NUMPITSTOPS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::SECTOR).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::CURRENTLAPINVALID).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::PENALTIES).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::WARNINGS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::NUMUNSERVEDDRIVETHROUGHPENS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::NUMUNSERVEDSTOPGOPENS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::GRIDPOSITION).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::DRIVERSTATUS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::RESULTSTATUS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::PITLANETIMERACTIVE).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::PITLANETIMEINLANEINMS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::PITSTOPTIMERINMS).at(0);
+            a = p.packets(PacketLapData::LapData::LAPDATA).at(i)->telemetry(PacketLapData::LapData::PITSTOPSHOULDSERVEPEN).at(0);
+        }
 
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::LASTLAPTIMEINMS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::CURRENTLAPTIMEINMS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::SECTOR1TIMEINMS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::SECTOR2TIMEINMS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::LAPDISTANCE).at(0) == -5456.56787109375);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::TOTALDISTANCE).at(0) == -5456.56787109375);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::SAFETYCARDELTA).at(0) == -0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::CARPOSITION).at(0) == 8);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0) == 1);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITSTATUS).at(0) == 1);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::NUMPITSTOPS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::SECTOR).at(0) == 2);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::CURRENTLAPINVALID).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PENALTIES).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::WARNINGS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::NUMUNSERVEDDRIVETHROUGHPENS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::NUMUNSERVEDSTOPGOPENS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::GRIDPOSITION).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::DRIVERSTATUS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::RESULTSTATUS).at(0) == 2);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITLANETIMERACTIVE).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITLANETIMEINLANEINMS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITSTOPTIMERINMS).at(0) == 0);
+        test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITSTOPSHOULDSERVEPEN).at(0) == 0);
+
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::LAPTIMEINMS).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::SECTOR1TIMEINMS).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::SECTOR2TIMEINMS).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::SECTOR3TIMEINMS).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::LAPVALIDBITFLAGS).at_bitWiseAND(0, 0x01));
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::LAPVALIDBITFLAGS).at_bitWiseAND(0, 0x02));
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::LAPVALIDBITFLAGS).at_bitWiseAND(0, 0x04));
+        // test_assert(p.packets(PacketSessionHistoryData::LapHistoryData::LAPHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::LapHistoryData::LAPVALIDBITFLAGS).at_bitWiseAND(0, 0x08));
+
+        // test_assert(p.packets(PacketSessionHistoryData::TyreStintHistoryData::TYRESTINTHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::TyreStintHistoryData::ENDLAP).at(0) == 255);
+        // test_assert(p.packets(PacketSessionHistoryData::TyreStintHistoryData::TYRESTINTHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::TyreStintHistoryData::TYREACTUALCOMPOUND).at(0) == 19);
+        // test_assert(p.packets(PacketSessionHistoryData::TyreStintHistoryData::TYRESTINTHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::TyreStintHistoryData::TYREVISUALCOMPOUND).at(0) == 18);
+
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::CARIDX).at(0) == 10);
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::NUMLAPS).at(0) == 1);
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::NUMTYRESTINTS).at(0) == 1);
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::BESTLAPTIMELAPNUM).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::BESTSECTOR1LAPNUM).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::BESTSECTOR2LAPNUM).at(0) == 0);
+        // test_assert(p.packets(PacketSessionHistoryData::SessionHistoryData::SESSIONHISTORYDATA).at(0)->telemetry(PacketSessionHistoryData::SessionHistoryData::BESTSECTOR3LAPNUM).at(0) == 0);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
 
     try
     {
