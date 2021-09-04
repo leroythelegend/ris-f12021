@@ -20,6 +20,7 @@
 #include "../inc/packetsessionhistorydata.h"
 #include "../inc/packetlapdata.h"
 #include "../inc/packetmotiondata.h"
+#include "../inc/packetcarsetupdata.h"
 
 #include "../inc/element.h"
 
@@ -36,6 +37,7 @@ int main(int argc, char const *argv[])
     Bytes sessionhistory;
     Bytes lapdata;
     Bytes motiondata;
+    Bytes carsetup;
 
     try
     {
@@ -53,6 +55,8 @@ int main(int argc, char const *argv[])
         lapdata = l.read();
         NetworkFile m("../tests/vectors/motion_data.bin");
         motiondata = m.read();
+        NetworkFile r("../tests/vectors/car_setup.bin");
+        carsetup = r.read();
     }
     catch (const std::exception &e)
     {
@@ -621,7 +625,73 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARACCELERATIONY).at(0) == 0.0033809468150138855);
         test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARACCELERATIONZ).at(0) == -0.10543192178010941);
         test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::FRONTWHEELSANGLE).at(0) == -0);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
 
+    try
+    {
+        PacketCarSetupData p(carsetup);
+
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 8);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 5);
+
+        // loop through number of motion data making sure we don't throw.
+        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTWING).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARWING).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::ONTHROTTLE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::OFFTHROTTLE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTCAMBER).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARCAMBER).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTTOE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARTOE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTSUSPENSION).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARSUSPENSION).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTANTIROLLBAR).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARANTIROLLBAR).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTSUSPENSIONHEIGHT).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARSUSPENSIONHEIGHT).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::BRAKEPRESSURE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::BRAKEBIAS).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARLEFTTYREPRESSURE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::REARRIGHTTYREPRESSURE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTLEFTTYREPRESSURE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FRONTRIGHTTYREPRESSURE).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::BALLAST).at(0);
+            a = p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(i)->telemetry(PacketCarSetupData::CarSetupData::FUELLOAD).at(0);
+        }
+
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTWING).at(0) == 8);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARWING).at(0) == 8);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::ONTHROTTLE).at(0) == 75);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::OFFTHROTTLE).at(0) == 75);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTCAMBER).at(0) == -3);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARCAMBER).at(0) == -1.2000000476837158);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTTOE).at(0) == 0.090000003576278687);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARTOE).at(0) == 0.4100000262260437);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTSUSPENSION).at(0) == 8);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARSUSPENSION).at(0) == 2);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTANTIROLLBAR).at(0) == 8);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARANTIROLLBAR).at(0) == 1);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTSUSPENSIONHEIGHT).at(0) == 3);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARSUSPENSIONHEIGHT).at(0) == 7);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::BRAKEPRESSURE).at(0) == 95);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::BRAKEBIAS).at(0) == 58);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARLEFTTYREPRESSURE).at(0) == 23.100000381469727);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::REARRIGHTTYREPRESSURE).at(0) == 23.100000381469727);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTLEFTTYREPRESSURE).at(0) == 22.200000762939453);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTRIGHTTYREPRESSURE).at(0) == 22.200000762939453);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::BALLAST).at(0) == 6);
+        test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FUELLOAD).at(0) == 20);
     }
     catch (const std::exception &e)
     {
