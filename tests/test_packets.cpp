@@ -19,6 +19,7 @@
 #include "../inc/packetsessiondata.h"
 #include "../inc/packetsessionhistorydata.h"
 #include "../inc/packetlapdata.h"
+#include "../inc/packetmotiondata.h"
 
 #include "../inc/element.h"
 
@@ -34,6 +35,7 @@ int main(int argc, char const *argv[])
     Bytes sessionpacket;
     Bytes sessionhistory;
     Bytes lapdata;
+    Bytes motiondata;
 
     try
     {
@@ -49,6 +51,8 @@ int main(int argc, char const *argv[])
         sessionhistory = h.read();
         NetworkFile l("../tests/vectors/lap_data.bin");
         lapdata = l.read();
+        NetworkFile m("../tests/vectors/motion_data.bin");
+        motiondata = m.read();
     }
     catch (const std::exception &e)
     {
@@ -531,6 +535,93 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITLANETIMEINLANEINMS).at(0) == 0);
         test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITSTOPTIMERINMS).at(0) == 0);
         test_assert(p.packets(PacketLapData::LapData::LAPDATA).at(0)->telemetry(PacketLapData::LapData::PITSTOPSHOULDSERVEPEN).at(0) == 0);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+    try
+    {
+        PacketMotionData p(motiondata);
+
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 8);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 0);
+
+        // loop through number of motion data making sure we don't throw.
+        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDPOSITIONX).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDPOSITIONY).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDPOSITIONZ).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDVELOCITYX).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDVELOCITYY).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDVELOCITYZ).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDFORWARDDIRX).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDFORWARDDIRY).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDFORWARDDIRZ).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDRIGHTDIRX).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDRIGHTDIRY).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::WORLDRIGHTDIRZ).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::GFORCELATERAL).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::GFORCELONGITUDINAL).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::GFORCEVERTICAL).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::YAW).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::PITCH).at(0);
+            a = p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(i)->telemetry(PacketMotionData::CarMotionData::ROLL).at(0);
+        }
+
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDPOSITIONX).at(0) == 22.669370651245117);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDPOSITIONY).at(0) == 3.3167672157287598);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDPOSITIONZ).at(0) == 552.17596435546875);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDVELOCITYX).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDVELOCITYY).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDVELOCITYZ).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDFORWARDDIRX).at(0) == -22788);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDFORWARDDIRY).at(0) == -287);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDFORWARDDIRZ).at(0) == 23542);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDRIGHTDIRX).at(0) == -23543);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDRIGHTDIRY).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::WORLDRIGHTDIRZ).at(0) == -22789);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::GFORCELATERAL).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::GFORCELONGITUDINAL).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::GFORCEVERTICAL).at(0) == 0);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::YAW).at(0) == -0.76910978555679321);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::PITCH).at(0) == -0.006103533785790205);
+        test_assert(p.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(0)->telemetry(PacketMotionData::CarMotionData::ROLL).at(0) == -1.2873906598542817e-05);
+
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONPOSITION).at(0) == 1.6951656341552734);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONPOSITION).at(1) == 1.9155979156494141);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONPOSITION).at(2) == 9.24957275390625);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONPOSITION).at(3) == 9.1767473220825195);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONVELOCITY).at(0) == 31.996639251708984);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONVELOCITY).at(1) == 32.093448638916016);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONVELOCITY).at(2) == 6.7265887260437012);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::SUSPENSIONVELOCITY).at(3) == 5.0883455276489258);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSPEED).at(0) == 70.440185546875);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSPEED).at(1) == 70.448707580566406);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSPEED).at(2) == 70.060035705566406);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSPEED).at(3) == 70.064498901367188);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSLIP).at(0) == 0.0058781877160072327);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSLIP).at(1) == 0.0059530939906835556);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSLIP).at(2) == 0.00042044464498758316);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::WHEELSLIP).at(3) == 0.00043327902676537633);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::LOCALVELOCITYX).at(0) == -0.0067737055942416191);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::LOCALVELOCITYY).at(0) == -0.14525362849235535);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::LOCALVELOCITYZ).at(0) == 70.032707214355469);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARVELOCITYX).at(0) == 0.00016996217891573906);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARVELOCITYY).at(0) == 0.0022311185020953417);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARVELOCITYZ).at(0) == -0.015569943934679031);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARACCELERATIONX).at(0) == -0.31259262561798096);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARACCELERATIONY).at(0) == 0.0033809468150138855);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::ANGULARACCELERATIONZ).at(0) == -0.10543192178010941);
+        test_assert(p.packets(PacketMotionData::MotionData::MOTIONDATA).at(0)->telemetry(PacketMotionData::MotionData::FRONTWHEELSANGLE).at(0) == -0);
+
     }
     catch (const std::exception &e)
     {

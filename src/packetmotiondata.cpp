@@ -41,16 +41,16 @@ namespace ris
         telemetry_.insert(std::pair<Element, Values>(SUSPENSIONACCELERATION, DecoderFloat().decode(bytes, pos, 4)));
         telemetry_.insert(std::pair<Element, Values>(WHEELSPEED, DecoderFloat().decode(bytes, pos, 4)));
         telemetry_.insert(std::pair<Element, Values>(WHEELSLIP, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(LOCALVELOCITYX, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(LOCALVELOCITYY, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(LOCALVELOCITYZ, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(ANGULARVELOCITYX, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(ANGULARVELOCITYY, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(ANGULARVELOCITYZ, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(ANGULARACCELERATIONX, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(ANGULARACCELERATIONY, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(ANGULARACCELERATIONZ, DecoderFloat().decode(bytes, pos, 4)));
-        telemetry_.insert(std::pair<Element, Values>(FRONTWHEELSANGLE, DecoderFloat().decode(bytes, pos, 4)));
+        telemetry_.insert(std::pair<Element, Values>(LOCALVELOCITYX, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(LOCALVELOCITYY, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(LOCALVELOCITYZ, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(ANGULARVELOCITYX, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(ANGULARVELOCITYY, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(ANGULARVELOCITYZ, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(ANGULARACCELERATIONX, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(ANGULARACCELERATIONY, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(ANGULARACCELERATIONZ, {DecoderFloat().decode(bytes, pos)}));
+        telemetry_.insert(std::pair<Element, Values>(FRONTWHEELSANGLE, {DecoderFloat().decode(bytes, pos)}));
     }
 
     PacketMotionData::PacketMotionData(const Bytes &bytes)
