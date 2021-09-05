@@ -7,6 +7,10 @@ namespace ris
         std::string result;
         for (auto value : *this)
         {
+            if (value == 0x00)
+            {
+                break;
+            }
             result.append(1, static_cast<char>(value));
         }
         return result;

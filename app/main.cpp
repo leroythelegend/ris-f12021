@@ -37,7 +37,8 @@ int main(int argc, char const *argv[])
                 packetid != (unsigned int)PacketID::Lap_Data &&
                 packetid != (unsigned int)PacketID::Motion &&
                 packetid != (unsigned int)PacketID::Car_Setups &&
-                packetid != (unsigned int)PacketID::Car_Damage
+                packetid != (unsigned int)PacketID::Car_Damage &&
+                packetid != (unsigned int)PacketID::Participants
                 )
             {
                 ofstream outfile("/tmp/f12021.out", ios::out | ios::binary);

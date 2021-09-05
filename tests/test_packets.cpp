@@ -22,6 +22,7 @@
 #include "../inc/packetmotiondata.h"
 #include "../inc/packetcarsetupdata.h"
 #include "../inc/packetcardamagedata.h"
+#include "../inc/packetparticipantsdata.h"
 
 #include "../inc/element.h"
 
@@ -40,6 +41,7 @@ int main(int argc, char const *argv[])
     Bytes motiondata;
     Bytes carsetup;
     Bytes cardamage;
+    Bytes participantdata;
 
     try
     {
@@ -61,6 +63,8 @@ int main(int argc, char const *argv[])
         carsetup = r.read();
         NetworkFile d("../tests/vectors/car_damage.bin");
         cardamage = d.read();
+        NetworkFile p("../tests/vectors/participant_data.bin");
+        participantdata = p.read();
     }
     catch (const std::exception &e)
     {
@@ -764,6 +768,47 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEICEWEAR).at(0) == 0);
         test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEMGUKWEAR).at(0) == 0);
         test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINETCWEAR).at(0) == 0);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+    try
+    {
+        PacketParticipantsData p(participantdata);
+
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 8);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 4);
+
+        // loop through number of car damage data making sure we don't throw.
+        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::AICONTROLLED).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::DRIVERID).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::NETWORKID).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::TEAMID).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::MYTEAM).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::RACENUMBER).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::NATIONALITY).at(0);
+            a = p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(i)->telemetry(PacketParticipantsData::ParticipantData::NAME).at(0);
+        }
+
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::AICONTROLLED).at(0) == 1);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::DRIVERID).at(0) == 14);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::NETWORKID).at(0) == 255);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::TEAMID).at(0) == 2);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::MYTEAM).at(0) == 0);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::RACENUMBER).at(0) == 11);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::NATIONALITY).at(0) == 52);
+        test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::NAME).to_string() == "PEREZ");
+
+        test_assert(p.packets(PacketParticipantsData::ActiveCars::ACTIVECARS).at(0)->telemetry(PacketParticipantsData::ActiveCars::NUMACTIVECARS).at(0) == 20);
     }
     catch (const std::exception &e)
     {
