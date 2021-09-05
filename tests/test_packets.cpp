@@ -21,6 +21,7 @@
 #include "../inc/packetlapdata.h"
 #include "../inc/packetmotiondata.h"
 #include "../inc/packetcarsetupdata.h"
+#include "../inc/packetcardamagedata.h"
 
 #include "../inc/element.h"
 
@@ -38,6 +39,7 @@ int main(int argc, char const *argv[])
     Bytes lapdata;
     Bytes motiondata;
     Bytes carsetup;
+    Bytes cardamage;
 
     try
     {
@@ -57,6 +59,8 @@ int main(int argc, char const *argv[])
         motiondata = m.read();
         NetworkFile r("../tests/vectors/car_setup.bin");
         carsetup = r.read();
+        NetworkFile d("../tests/vectors/car_damage.bin");
+        cardamage = d.read();
     }
     catch (const std::exception &e)
     {
@@ -692,6 +696,74 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FRONTRIGHTTYREPRESSURE).at(0) == 22.200000762939453);
         test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::BALLAST).at(0) == 6);
         test_assert(p.packets(PacketCarSetupData::CarSetupData::CARSETUPDATA).at(0)->telemetry(PacketCarSetupData::CarSetupData::FUELLOAD).at(0) == 20);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+    try
+    {
+        PacketCarDamageData p(cardamage);
+
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETFORMAT).at(0) == 2021);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMAJORVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::GAMEMINORVERSION).at(0) == 8);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETVERSION).at(0) == 1);
+        test_assert(p.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PACKETID).at(0) == 10);
+
+        // loop through number of car damage data making sure we don't throw.
+        for (int i = 0; i < NUMBEROFPARTICIPANTS; ++i)
+        {
+            double a; // stop warning
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::TYRESWEAR).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::TYRESDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::BRAKESDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::FRONTLEFTWINGDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::FRONTRIGHTWINGDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::REARWINGDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::FLOORDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::DIFFUSERDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::SIDEPODDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::DRSFAULT).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::GEARBOXDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINEDAMAGE).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINEMGUHWEAR).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINEESWEAR).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINECEWEAR).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINEICEWEAR).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINEMGUKWEAR).at(0);
+            a = p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(i)->telemetry(PacketCarDamageData::CarDamageData::ENGINETCWEAR).at(0);
+        }
+
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESWEAR).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESWEAR).at(1) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESWEAR).at(2) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESWEAR).at(3) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESDAMAGE).at(1) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESDAMAGE).at(2) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::TYRESDAMAGE).at(3) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::BRAKESDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::BRAKESDAMAGE).at(1) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::BRAKESDAMAGE).at(2) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::BRAKESDAMAGE).at(3) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::FRONTLEFTWINGDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::FRONTRIGHTWINGDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::REARWINGDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::FLOORDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::DIFFUSERDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::SIDEPODDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::DRSFAULT).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::GEARBOXDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEDAMAGE).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEMGUHWEAR).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEESWEAR).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINECEWEAR).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEICEWEAR).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINEMGUKWEAR).at(0) == 0);
+        test_assert(p.packets(PacketCarDamageData::CarDamageData::CARDAMAGEDATA).at(0)->telemetry(PacketCarDamageData::CarDamageData::ENGINETCWEAR).at(0) == 0);
     }
     catch (const std::exception &e)
     {
