@@ -29,16 +29,8 @@ int main(int argc, char const *argv[])
             // parts of the event packet later.
             unsigned int packetid = (unsigned int)bytes.at(5);
 
-            if (packetid != (unsigned int)PacketID::Event &&
-                packetid != (unsigned int)PacketID::Car_Status &&
-                packetid != (unsigned int)PacketID::Car_Telemetry &&
-                packetid != (unsigned int)PacketID::Session_History &&
-                packetid != (unsigned int)PacketID::Session &&
-                packetid != (unsigned int)PacketID::Lap_Data &&
-                packetid != (unsigned int)PacketID::Motion &&
-                packetid != (unsigned int)PacketID::Car_Setups &&
-                packetid != (unsigned int)PacketID::Car_Damage &&
-                packetid != (unsigned int)PacketID::Participants
+            if (packetid == (unsigned int)PacketID::Final_Classification ||
+                packetid == (unsigned int)PacketID::Lobby_Info
                 )
             {
                 ofstream outfile("/tmp/f12021.out", ios::out | ios::binary);
@@ -46,17 +38,17 @@ int main(int argc, char const *argv[])
                 outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
                 return 1;
             }
-            // else
-            // {
-            //     if (PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string() != "BUTN" ||
-            //         !PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string().empty())
-            //     {
-            //         ofstream outfile("/tmp/event.out", ios::out | ios::binary);
-            //         cout << "event captured size " << bytes.size() << " " << PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string() << endl;
-            //         outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
-            //         return 1;
-            //     }
-            // }
+            else if (packetid == (unsigned)PacketID::Event)
+            {
+                if (PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string() != "BUTN" &&
+                    PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string() != "SPTP")
+                {
+                    ofstream outfile("/tmp/event.out", ios::out | ios::binary);
+                    cout << "event captured size " << bytes.size() << " " << PacketEvent(bytes).packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string() << endl;
+                    outfile.write(reinterpret_cast<const char *>(bytes.data()), bytes.size());
+                    return 1;
+                }
+            }
         }
     }
     catch (std::exception &e)

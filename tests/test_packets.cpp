@@ -42,11 +42,14 @@ int main(int argc, char const *argv[])
     Bytes carsetup;
     Bytes cardamage;
     Bytes participantdata;
+    Bytes sptp_event;
 
     try
     {
         NetworkFile e("../tests/vectors/event_packet.bin");
         eventpacket = e.read();
+        NetworkFile sptp("../tests/vectors/event_sptp.bin");
+        sptp_event = sptp.read();
         NetworkFile c("../tests/vectors/car_status.bin");
         carstatuspacket = c.read();
         NetworkFile t("../tests/vectors/car_telemetry.bin");
@@ -809,6 +812,23 @@ int main(int argc, char const *argv[])
         test_assert(p.packets(PacketParticipantsData::ParticipantData::PARTICIPANTDATA).at(0)->telemetry(PacketParticipantsData::ParticipantData::NAME).to_string() == "PEREZ");
 
         test_assert(p.packets(PacketParticipantsData::ActiveCars::ACTIVECARS).at(0)->telemetry(PacketParticipantsData::ActiveCars::NUMACTIVECARS).at(0) == 20);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
+
+    try
+    {
+        PacketEvent p(sptp_event);
+
+        test_assert(p.packets(PacketEvent::Event::EVENT).at(0)->telemetry(PacketEvent::Event::EVENTSTRINGCODE).to_string() == "SPTP");
+
+        test_assert(p.packets(PacketEvent::SpeedTrap::SPEEDTRAP).at(0)->telemetry(PacketEvent::SpeedTrap::VEHICLEIDX).at(0) == 17);
+        test_assert(p.packets(PacketEvent::SpeedTrap::SPEEDTRAP).at(0)->telemetry(PacketEvent::SpeedTrap::SPEED).at(0) == 307.86004638671875);
+        test_assert(p.packets(PacketEvent::SpeedTrap::SPEEDTRAP).at(0)->telemetry(PacketEvent::SpeedTrap::OVERALLFASTESTINSESSION).at(0) == 0);
+        test_assert(p.packets(PacketEvent::SpeedTrap::SPEEDTRAP).at(0)->telemetry(PacketEvent::SpeedTrap::DRIVERFASTESTINSESSION).at(0) == 0);
     }
     catch (const std::exception &e)
     {
