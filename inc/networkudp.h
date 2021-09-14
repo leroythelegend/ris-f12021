@@ -2,6 +2,8 @@
 
 #include "network.h"
 
+#include <string>
+
 namespace ris
 {
     class NetworkUDP : public Network
