@@ -14,7 +14,8 @@ namespace ris
             if ((PacketID)b.at(5) == PacketID::Car_Telemetry)
             {
                 PacketCarTelemetryData packet(b);
-                telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)));
+                size_t playerindex = static_cast<size_t>(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
+                telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(playerindex));
                 telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetryData::CARTELEMETRYDATA).at(0));
                 break;
             }
@@ -35,7 +36,7 @@ namespace ris
 
             if (lapdata)
             {
-                double playerindex = lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0);
+                size_t playerindex = static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
 
                 telemetry.currentlap = lapdata->packets(PacketLapData::LapData::LAPDATA).at(playerindex)->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
                 telemetry.time = lapdata->packets(PacketLapData::LapData::LAPDATA).at(playerindex)->telemetry(PacketLapData::LapData::CURRENTLAPTIMEINMS).at(0);

@@ -113,11 +113,11 @@ namespace ris
     {
         Packet::Ptr lapdata = getPacket<PacketLapData>(packets_, PacketID::Lap_Data);
 
-        if (lapdata && ((lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::LAPDISTANCE).at(0) >= 0) &&
-                        ((lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::CURRENTLAPTIMEINMS).at(0) != 0) ||
-                         (lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::LAPDISTANCE).at(0) < 500))))
+        if (lapdata && ((lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::LAPDISTANCE).at(0) >= 0) &&
+                        ((lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPTIMEINMS).at(0) != 0) ||
+                         (lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::LAPDISTANCE).at(0) < 500))))
         {
-            currentlap_ = lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
+            currentlap_ = lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
             return true;
         }
         return false;
@@ -126,7 +126,7 @@ namespace ris
     bool State::returnedToPits()
     {
         Packet::Ptr lapdata = getPacket<PacketLapData>(packets_, PacketID::Lap_Data);
-        if (lapdata && (lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::PITSTATUS).at(0) == 1))
+        if (lapdata && (lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::PITSTATUS).at(0) == 1))
         {
             return true;
         }
@@ -138,9 +138,9 @@ namespace ris
         Packet::Ptr lapdata = getPacket<PacketLapData>(packets_, PacketID::Lap_Data);
         if (lapdata)
         {
-            if (currentlap_ != lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0))
+            if (currentlap_ != lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0))
             {
-                currentlap_ = lapdata->packets(PacketLapData::LapData::LAPDATA).at(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
+                currentlap_ = lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
                 return true;
             }
         }
