@@ -3,6 +3,7 @@
 #include "packet.h"
 
 #include <vector>
+#include <memory>
 
 namespace ris
 {
@@ -14,5 +15,5 @@ namespace ris
         std::vector<SubPacket::Ptr> packets;
     };
 
-    using Telemetries = std::vector<Telemetry>;
+    using Telemetries = std::unique_ptr<std::vector<Telemetry>>;
 } // namespace ris

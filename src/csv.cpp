@@ -11,7 +11,7 @@ namespace ris
 
     void CSV::write(const Telemetries &telemetries) const
     {
-        if (telemetries.empty())
+        if (telemetries->empty())
         {
             return;
         }
@@ -21,7 +21,7 @@ namespace ris
         header.append("TIMESTAMP,");
         header.append("DISTANCE,");
 
-        for (const auto &p : telemetries.at(0).packets)
+        for (const auto &p : telemetries->at(0).packets)
         {
             for (auto t : p->telemetry())
             {
@@ -42,7 +42,7 @@ namespace ris
 
         // write the data
         // std::string data;
-        for (auto telemetry : telemetries)
+        for (const auto &telemetry : *telemetries)
         {
             header.append(std::to_string(telemetry.time));
             header.append(",");

@@ -45,7 +45,9 @@ add_library(risf12021 ./src/networkudp.cpp
                       )
 
 add_executable(risf1 ./app/main.cpp)
-target_link_libraries(risf1 risf12021)
+target_link_libraries(risf1 risf12021
+                      Threads::Threads
+                      )
 install(TARGETS risf1
     DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 

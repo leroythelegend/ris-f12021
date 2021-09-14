@@ -15,6 +15,6 @@ namespace ris
     void CaptureRecordState::startLap()
     {
         process_->record();
-        capture_->change(std::make_shared<CaptureLapState>(capture_, state_, process_));
+        capture_->change(std::make_shared<CapturePitState>(capture_, state_, process_));
     }
 } // namespace ris

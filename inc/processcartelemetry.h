@@ -21,8 +21,9 @@ namespace ris
         void reset() override;
     
     private:
-        Telemetries telemetries_;
+        Telemetries telemetries_ = std::make_unique<std::vector<Telemetry>>();
         Record::Ptr record_;
+        double previousdistance_ = -1;
     };
 
 } // namespace rix
