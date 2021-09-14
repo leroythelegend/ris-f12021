@@ -21,6 +21,7 @@ namespace ris
         void change(CaptureState::Ptr) override;
 
     private:
+        Port port_;
         CaptureState::Ptr state_;
 
         void sessionStarted();
