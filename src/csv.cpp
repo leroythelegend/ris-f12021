@@ -3,9 +3,12 @@
 #include "../inc/packetheader.h"
 
 #include <iostream>
+#include <string>
 
 namespace ris
 {
+    std::string indexToTyreName(int);
+
     CSV::CSV(const FileName &filename)
         : network{filename} {}
 
@@ -31,7 +34,14 @@ namespace ris
                     header.append(t.first.to_string());
                     if (t.second.size() > 1)
                     {
-                        header.append(std::to_string(index++));
+                        if (t.second.size() == 4)
+                        {
+                            header.append(indexToTyreName(index++));
+                        }
+                        else
+                        {
+                            header.append(std::to_string(index++));
+                        }
                     }
                     header.append(",");
                 }
@@ -63,6 +73,28 @@ namespace ris
             header.append("\r\n");
         }
         network.write(header);
+    }
+
+    std::string indexToTyreName(int index)
+    {
+        switch (index)
+        {
+        case 1:
+            return "RL";
+            break;
+        case 2:
+            return "RR";
+            break;
+        case 3:
+            return "FL";
+            break;
+        case 4:
+            return "FR";
+            break;       
+        default:
+            break;
+        }
+        return "NA";
     }
 
 } // namespace ris
