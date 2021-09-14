@@ -19,7 +19,7 @@ namespace ris
         void process(Packets) override;
         void record() override;
         void reset() override;
-    
+
     private:
         Telemetries telemetries_ = std::make_unique<std::vector<Telemetry>>();
         Record::Ptr record_;

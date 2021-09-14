@@ -30,7 +30,7 @@ namespace ris
             capture_->change(std::make_shared<CapturePitState>(capture_, state_, process_));
         }
     }
-    
+
     void CaptureLapState::startLap()
     {
         process_->process(state_->getPackets());

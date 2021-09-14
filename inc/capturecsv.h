@@ -1,10 +1,7 @@
 #pragma once
 
 #include "capture.h"
-#include "packetlapdata.h"
-#include "definitions.h"
-#include "network.h"
-#include "../inc/processlap.h"
+#include "processlap.h"
 
 namespace ris
 {

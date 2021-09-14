@@ -6,28 +6,11 @@
 
 namespace ris
 {
+    Telemetry getCarTelemetry(Packets);
+
     void ProcessCarTelemetry::process(Packets packets)
     {
-        Telemetry telemetry;
-
-        for (const auto &b : *packets)
-        {
-            if ((PacketID)b.at(5) == PacketID::Car_Telemetry)
-            {
-                PacketCarTelemetryData packet(b);
-                size_t playerindex = static_cast<size_t>(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
-                telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(playerindex));
-                telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetryData::CARTELEMETRYDATA).at(0));
-            }
-
-            if ((PacketID)b.at(5) == PacketID::Motion)
-            {
-                PacketMotionData packet(b);
-                size_t playerindex = static_cast<size_t>(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
-                telemetry.packets.push_back(packet.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(playerindex));
-                telemetry.packets.push_back(packet.packets(PacketMotionData::MotionData::MOTIONDATA).at(0));
-            }
-        }
+        Telemetry telemetry = getCarTelemetry(packets);
 
         if (telemetry.packets.size() == 4)
         {
@@ -67,5 +50,31 @@ namespace ris
     {
         telemetries_->clear();
         previousdistance_ = -1;
+    }
+
+    Telemetry getCarTelemetry(Packets packets)
+    {
+        Telemetry telemetry;
+
+        for (const auto &b : *packets)
+        {
+            if ((PacketID)b.at(5) == PacketID::Car_Telemetry)
+            {
+                PacketCarTelemetryData packet(b);
+                size_t playerindex = static_cast<size_t>(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
+                telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(playerindex));
+                telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetryData::CARTELEMETRYDATA).at(0));
+            }
+
+            if ((PacketID)b.at(5) == PacketID::Motion)
+            {
+                PacketMotionData packet(b);
+                size_t playerindex = static_cast<size_t>(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
+                telemetry.packets.push_back(packet.packets(PacketMotionData::CarMotionData::CARMOTIONDATA).at(playerindex));
+                telemetry.packets.push_back(packet.packets(PacketMotionData::MotionData::MOTIONDATA).at(0));
+            }
+        }
+
+        return telemetry;
     }
 } // namespace ris

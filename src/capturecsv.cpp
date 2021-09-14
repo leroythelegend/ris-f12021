@@ -8,15 +8,16 @@ namespace ris
 {
     CaptureCSV::CaptureCSV(CaptureCSV::Port port, ProcessLap::Ptr process)
         : port_{port},
-          state_{std::make_shared<CaptureFrontEndState>(this, 
-                                std::make_shared<State>(std::make_shared<NetworkUDP>(port)), 
-                                process)}
+          state_{std::make_shared<CaptureFrontEndState>(this,
+                                                        std::make_shared<State>(std::make_shared<NetworkUDP>(port)),
+                                                        process)}
     {
     }
 
     void CaptureCSV::start()
     {
-        std::cout << "Started listening on port " << port_ << std::endl << std::endl;
+        std::cout << "Started listening on port " << port_ << std::endl
+                  << std::endl;
         while (true)
         {
             sessionStarted();

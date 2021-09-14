@@ -11,7 +11,7 @@ namespace ris
         : CaptureState(capture, state, process)
     {
     }
-    
+
     void CaptureRecordState::startLap()
     {
         process_->record();

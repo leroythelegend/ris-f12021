@@ -8,7 +8,6 @@ namespace ris
     class RecordCSV : public Record
     {
     public:
-
         virtual ~RecordCSV() = default;
 
         void record(Telemetries &) override;
