@@ -14,6 +14,9 @@ namespace ris
 
         Bytes read() const override;
     private:
+
+        void write(const std::string &) const override {};
+
         class NetworkUDPImpl;
         std::unique_ptr<NetworkUDPImpl> impl_;
     };

@@ -33,6 +33,15 @@ add_library(risf12021 ./src/networkudp.cpp
                       ./src/packetsessionhistorydata.cpp
                       ./src/packetcardamagedata.cpp
                       ./src/value.cpp
+                      ./src/csv.cpp
+                      ./src/capturefrontendstate.cpp
+                      ./src/capturepitstate.cpp
+                      ./src/capturelapstate.cpp
+                      ./src/capturerecordstate.cpp
+                      ./src/capturecsv.cpp
+                      ./src/processcartelemetry.cpp
+                      ./src/recordcsv.cpp
+                      ./src/state.cpp
                       )
 
 add_executable(risf1 ./app/main.cpp)

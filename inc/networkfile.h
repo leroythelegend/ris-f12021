@@ -15,6 +15,7 @@ namespace ris
         ~NetworkFile() override = default;
 
         Bytes read() const override;
+        void write(const std::string &) const override;
     private:
         FileName filename_;
     };

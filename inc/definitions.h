@@ -8,6 +8,7 @@ namespace ris
     using Bytes = std::vector<unsigned char>;
     using Pos = unsigned int;
     using Amount = int;
+    using Packets = std::shared_ptr<std::vector<Bytes>>;
 
     const int NUMBEROFPARTICIPANTS = 22;
     const int MAXNUMMARSHALZONES = 21;

@@ -9,11 +9,12 @@ namespace ris
     class Network
     {
     public:
-        using Ptr = std::unique_ptr<Network>;
+        using Ptr = std::shared_ptr<Network>;
 
         virtual ~Network() = default;
 
         virtual Bytes read() const = 0;
+        virtual void write(const std::string &) const = 0;
     };
 
 } // namespace ris

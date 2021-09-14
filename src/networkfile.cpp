@@ -38,4 +38,11 @@ namespace ris
         return vec;
     }
 
+    void NetworkFile::write(const std::string &str) const
+    {
+        std::ofstream file(filename_);
+
+        file << str;
+    }
+
 } // namespace ris
