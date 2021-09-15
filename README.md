@@ -1,17 +1,19 @@
-# f12021 UDP telemetry to CSV file.
+# F12021 UDP Telemetry to CSV File.
 
-I will be adding some more instructions shortly
+Command line tool for creating a CSV file of the drivers telemetry per lap using the F1 2021 UDP API.
 
-# Basics
+The CSV files can be used in a plotter, for example [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
 
-## Setup UDP
+## Table of Contents  
+[Installation](#installation)   
+[Usage](#usage)                      
+[License](#license)                    
 
-I have included F1 2021 UDP Guide in the docs dir, there are instructions in there.
-Search for "How do I enable the UDP Telemetry Output?".
+## <a name="installation"/>Installation
 
-## build
+For Linux and Mac users
 
-```
+```shell
 mkdir build
 cd build
 cmake ..
@@ -19,15 +21,24 @@ make
 sudo make install
 ```
 
-## run
+## <a name="usage"/>Usage
+
+I have included [F1 2021 UDP Guide](doc/Data_Output_from_F1_2021%2351.docx) in the docs dir, there is a section "How do I enable the UDP Telemetry Output?".
+
+For Linux and Mac users, open a terminal and run
 
 ```
-risf1 [port number]
+risf1 [port number (Default 20777)]
 ```
 
-if there is no port number defaults to 20777.
+For Example
 
-After every lap a CSV file of the lap telemetry is produced (lap1.csv lap2.csv etc). 
+```
+risf1 20777
+```
 
-I use plotjuggler (https://github.com/facontidavide/PlotJuggler) to plot the telemetry using distance as the x axis.
+## <a name="license"/>License
 
+ris-f12021 is licensed under the Apache License 2.0, which means that you are free to get and use it for commercial and non-commercial purposes as long as you fulfill its conditions.
+
+See the [LICENSE](LICENSE) file for more details.
