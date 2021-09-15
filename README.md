@@ -52,6 +52,10 @@ For Example
 risf1 20777
 ```
 
+Then loadup the CSV file in you favorite Plotting software, For Example using [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
+
+![Plotjuggler example](/images/tyresurfacetemp.png)
+
 ## <a name="license"/>License
 
 ris-f12021 is licensed under the Apache License 2.0, which means that you are free to get and use it for commercial and non-commercial purposes as long as you fulfill its conditions.
