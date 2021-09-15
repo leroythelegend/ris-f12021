@@ -23,8 +23,8 @@ namespace ris
             sessionStarted();
             sessionEnded();
             returnToPits();
-            finishLap();
             startLap();
+            finishLap();
         }
     }
 
