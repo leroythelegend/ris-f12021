@@ -62,6 +62,14 @@ namespace ris
             {
                 PacketCarTelemetryData packet(b);
                 size_t playerindex = static_cast<size_t>(packet.packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0));
+
+                // there seems to be a glitch where I'm getting odd values
+                if ((packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(playerindex)->telemetry(PacketCarTelemetryData::CarTelemetry::DRS).at(0) != 0) &&
+                    (packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(playerindex)->telemetry(PacketCarTelemetryData::CarTelemetry::DRS).at(0) != 1))
+                {
+                    break;
+                }
+
                 telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetry::CARTELEMETRY).at(playerindex));
                 telemetry.packets.push_back(packet.packets(PacketCarTelemetryData::CarTelemetryData::CARTELEMETRYDATA).at(0));
             }
