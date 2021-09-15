@@ -138,7 +138,7 @@ namespace ris
         Packet::Ptr lapdata = getPacket<PacketLapData>(packets_, PacketID::Lap_Data);
         if (lapdata)
         {
-            if (currentlap_ != lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0))
+            if (currentlap_ < lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0))
             {
                 currentlap_ = lapdata->packets(PacketLapData::LapData::LAPDATA).at(static_cast<size_t>(lapdata->packets(PacketHeader::PACKETHEADER).at(0)->telemetry(PacketHeader::PLAYERCARINDEX).at(0)))->telemetry(PacketLapData::LapData::CURRENTLAPNUM).at(0);
                 return true;
