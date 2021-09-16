@@ -2,11 +2,12 @@
 
 Command line tool for creating a CSV file of the drivers telemetry per lap using the F1 2021 UDP API.
 
-The CSV files can be used in a plotter, for example [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
+The CSV files can then be used in a plotter.
 
 For Example using [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
 
 ![Plotjuggler example](/images/tyresurfacetemp.png)
+
 
 ## Table of Contents  
 [Installation](#installation)   
