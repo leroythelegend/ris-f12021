@@ -6,6 +6,8 @@ The CSV files can be used in a plotter, for example [PlotJuggler](https://github
 
 For Example using [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
 
+![Plotjuggler example](/images/tyresurfacetemp.png)
+
 ## Table of Contents  
 [Installation](#installation)   
 [Usage](#usage)                      
@@ -56,7 +58,6 @@ risf1 20777
 
 Then loadup the CSV file in you favorite Plotting software.
 
-![Plotjuggler example](/images/tyresurfacetemp.png)
 
 ## <a name="license"/>License
 
