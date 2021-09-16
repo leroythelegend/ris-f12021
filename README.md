@@ -4,6 +4,8 @@ Command line tool for creating a CSV file of the drivers telemetry per lap using
 
 The CSV files can be used in a plotter, for example [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
 
+For Example using [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
+
 ## Table of Contents  
 [Installation](#installation)   
 [Usage](#usage)                      
@@ -52,7 +54,7 @@ For Example
 risf1 20777
 ```
 
-Then loadup the CSV file in you favorite Plotting software, For Example using [PlotJuggler](https://github.com/facontidavide/PlotJuggler)
+Then loadup the CSV file in you favorite Plotting software.
 
 ![Plotjuggler example](/images/tyresurfacetemp.png)
 
